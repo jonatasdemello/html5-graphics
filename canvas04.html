@@ -28,25 +28,25 @@ var altura = 190;
 var va = -1;
 var xfal = 5;
 var zfal = 3;
-var tamanho = parseInt(largura / xfal / 2);
-var prof = parseInt(altura / zfal / 3);
+var tamanho = parseInt(largura / xfal / 2); // 28
+var prof = parseInt(altura / zfal / 3); // 21
 var inicio = 5;
 
-var func = 3;
-
 //var g =  new Array(new Array());; //g[29][22];	//DIM g(tamanho, prof)
-var row= 29;
-var column= 22;
+var row = 29;
+var column = 22;
 var g = new Array();
 for (var i=0;i<row;i++) {
- g[i]=new Array();
- for (var j=0;j<column;j++) {
-  g[i][j]=0;
- }
+    g[i] = new Array();
+    for (var j=0;j<column;j++) {
+        g[i][j]=0;
+    }
 }
 
-window.onload = function() {
+var drawType = function(nType) {
     
+    clearCanvas();
+
     var canvas = document.getElementById("drawingCanvas");
     var context = canvas.getContext("2d");
     
@@ -58,7 +58,7 @@ window.onload = function() {
          	  x = (a * 18) / tamanho;
               z = (b * 18) / prof;
               // REM funcão grafica
-             switch(func){
+             switch(nType){
 					case 1:
 						y = F1(x, z);
 						break;
@@ -109,21 +109,17 @@ window.onload = function() {
         zvelho = 191 - zbase + zfal + g[parseInt(x)][parseInt(prof - 1)];
         for(z = 0; z<prof - 1+1; z+=1)
         {
-                xnovo = xbase - (z * xfal);
-                znovo = 191 - zbase + (z * zfal) + g[parseInt(x)][parseInt(prof - z)];
-                //REM plotar
-                //REM hplot xvelho,zvelho to xnovo,znovo
-                drawline(xvelho, zvelho, xnovo, znovo, context);
-                xvelho = xnovo;
-                zvelho = znovo;
-			}
+            xnovo = xbase - (z * xfal);
+            znovo = 191 - zbase + (z * zfal) + g[parseInt(x)][parseInt(prof - z)];
+            //REM plotar
+            //REM hplot xvelho,zvelho to xnovo,znovo
+            drawline(xvelho, zvelho, xnovo, znovo, context);
+            xvelho = xnovo;
+            zvelho = znovo;
+		}
 	}
      
 };
-    // prototypes
-    var XMAX = 640;
-    var YMAX = 480;
-    var scale = 2;
     
 function drawline(x1, y1, x2, y2, ctx)
 {
@@ -137,6 +133,17 @@ function point(x, y, canvas){
     canvas.fillRect(x,250-y,1,1);
     // in ZX Spectrum: (0,0) inferior esquerdo tela, so add 250 to move center
     //console.log(x +" - "+y);
+}
+
+function clearCanvas()
+{
+    
+    var canvas = document.getElementById("drawingCanvas");
+    var ctx = canvas.getContext("2d");
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.stroke();
 }
 
 // funcoes
@@ -178,6 +185,16 @@ function F4 (x, z)
 </script>
 </head>
 <body>
+<form id="form1">
+<p>
+<input type="button" id="bt0" value="Clear" onclick="clearCanvas()" /> &nbsp;
+<input type="button" id="bt1" value="Type 1" onclick="drawType(1)" /> &nbsp;
+<input type="button" id="bt2" value="Type 2" onclick="drawType(2)" /> &nbsp;
+<input type="button" id="bt3" value="Type 3" onclick="drawType(3)" /> &nbsp;
+<input type="button" id="bt4" value="Type 4" onclick="drawType(4)" /> &nbsp;
+</p>
+</form>
 <canvas id="drawingCanvas" width="500" height="300"></canvas>
+
 </body>
 </html>
