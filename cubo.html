@@ -16,6 +16,7 @@ body {
 <canvas id="myCanvas" width="700" height="500" style="border: dotted; 1px;"></canvas>
     
 <script>
+"use strict";
 
 function drawline(x1, y1, x2, y2, color)
 {
@@ -45,6 +46,19 @@ function clearCanvas()
   ctx.stroke();
 }
 
+// var nums = Array.matrix(5,5,0);
+// var names = Array.matrix(3,3,"");
+Array.matrix = function(numrows, numcols, initial) {
+    var arr = [];
+    for (var i = 0; i < numrows; ++i) {
+        var columns = [];
+        for (var j = 0; j < numcols; ++j) {
+            columns[j] = initial;
+        }
+        arr[i] = columns;
+    }
+    return arr;
+}
 
 /*
 =====================================
@@ -84,47 +98,6 @@ typedef float MAT[4][4];
 
 // a terceira coordenada 1 é para normalizacao 
 
-/*
-2 dimensions:
-
-var arrayName = new Array(new Array());
-
-
-4x4 example (actually 4x<anything>):
-
-var matrix = [ [],[],[],[] ]
-which can filled by:
-
-for (var i=0; i<4; i++) {
-   for (var j=0; j<4; j++) {
-      matrix[i][j] = i*j;
-   }
-}
-
-Array.matrix = function(numrows, numcols, initial) {
-    var arr = [];
-    for (var i = 0; i < numrows; ++i) {
-        var columns = [];
-        for (var j = 0; j < numcols; ++j) {
-            columns[j] = initial;
-        }
-        arr[i] = columns;
-    }
-    return arr;
-}
-Here is some code to test the definition:
-
-var nums = Array.matrix(5,5,0);
-print(nums[1][1]); // displays 0
-var names = Array.matrix(3,3,"");
-names[1][2] = "Joe";
-print(names[1][2]); // display "Joe"
-We can also create a two-dimensional array and initialize it to a set of values in one line:
-
-var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]];
-print(grades[2][2]); // displays 89
-
-*/
 var cubo = [
 	[ 45, 45, 45, 1],  // P0
 	[ 45, 45,-45, 1],  // P1
@@ -152,8 +125,6 @@ ponto na face da frente: p1, p4, p5, p8
 
 // prototipos das funcoes
 /*
-function GOTOXY(int X, int Y);
-function PUTCH(int X, int Y, int CRCT);
 function MultPtoMat(PONTO P, MAT M, PONTO P1);
 function TransladaPonto(PONTO P, int DX, int DY, int DZ, PONTO P1);
 function TransladaCubo(CUBO CB, int DX, int DY, int DZ, CUBO CB1);
@@ -193,19 +164,6 @@ function linha(x, y, x1, y1) // (int x, int y, int x1, int y1)
 
 }
 
-// posicionar o cursor na area grafica
-function GOTOXY(X, Y)
-{
-     moveto(X+40, 24-(Y+12));
-}
-
-// desenhar um ponto em uma determinada coordenada
-function PUTCH(X, Y, CRCT)
-{
-     GOTOXY(X, Y);
-     putch(CRCT);
-}
-
 // Função Básica de Multiplicação de Matrizes
 
 // Multiplicar um ponto por uma matriz
@@ -216,7 +174,9 @@ function MultPtoMat(P, M, P1) //(PONTO P, MAT M, PONTO P1)
 	// o resultado P[1][4] x M[4][4] é P1[1][4], ou seja, um ponto
 
    //PONTO AUX;
-   var AUX, AUX2;
+
+   var AUX = [0, 0, 0, 0];
+   var AUX2;
    var j, k;
 
    for(j=0; j<4; j++)
@@ -304,7 +264,7 @@ function MultMat(M1, M2, M3) //(MAT M1, MAT M2, MAT M3)
    // M1 x M2 e coloca o resultado em M3
 
      //MAT AUX; // cria uma matriz auxiliar para armazenar o resultado
-     var AUX;
+     var AUX = Array.matrix(4,4,0);
      var i, j, k; // variaveis de controle
 
      for(i=0; i<4; i++)
@@ -326,8 +286,7 @@ function CriaMX(M, angulo) //(MAT M, float angulo)
 {
    // Inicializa matriz de rotacao no eixo Z
 
-  var arrayName = new Array(new Array());
-
+  //var M = Array.matrix(4,4,0);
    M[0][0]= 1;
    M[0][1]= 0;
    M[0][2]= 0;
@@ -347,11 +306,14 @@ function CriaMX(M, angulo) //(MAT M, float angulo)
    M[3][1]= 0;
    M[3][2]= 0;
    M[3][3]= 1;
+
+   return M;
 }
 
 function CriaMY(M, angulo) //(MAT M, float angulo)
 {
    // Inicializa matriz de rotacao no eixo Y
+  //var M = Array.matrix(4,4,0);
 
    M[0][0]= Math.cos(angulo);
    M[0][1]= 0;
@@ -372,11 +334,14 @@ function CriaMY(M, angulo) //(MAT M, float angulo)
    M[3][1]= 0;
    M[3][2]= 0;
    M[3][3]= 1;
+
+   return M;
 }
 
 function CriaMZ(M, angulo) //(MAT M, float angulo)
 {
    // Inicializa matriz de rotacao no eixo Z
+   //var M = Array.matrix(4,4,0);
 
    M[0][0]= Math.cos(angulo);  
    M[0][1]= -Math.sin(angulo);
@@ -397,6 +362,8 @@ function CriaMZ(M, angulo) //(MAT M, float angulo)
    M[3][1]= 0;
    M[3][2]= 0;
    M[3][3]= 1;
+
+   return M;
 }
 
 // Rotaciona um cubo
@@ -412,7 +379,10 @@ function RotacionaCubo(CB, RX, RY, RZ, CB1) //(CUBO CB, float RX, float RY, floa
 	// devolvendo o resultado em CB1
 
 	var i;
-	var M, MX, MY, MZ;
+  var M = Array.matrix(4,4,0);
+  var MX = Array.matrix(4,4,0);
+  var MY = Array.matrix(4,4,0);
+  var MZ = Array.matrix(4,4,0);
 
 	CriaMX(MX, RX);
 	CriaMY(MY, RY);
@@ -436,15 +406,15 @@ function DesenhaCubo(C) //(CUBO C)
 /*
 no espaço fica:
 
-        P5----P1
-      / |    /|
-    P4-----P0 |
-    |   |  |  |
-    |   P6-|--P2
-    |  /   | /
+        P5-----P1
+      / |     /|
+    P4-----P0  |
+    |   |  |   |
+    |   P6-|---P2
+    |  /   |  /
     P7-----P3
 
-ponto na face da frente: p1, p4, p5, p8
+ponto na face da frente: p1, p4, p5, p0
 */
 
    // face da frente
@@ -469,10 +439,66 @@ ponto na face da frente: p1, p4, p5, p8
 /*  Declaracao da funcao main() */
 
 
-DesenhaCubo(cubo);
-for (var i=1;i<5;i+=0.1)
+window.onload = function () {
+//Our code here...
+
+  DesenhaCubo(cubo);
+  /*
+  for (var i=1; i<5; i+=1)
+  {
+    RotacionaCubo(cubo, i, i, i, cubo);
+    DesenhaCubo(cubo);
+  }
+  */
+  /*
+  var canvas = document.getElementById('myCanvas');
+  canvas.addEventListener('mousedown', function (event) {
+  console.log("mouse down");
+  }, false);
+  canvas.addEventListener('mouseup', function (event) {
+  console.log("mouse up");
+  }, false);
+  */
+};
+
+function escalaMais()
 {
-  RotacionaCubo(cubo, i, i, i, cubo);
+  EscalaCubo(cubo, 1.1, cubo);
+  DesenhaCubo(cubo);
+}
+function escalaMenos()
+{
+  EscalaCubo(cubo, 0.9, cubo);
+  DesenhaCubo(cubo);
+}
+function rotDir()
+{
+  RotacionaCubo(cubo, 5, 5, 5, cubo); 
+  DesenhaCubo(cubo);
+}
+function rotEsq()
+{
+  RotacionaCubo(cubo, -5, -5, -5, cubo);
+  DesenhaCubo(cubo);
+}
+function moveUp()
+{
+  TransladaCubo(cubo, 0, 5, 0, cubo); 
+  DesenhaCubo(cubo);
+}
+function moveDown()
+{
+  TransladaCubo(cubo, 0, -5, 0, cubo);
+  DesenhaCubo(cubo);
+}
+function moveLeft()
+{
+  TransladaCubo(cubo, -5, 0, 0, cubo);
+  DesenhaCubo(cubo);
+}
+function moveRight()
+{
+  TransladaCubo(cubo, 5, 0, 0, cubo);
   DesenhaCubo(cubo);
 }
 
@@ -487,7 +513,7 @@ function main()
    // errorcode = graphresult();
 */
   
-/*
+
    for (i=1;i<5;i+=0.1)
    {
       RotacionaCubo(cubo, i, i, i, cubo);
@@ -524,12 +550,28 @@ function main()
       delay(400);
       DesenhaCubo(cubo);
    }
-  */
+  
 	//cleardevice();
 	//closegraph ();
 }
 
 </script>
+<br>
+<div id="controls">
+  <input type="button" value="Clear" onclick="clearCanvas();" />
+
+  <input type="button" value="E+" onclick="escalaMais();" />
+  <input type="button" value="E-" onclick="escalaMenos();" />
+
+  <input type="button" value="R+" onclick="rotDir();" />
+  <input type="button" value="R-" onclick="rotEsq();" />
+
+  <input type="button" value="Up" onclick="moveUp();" />
+  <input type="button" value="Down" onclick="moveDown();" />
+
+  <input type="button" value="Left" onclick="moveLeft();" />
+  <input type="button" value="Right" onclick="moveRight();" />
+</div>
 
 </body>
 </html>
