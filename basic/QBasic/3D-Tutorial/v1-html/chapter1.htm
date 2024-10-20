@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html class=" nmdfcfvuy idc0_350"><head><title>Entering the 3d dimension</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="Microsoft FrontPage 4.0" name="GENERATOR">
+<meta content="FrontPage.Editor.Document" name="ProgId"></head>
+<body>
+<p align="center"><font face="Courier"><b><font color="#800000" size="5">Entering the 3d 
+dimension...</font></b><br></font></p>
+<p><font face="Courier"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hi there! 
+Relsoft again back with an article for you. :*). This article is the first of a 
+series of 3d articles that I'll be serializing in <a href="http://www.qbasicnews.com/">QBASICnews.com</a>. I don't know how far I 
+could take you or how many chapters will I make. It depends upon the user 
+feedback and my free time. ;*)<br>I'm most likely to cover a lot of things that 
+after you've read the whole series, you're likely to be able to make your own 
+FPS render, a 3d strategy game or even a Ragnarok style engine. 
+;*)<br><br></font></p>
+<p><font face="Courier"><font color="#800000"><b>I. Course 
+outline<br></b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What I will be 
+covering in this series are listed below:<br><br></font></p>
+<blockquote>
+  <p><font face="Courier">1. 3d Projection<br><font color="#000080">&nbsp;&nbsp;&nbsp; a. Theory<br>&nbsp;&nbsp;&nbsp; b. 
+  Camera<br>&nbsp;&nbsp;&nbsp; c. Translation<br></font>2. 2d and 3d 
+  rotations&nbsp;<br>&nbsp;&nbsp;&nbsp; <font color="#000080">a. 
+  Sin/Cos<br>&nbsp;&nbsp;&nbsp; b. Polar coordinates&nbsp;<br>&nbsp;&nbsp;&nbsp; 
+  c. Proof of rotation<br>&nbsp;&nbsp;&nbsp; d. 
+  Transformation<br>&nbsp;&nbsp;&nbsp; e. 3d Optimization</font><br>3. 3d 
+  coordinate systems<br>&nbsp;&nbsp;&nbsp; <font color="#000080">a. 
+  Cartesian<br>&nbsp;&nbsp;&nbsp; b. Spherical<br>&nbsp;&nbsp;&nbsp; c. 
+  Cylindrical<br>&nbsp;&nbsp;&nbsp; d. 3d Model generation<br>&nbsp;&nbsp;&nbsp; 
+  e. Polygon 101</font><br>4. Polygon fills<br>&nbsp;&nbsp;&nbsp; <font color="#000080">a. Vectors<br>&nbsp;&nbsp;&nbsp; b. 
+  wireframe<br>&nbsp;&nbsp;&nbsp; c. Flat</font><br>5. Normals and 
+  lightsourcing<br>&nbsp;&nbsp;&nbsp; <font color="#000080">a. More on 
+  Vectors<br>&nbsp;&nbsp;&nbsp; b. Cross product<br>&nbsp;&nbsp;&nbsp; c. Dot 
+  Product<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lambert 
+  shading<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gouraud 
+  shading<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phong 
+  shading<br>&nbsp;&nbsp;&nbsp; d. Moving Lightsource<br>&nbsp;&nbsp;&nbsp; e. 
+  Multiple Light<br>&nbsp;&nbsp;&nbsp; f. TextureMapping<br></font>6. Multiple 
+  objects<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000080">a. 
+  Sorting Methods<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b. Visibility 
+  check<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c. 
+  Depth-Buffering</font><br>7. Designing a 3d game engine<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a. Camera as a 
+  vector<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b. Matrices<br></font>8. 
+  I don't know yet. ;*)<br></font></p></blockquote>
+<p>&nbsp;</p>
+<p><font face="Courier"><br><font color="#800000"><b>II. 
+Introduction</b></font></font></p>
+<p><font face="Courier"><font color="#800000"><b><br></b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The 
+purpose of this article is to try to explain the reasons behind 3d projection 
+and a little on 2d rotation. 3d is only as hard, or as easy, as you want it to 
+be. Don't be afraid as I'll take you to the world of 3d step by step.<br>What 
+you need to be able to run the sample programs that I will be throwing from time 
+to time is any flavor of <b>QuickBASIC</b>(QBASIC,QB4.5,7.1, etc). A little 
+experience in algebra and Trig is also a plus but not necessary. I will also try 
+to explain optimization techniques as we go along the whole series. 
+;*)<br></font></p>
+<p><font face="Courier"><br><font color="#800000"><b>III. 3d cartesian coordinate 
+system</b></font></font></p>
+<p><font face="Courier"><font color="#800000"><b><br></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>The 
+3d cartesian coordinate system is almost like the 2d cartesian coordinate system 
+that we grew up with, only with an extra dimension: The Z axis. *There are 
+several other 3d coordinate systems like spherical and cylindrical. I will 
+explain them to you in detail in future issues, but when I talk 3d coordinates 
+for now, its the cartesian coordinate system unless specified.<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ie. a. 
+2d<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+p(x,y)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b. 
+3d&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+P(x,y,z)<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; But how do we 
+define a 3d coordinate? Where does the z-axis go? As we know already, in 2d 
+coordinate, the x-axis is going to the right and the y-axis is going up. The 2 
+axes(plural for axis) intersect at p(0,0). Read as "Point 0,0" where the first 
+value is the <b>x(abscissa</b>) and the second value is the <b>y(ordinate)</b>. 
+P(0,0) is also called the <b><i>"Origin".</i></b> They are also PERPENDICULAR to 
+each other. Perpendicular means a line,plane or a ray(vector) which has a union 
+of <b>90 degrees</b>. Meaning they form a "+" when they intersect.</font></p>
+<p align="center"><font face="Courier"><br><img border="0" height="133" src="chapter1_files/Perp.gif" width="146"></font></p>
+<p><font face="Courier"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; See how all 
+the angles(1,2,3,4) are all 90 degrees? That's the essence of perpendicularity. 
+Also be sure that you understand this concept as perpendicularity is used on 
+almost all things that got to do with 3d. <i>*Perpendicular lines/Planes/rays 
+are also called 
+"<b>orthogonal".</b></i><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; There 
+is not that much difference in 3d, all the axes are perpendicular to each other. 
+ie:<br>Z axis is perpendicular to the XY Plane, Y axis is perpendicular to the 
+XZ plane as the X axis to the YZ plane. Now how about the directions the axes 
+go? Well, there are two ways to define a 3d system. The <b>"RIGHT-HANDED"</b> 
+and the <b>"LEFT-HANDED"</b> systems. The choice is yours to make, or me in this 
+case because I'm the one writing this article.</font></p>
+<p align="center"><font face="Courier"><br><img border="0" height="137" src="chapter1_files/3dSys.gif" width="361"></font></p>
+<p><font face="Courier"><br><font color="#800000">a. Left handed system(Fig. 
+2)<br></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The left-handed system 
+means that when increased:<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x goes 
+right<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y goes 
+Up<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; z goes into the screen (away 
+from you)<br></font><br><font color="#800000">b. Right Handed system(Fig. 
+1)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>When 
+increased:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000080">x 
+goes right<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y goes 
+up<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; z goes out of the screen (Into 
+you)<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Since most books 
+use the right handed system, I'll use that system. Another reason is that the 
+coordinates when plotted on the screen, resembles a real-world system. Hey, I'm 
+right handed. ;*)<br></font></p>
+<p><font face="Courier"><br><font color="#800000"><b>IV. 3d to 2d 
+projection.</b></font></font></p>
+<p><font face="Courier"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; As you 
+might have guessed, QB has no PSET3d or LINE3d routine so we have to make one. 
+:*) The beauty of learning the theories and principles behind how things work is 
+that you won't get lost at discussions on forums. :*) So let me start by the 
+principle:<br><br><br>Normal way: <i>"The farther the thing from the viewer the 
+smaller it gets"</i><br>Jocke's way: <i>"I'm gonna kick this ball so far you 
+won't be able to see it."</i><br>Math way: <i>"Distance is inversely 
+proportional to the size of an 
+object"</i><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Trying to make an 
+equation using Jocke's or the English statement would be very hard. So we'll use 
+the Math way:</font></p>
+<p><font face="Courier"><br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Size=1/distance<br></font>&nbsp;&nbsp;&nbsp; so:<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Newsize=Size/Distance<br></font>&nbsp;&nbsp;&nbsp; 
+assume:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a.<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+OrigSize = 
+100<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Distance = 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= 
+100/1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= 100<br></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+b.&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp; Origize&nbsp; = 
+100<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Distance = 
+50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= 
+100/50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= 2</font></font></p>
+<p><font face="Courier"><br><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *This is 
+just an approximation. Just to show you the relationship of size and 
+distance.<br></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Now you would 
+want to project and object but how do we do it with the knowledge that we have 
+already learned? Well, First, we have to decide where z =0 is. Turns out that a 
+good way to define z=0 is a number of units away from you. Which means that you 
+can see it when you look at your monitor. A good value is 256. Why 256? Well, 
+this is not entirely the law since you could make it as small or as big as you 
+want it to be, but 256 is a good multiplier(or any power of 2 value) as you will 
+see later. Secondly, where to put the monitor in our 3d space. Think of your 
+monitor as a <b>"camera"</b> that points onto the 3d space and the screen as the 
+LENS(camera lens) perpendicular to the z-axis(Yes, your XY plane). Since (0,0,0) 
+or z=0 is at a distance of 256 looking at the negative direction, our Lens 
+should be 0+256. So that the coordinate of our lens is (0,0,256).&nbsp; Anything 
+more than 256 is behind the camera and should not be plotted. Remember that we 
+are looking on the negative z in right-handed systems.</font></p>
+<p><font face="Courier"><br><i>And why did we use 
+256?<br></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Seasoned programmers 
+would know that 256 is a power of two. Since you can use shifts to multiply and 
+divide, you could make your renders faster by miles as shifts are way faster 
+than divs or muls. ;*)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In 
+screen 13, the dimensions of the screen is 320*200 and its center is (160,100). 
+We know that at z =0, the relationship of each x,y,z units is that x and y is 
+one unit wide. So plotting (8,5,0):</font></p>
+<p><font face="Courier"><br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance= 
+256<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screenx = 
+160+x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screeny = 100-y (the screen 
+y-wise is reversed)<br></font>&nbsp;&nbsp;&nbsp; Then:<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Screenx = 160 + 8 = 
+168<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Screeny = 100 - 5 = 
+95<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pset(168,95), 
+col</font></font></p>
+<p><font face="Courier"><br>How about if z = 128? (8,5,128)<br>&nbsp;&nbsp;&nbsp; 
+then:<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; distance 
+= 256 
+-128<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= 128<br></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 128 is nearer which 
+means the size of the units should increase. But how much? Since 128 is half of 
+256, our units should be 2x(twice) the size of the units at z = 0. 
+so..<br><br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+screenx = 160+x*2 = 160+8*2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+screeny = 100-y*2 = 100-y*2<br></font>&nbsp;&nbsp;&nbsp; Then:<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Screenx = 160 + 16 = 
+176<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Screeny = 100 - 10 = 
+90<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pset(168,95), 
+col</font></font></p>
+<p><font face="Courier"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pretty easy 
+huh? Putting it all together, the projection would look like this:<br><br><font color="#000080">&nbsp;&nbsp;&nbsp; Distance= LENS-z<br>&nbsp;&nbsp;&nbsp; screenx 
+= xcenter+(LENS*x/Distance)<br>&nbsp;&nbsp;&nbsp; screeny = 
+ycenter-(LENS*y/Distance)<br></font><br>&nbsp;&nbsp;&nbsp; Now let me explain 
+how each component affects the whole projection formula:<br></font></p>
+<p><font face="Courier"><br><font color="#800000" face="Courier" size="3"><b>1. 
+Lens<br></b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; We know that LENS, 
+the lens of our camera or monitor in this case, is a multiplier to give your 
+projection a field of view(FOV) and since the camera is 256 units away from 
+(0,0,0) we would want the value of our lens to have a direct correlation with 
+distance. eg: <font color="#000080">z&nbsp; = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance = 256-0 = 
+256<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lens = 
+256<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+x = 8<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xcenter = 
+160<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+=(256*8/256)+160 =168</font></font></p>
+<p><font face="Courier"><br><i>(See the relationship 
+already?)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * some people use a 
+value of Lens=1 so that it weeds out 2 muls or shifts in the actual projection 
+fomulas but in my experience, the objects does not look 
+"natural".<br></i></font></p>
+<p><font face="Courier"><br><b><font color="#800000">2. 
+Distance&nbsp;<br></font></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This is 
+just how far a 3d pixel is away from the camera. Since we look in the negative 
+direction, "The farther the distance, the smaller the z value. ie. p(0,0,-100) 
+is father than p(0,0,100). Let us see if this holds true in equation 
+form.<br>&nbsp;&nbsp;&nbsp; a. <font color="#000000">(0,0,-100)<br></font><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance = 
+256-(-100)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'distribute the [-] sign:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance 
+= 256+100<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance = 
+356<br></font><br>&nbsp;&nbsp;&nbsp; b. (0,0,100)<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance = 
+256-(+100)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance = 
+256-100<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance = 
+156<br></font><br>Ahem! 356&gt;156. 
+;*)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What about z=&gt;256 or 
+distance is 0 or less? Well, unless you want to poke yourself in the eye, you 
+wouldn't want to plot em. ;*) Plotting at distance=0 is technically correct but 
+You had to change your projection formula because n/0 is undefined. And in 
+geometry, <i>"Distance is always positive :*)"</i> Here's the 
+formula:</font></p>
+<p><font face="Courier"><br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance =&nbsp; 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screenx&nbsp; =&nbsp; xcenter + 
+(LENS*x)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screeny&nbsp; =&nbsp; 
+ycenter - (LENS*y)</font></font></p>
+<p><font face="Courier"><br>&nbsp;&nbsp;&nbsp; To test your intelligence, I'll let 
+you think about it yourself. ;*)<br><br><i><b>FINAL PROJECTION 
+EQUATIONS!!!</b></i><br><br><font color="#000080"><b>&nbsp;&nbsp;&nbsp; Distance = 
+LENS-z<br>&nbsp;&nbsp;&nbsp; screenx&nbsp; = 
+xcenter+(LENS*x/Distance)<br>&nbsp;&nbsp;&nbsp; screeny&nbsp; = 
+ycenter-(LENS*y/Distance)<br></b></font><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Now let's see if the projection equations would return the same values for 
+(8,5,128):&nbsp;<br>Remember that we returned x=176, y=90)<br><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance = 
+256-128=128<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screenx&nbsp; = 
+(256*8/128) + 160<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screeny&nbsp; 
+=-(256*5/128) + 100<br>&nbsp;&nbsp;&nbsp; 
+=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screenx&nbsp; = (2048/128) + 
+160<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screeny&nbsp; =-(1280/128) + 
+100<br>&nbsp;&nbsp;&nbsp; =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+screenx&nbsp; = (16) + 160 = 176<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+screeny&nbsp; =-(10) + 100 = 90<br></font>&nbsp;&nbsp;&nbsp; 
+Ahem...;*)<br></font></p>
+<p><font face="Courier"><br><b><font color="#800000" size="3">V. 
+Translation<br></font></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Translation 
+is just movement of a point from one location to another. To simplify things, I 
+put the translation coords in the form of a camera offsets, 
+camx,camy,camz.&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Moving the 
+location of the point is just as simple as adding or subtracting values to the 
+camera offsets and subtracting those components; x,y &amp; z from p(x,y,z) 
+ie:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000080">Xtranslated= x - 
+camx<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ytranslated= y - 
+camx<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ztranslated= z - 
+camx<br></font></font></p>
+<p><font face="Courier"><br><font color="#800000"><b>VI. Putting it in 
+action&nbsp;<br></b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Now for 
+the fun part, plotting!. Let's start by the simplest of all "models"(When I say 
+models I mean an array of points that define a 3d object), the plane. In this 
+case we want to plot a grid of 16*16 plane. As we would want the grid to be 
+centered at x=0 and y=0, the starting x and y values of our grid is negative. We 
+also would want to start at z=0 adding an increment(20) for every y-loop. We 
+also would want to scale the distance between each point, in this case 
+4.</font></p>
+<p><font face="Courier"><br><b><font color="#000080" size="3">QBcode:</font></b><font color="#000080" face="Courier" size="2"><br>&nbsp;&nbsp;&nbsp; Gsize = 
+16<br>&nbsp;&nbsp;&nbsp; size% = Gsize * 
+Gsize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'16 * 16 grid<br>&nbsp;&nbsp;&nbsp; DIM SHARED Plane(size% - 1) AS 
+Point3D&nbsp;&nbsp;&nbsp; 'dim out plane<br><br>&nbsp;&nbsp;&nbsp; Scale
+ = 
+4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'scale 
+factor<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'change to a smaller if you want 
+to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'reduce the size.<br>&nbsp;&nbsp;&nbsp; z = 
+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'start 256 units away from screen<br>&nbsp;&nbsp;&nbsp; i = 
+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'index for pixels<br><br>&nbsp;&nbsp;&nbsp; HalfSize = Gsize \ 
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'1/2 of our grid for centering<br>&nbsp;&nbsp;&nbsp; FOR y = HalfSize - 1 TO 
+-HalfSize STEP -1&nbsp;&nbsp;&nbsp;&nbsp; 'loop through 
+it<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR x = HalfSize - 1 TO 
+-HalfSize STEP -1 'and calculate each 
+coord<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Plane(i).x = x * Scale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'make the 
+model 
+bigger<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Plane(i).y = y * 
+Scale<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Plane(i).z = 
+z<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i = i + 
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'increment array index<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEXT 
+x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; z = z + 
+20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'go out into the screen 20 units</font></font><font color="#000080" face="Courier" size="2"> every line.<br>&nbsp;&nbsp;&nbsp; NEXT y<br></font></p>
+<p><font face="Courier"><br>Now to project it,<br><br>&nbsp;&nbsp;&nbsp; <font color="#000000"><i>1. start<br>&nbsp;&nbsp;&nbsp; 2. read pixel at location 
+i<br>&nbsp;&nbsp;&nbsp; 3. translate the pixel using p(x,y,z) - 
+cam(x,y,z)<br>&nbsp;&nbsp;&nbsp; 4. project each pixel<br>&nbsp;&nbsp;&nbsp; 5. 
+Plot<br>&nbsp;&nbsp;&nbsp; 6. If I&lt;maxpoints go to start else 
+end<br></i></font><br><br><b><font color="#000080" size="3">QBCode:</font></b></font></p>
+<p><font face="Courier"><font color="#000080" face="Courier" size="2">&nbsp;&nbsp;&nbsp; 
+FOR i = 0 TO UBOUND(Plane)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sx! = 
+Plane(i).x - camx%&nbsp;&nbsp;&nbsp;&nbsp; 
+'coords<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sy! = Plane(i).y - 
+camy%&nbsp;&nbsp;&nbsp;&nbsp; 'sub tracted by 
+the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sz! = Plane(i).z - 
+camz%&nbsp;&nbsp;&nbsp;&nbsp; 
+'camera<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'we can still directly 
+subtract<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'camera offsets to our 
+original<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+'coords as we are not rotating yet. 
+;*)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance% = (LENS - 
+sz!)&nbsp;&nbsp;&nbsp;&nbsp; 'get 
+Distance<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF Distance% &gt; 0 
+THEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'if dist&gt;&gt;0 
+then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'Projection 
+formula<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x% 
+= XCENTER + (LENS * sx! / 
+Distance%)&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+y% = YCENTER - (LENS * sy! / 
+Distance%)&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+PSET (x%, y%), 15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Draw each 
+star<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ELSE<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'do 
+nothing<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'you wouldn't wan't 
+to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'divide 
+by 0 would ya? 
+:*)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'and 
+in geometry, distance 
+is<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'always 
+positive. ;*)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END 
+IF<br>&nbsp;&nbsp;&nbsp; NEXT i<br></font><br><br><br>Now here's the example 
+file of a projected plane:<br>(camera is controlled by AZSXDC)<br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter1/Files/PROJECT.BAS">Project.BAS<br></a>You 
+can even project texts:<br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter1/Files/PROJCHAR.BAS">PROJCHAR.BAS<br></a><br>Here's 
+how you can apply the projection equations to a starfield:<br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter1/Files/PROJSTAR.BAS">Projstar.bas<br></a></font></p>
+<p><font face="Courier"><br><font color="#800000"><b>VII. Using sprites instead of 
+pixels<br></b></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pixels alone 
+tend to be boring after a while. So why not use sprites? Considering we also 
+have to project the size of the sprite or tile, we can't use the normal QB PUT 
+routine, so we have to make a stretch sprite routine for this purpose alone. The 
+algo behind the stretch sprite routine is pretty trivial so I won't explain it 
+here in detail. All you have to remember is that you could zoom or pan on a 
+sprite depending on the parameters, NewHeight and NewWidth.<br><br>For the 
+actual algo in calculating the new dimensions, here's the formula:<br><br><font color="#000080">&nbsp;&nbsp;&nbsp; NewHeight =OldHeight * 
+LENS/Distance%<br>&nbsp;&nbsp;&nbsp; NewWidth&nbsp; =OldWidth&nbsp; * 
+LENS/Distance%<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OldWidth 
+and OldHeight are the actual dimensions of the sprite. Ie. If you 
+GET(0,0)-(15,15),Array then the size of the sprite is 16*16. So OldHeight = 16 
+and OldWidth =16.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance is the 
+same distance in out projection equations. Same with the LENS.<br>I'll let you 
+figure out the rationale behind the equations yourself. :*)<br><br>Here are some 
+sample files:<br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter1/Files/METEOR.BAS">Meteor.bas<br></a></font><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter1/Files/STARS.BAS"><font face="Courier">Stars.bas<br></font></a><font face="Courier"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hope you've learned 
+something from this. The best way to learn though is to just play with the 
+values, running the program and see the effect of the changed values.<br>Next 
+time, I will teach you 2d and 3d rotations, polar coordinates, other forms of 
+transformation besides translation, optimizations of 3d rotations using 
+constants, and probably if space will provide 3d model generation(The math way). 
+So you might want to read on:</font></p>
+<p><font face="Courier"><br>1. Trig Functions<br>&nbsp;&nbsp;&nbsp; Sin and Cos 
+only<br>2. Trig Identities<br>&nbsp;&nbsp;&nbsp; Cos/Sin addition laws<br>3. 
+Right Triangle relationships in Trig functions<br>4. Polar to cartesian 
+coordinate conversion.<br><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Don't 
+worry even if you don't know a thing about those things I mentioned because I 
+will be teaching you all of those next issue as if you're am 8 year-old kid. 
+;*)<br></i>So until next time, Relsoft signing out. Happy 
+coding!!!!<br><br><br>Relsoft 2004<br><a href="mailto:vic_viperph@yahoo.com">vic_viperph@yahoo.com<br></a><a href="http://rel.phatcode.net/">http://rel.phatcode.net/</a><br><br></font></p>
+</body></html>

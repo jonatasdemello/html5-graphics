@@ -1,0 +1,1045 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html class=" dbgtunzg idc0_350"><head><title>Vectors are cool</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="Microsoft FrontPage 4.0" name="GENERATOR">
+<meta content="FrontPage.Editor.Document" name="ProgId"></head>
+<body>
+<p align="center"><b><font color="#000080" face="Courier New" size="5">Vectors are 
+cool!!!<br></font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; 
+</font><font face="Courier New" size="3">It's almost impossible to do graphics 
+programming without using vectors. Almost all math concerning 3d coding use 
+vectors. If you hate vectors, read on and you'll probably<br>love them more than 
+your girlfriend after you've finished reading this article. ;*)<br></font></p>
+<p><font face="Courier New" size="3"><br><font color="#800000"><b>What are 
+vectors?&nbsp;</b></font></font></p>
+<p><font face="Courier New" size="3"><font color="#800000"><br>&nbsp;&nbsp;&nbsp; 
+</font>First off, let me define 2 quantities: The <font color="#000080"><i>SCALAR</i></font> and <font color="#000080"><i>VECTOR</i></font> 
+quantities. Okay, scalar quantities are just values. One example of it is 
+Temperature. You say, "It's 40 degrees Celsius here", and that's it. No sense of 
+direction. But to define a vector you need a direction or sense. Like when the 
+pilot say's, "We are 40 kilometers north of Midway". So a scalar quantity is 
+just a value while a vector is a value + direction.&nbsp;</font></p>
+<p><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; Look at the figure 
+below: The <font color="#000080"><i>arrow(Ray)</i></font> represents a vector. The 
+"Head" is its <font color="#000080"><i>"Sense"</i></font>(direction is not 
+applicable here) and the "Tail" is its starting point. The distance from head to 
+tail is called its "magnitude".&nbsp; </font></p>
+<p align="center"><font face="Courier New" size="3"><br><br><img align="middle" border="0" height="255" src="chapter3_files/Vector.gif" width="310"><br></font></p>
+<p><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; In this vector there 
+are 2 components, the X and Y component. X is the horizontal and Y is the 
+vertical component. Remember that <b>"ALL VECTOR OPERATIONS ARE DONE WITH 
+ITS&nbsp;<br>COMPONENTS."</b><br><br>I like to setup my vectors in this 
+TYPE:<br><br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; Type 
+Vector<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x as 
+single<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y as 
+single<br>&nbsp;&nbsp;&nbsp; End TYPE<br></font></b><font face="Courier New" size="3"><br><i>&nbsp;&nbsp;&nbsp; The difference between the "sense" and 
+"direction" is that direction is the line the vector is located while sense can 
+go&nbsp;<br>either way on that line.<br></i></font></p>
+<p>&nbsp;</p>
+<p align="center"><img border="0" height="200" src="chapter3_files/Sense.gif" width="512"><font face="Courier New" size="3"><br><br></font></p>
+<p><font face="Courier New" size="3"><font color="#800000"><b>Definitions:<br></b></font><br><i>*|v| means that |v| is the 
+magnitude of v.<br><br>*Orthogonal vectors are vectors perpendicular to each 
+other. It's sticks up 90 degrees. </i></font></p>
+<p align="center"><font face="Courier New" size="3"><i><br></i><br><img border="0" height="170" src="chapter3_files/OrthoGonal.gif" width="550"> 
+<br><br><br></font></p>
+<p><font face="Courier New" size="3">To get a vector between 2 
+points:<br><br>&nbsp;&nbsp;&nbsp; 
+2d:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><b><font color="#800000" face="Courier New" size="2">v = (x2 - x1) + (y2 - y1)<br></font></b><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp; 
+3d:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><b><font color="#800000" face="Courier New" size="2">v = (x2 - x1) + (y2 - y1) + (z2 - z1)</font></b><font face="Courier New" size="3"><br><br></font><font color="#800080"><i><b><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;</font></b></i><font face="Courier New" size="3"> </font><b><font face="Courier New" size="2"><i>QBcode:</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vx = x2 - 
+x1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vy = y2 - 
+y1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vz = z2 - 
+z1<br></font></b></font><font face="Courier New" size="3"><br>where: (x2-x1) is 
+the horizontal component and so on.<br><br>&nbsp;&nbsp;&nbsp; Vectors are not 
+limited to the cartesian coordinate system.<br><br>In polar 
+form:<br><br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; v = r * theta </font></b></p>
+<p align="center"><b><font color="#800000" face="Courier New" size="2"><br><img border="0" height="200" src="chapter3_files/Polarvec.gif" width="255"> 
+</font></b><font face="Courier New" size="3"><br><br></font></p>
+<p><font face="Courier New" size="3"><br><font color="#800000"><b>Resolving a vector 
+by its components<br></b></font><br><br>&nbsp;&nbsp;&nbsp; Suppose a vector v 
+has a magnitude 5 and direction given by Theta = 30 degrees. Where theta is the 
+angle the vector makes with the positive x-axis. How do we resolve this vectors' 
+components?<br></font></p>
+<p align="center"><img border="0" height="170" src="chapter3_files/Resolve.gif" width="255"><font face="Courier New" size="3"> <br></font></p>
+<p><font face="Courier New" size="3"><br>Remember the Polar to Cartesian 
+conversion?<br><br></font><font color="#800000" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp; v.x =&nbsp; cos(theta)<br>&nbsp;&nbsp;&nbsp; v.y 
+=&nbsp; sin(theta)<br></b></font><font face="Courier New" size="3"><br>Let vx = 
+horizontal component<br>Let vy = horizontal component<br>Let Theta = Be the 
+angle<br><br>So...<br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; v.x = |v| * cos(theta)<br>&nbsp;&nbsp;&nbsp; v.x = 5 * 
+cos(30)<br>&nbsp;&nbsp;&nbsp; v.x = 4.33<br><br>&nbsp;&nbsp;&nbsp; v.y = |v| * 
+sin(theta)<br>&nbsp;&nbsp;&nbsp; v.y = 5 * sin(30)<br>&nbsp;&nbsp;&nbsp; v.y = 
+2.50<br></font></b><font face="Courier New" size="3"><br><br>&nbsp;&nbsp;&nbsp; 
+What I've been showing you is a 2d vector. Making a 3d vector is just adding 
+another component, the Z component.<br><br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; Type 
+Vector<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x as 
+single<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y as 
+single<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; z as 
+single<br>&nbsp;&nbsp;&nbsp; End TYPE<br></font></b><font face="Courier New" size="3"><br><br><br><b><font color="#800000">Operations on vectors needed in 3d 
+engines<br></font></b></font></p>
+<p><font face="Courier New" size="3"><br><font color="#000080"><b>1. Scaling a 
+vector(Scalar multiplication)<br></b></font><br>Purpose:&nbsp;</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; 
+</font><font face="Courier New" size="3">This is used to scale a vector by a 
+scalar value. Needed in the scaling of models and changing the velocity of 
+projectiles.<br><br>In equation:<br></font><font color="#800000" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v = v * 
+scale<br></b></font><font face="Courier New" size="3">In 
+qbcode:<br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v.x = v.x * 
+Scale<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v.y = v.y * 
+Scale<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v.z = v.z * 
+Scale</font></b><font face="Courier New" size="3"><br></font></p>
+<p><font face="Courier New" size="3"><br><font color="#000080"><b>2. Getting the 
+Magnitude(Length) of a vector<br></b></font><br>Purpose:</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font face="Courier New" size="3">Used in <b><i>"Normalizing"</i></b>(making it a unit vector) a vector. 
+More on this later.<br><br>Equation:<br></font><font color="#800000" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp; |V| = Sqr(v.x^2 + v.y^2 + 
+v.z^2)<br></b></font><font face="Courier New" size="3"><br>QBcode:<br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; Mag! = Sqr(v.x^2 + v.y^2 + 
+v.z^2)&nbsp;<br></font></b></p>
+<p><font face="Courier New" size="3"><br><font color="#000080"><b>3. Normalizing a 
+vector</b></font></font></p>
+<p><font face="Courier New" size="3"><br>Purpose:</font></p>
+<p><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Used in light sourcing, camera transforms, etc. Makes the vector a 
+<b><i>"unit-vector"</i></b> that is a vector having a magnitude of 1. Divides 
+the vector by its length.<br><br>Equ:<br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v = 
+v<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+-------<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+|v|<br></font></b><font face="Courier New" size="3"><br>QBCode:<br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; Mag! = Sqr(v.x^2 + 
+v.y^2 + v.z^2)&nbsp;<br>&nbsp;&nbsp;&nbsp; v.x = v.x / 
+mag!<br>&nbsp;&nbsp;&nbsp; v.y = v.y / mag!<br>&nbsp;&nbsp;&nbsp; v.z = v.z / 
+mag!<br></font></b><font face="Courier New" size="3"><br><font color="#000080"><b>4. 
+The DOT Product<br></b></font><br>Purpose:</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font face="Courier New" size="3">Used in many things like lightsourcing and vector 
+projection. Returns the cosine of the angle between any two vectors ( Assuming 
+the vectors are Normalized) . A Scalar.<br>The dot product is also called the 
+"Scalar" product.<br><br>Equ:<br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; v.w = v.x* w.x + v.y* w.y + v.z* 
+w.z&nbsp;<br></font></b><font face="Courier New" size="3"><br>QBCode:<br></font><font color="#800080" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp; Dot! = v.x* w.x + v.y* w.y + v.z* 
+w.z&nbsp;<br></b></font><font face="Courier New" size="3"><br>Fun fact:<br><i>* 2 
+Vectors are orthogonal if their dot product is 0.<br>Proof: "What is the cosine 
+of 90?"</i><br><br><br><font color="#000080"><b>5. The CROSS 
+product<br></b></font><br>Purpose:&nbsp;</font></p>
+<p><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Used in lightsourcing, camera transformation, back-face culling, etc. The cross 
+product of 2 vectors returns another vector that is orthogonal to the plane that 
+has the first 2<br>vectors. Let's say we have vectors U and 
+F.<br><br>Equ:<br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; U x F = R<br></font></b><font face="Courier New" size="3"><br>QB code:<br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; R.x = U.y * F.z - F.y * U.z<br>&nbsp;&nbsp;&nbsp; R.y 
+= U.z * F.x - F.z * U.x<br>&nbsp;&nbsp;&nbsp; R.z = U.x * F.y - F.x * 
+U.y<br></font></b></p>
+<p><font face="Courier New" size="3"><br>Fun facts:<br><i>* C is the vector 
+orthogonal to A and B.<br>* C is the NORMAL to the plane that includes A and 
+B.&nbsp; The cross-product of any two vectors can best be remembered by the 
+<b>CRAMERS RULE&nbsp; </b>on <b>DETERMINANTS.&nbsp; </b>Thought of it while 
+taking a bath.&nbsp; I'll tell you when I finish my matrix chapter.<b><br></b>* 
+The cross product is exclusive to 3d and its also called the "Vector" 
+product.<br></i></font></p>
+<p align="center"><img border="0" height="255" src="chapter3_files/Cross_Product.gif" width="555"><font face="Courier New" size="3"><br><br></font></p>
+<p><font face="Courier New" size="3"><br><font color="#000080"><b>6. Vector 
+Projection<br></b></font><br>Purpose:</font></p>
+<p align="left"><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Used in resolving the second 
+vector of the camera matrix (Thanks Toshi!). For vectors A and B... </font></p>
+<p align="center"><font face="Courier New" size="3"><br><br><img border="0" height="270" src="chapter3_files/VectorProjection.gif" width="550"> <br><br></font></p>
+<p><font face="Courier New" size="3">Equ:<br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; U.Z * 
+Z<br></font></b></p>
+<p><font face="Courier New" size="3"><br><b><i><font color="#800080">QB 
+code:<br></font></i></b></font></p>
+<p><font face="Courier New" size="3">Let N = vector projection of U to Z.&nbsp; 
+The vector parallel to Z.</font></p>
+<p><font face="Courier New" size="3"><br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; T! = Vector.Dot(U, 
+Z)<br><br>&nbsp;&nbsp;&nbsp; N.x = T! * Z.x<br>&nbsp;&nbsp;&nbsp; N.y = T! * 
+Z.y<br>&nbsp;&nbsp;&nbsp; N.z = T! * Z.z<br></font></b><font face="Courier New" size="3"><br><br><font color="#000080"><b>7. Adding 
+vectors<br></b></font></font></p>
+<p><font face="Courier New" size="3">Purpose:&nbsp;</font></p>
+<p><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; Used in camera and 
+object movements. Anything that you'd want to move relative to your 
+camera.&nbsp; Adding vectors is just the same as adding their components. Let A 
+and B be vectors in 3d, and C is the sum:<br></font></p>
+<p><font face="Courier New" size="3">Equ:</font><font face="Courier New" size="3"><br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; C = A + B&nbsp;<br>&nbsp;&nbsp;&nbsp; C = (ax + bx) + 
+(ay + by) + (az + bz)</font></b></p>
+<p><font face="Courier New" size="3"><br>QBcode:<br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; c.x = a.x + 
+b.x<br>&nbsp;&nbsp;&nbsp; c.y = a.y + b.y<br>&nbsp;&nbsp;&nbsp; c.z = a.z + 
+b.z&nbsp;<br></font></b><font face="Courier New" size="3"><br>Now that Most of the 
+Math is out of the way....<br><br><br></font><b><font color="#800000" face="Courier New" size="4">Applications</font></b></p>
+<p><font face="Courier New" size="3"><font color="#800000"><b><br></b></font></font><b><font color="#000080" face="Courier New" size="4">I. WireFraming and BackFace culling</font></b></p>
+<p><font face="Courier New" size="3"><font color="#000080"><b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b></font>I 
+like to make use of types with my 3d engines.<br>For Polygons: </font></p>
+<p><font face="Courier New" size="3"><br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; Type 
+Poly<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p1 as 
+integer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p2 as 
+integer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p3 as 
+integer<br>&nbsp;&nbsp;&nbsp; end type</font></b></p>
+<p><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; P1 is the first 
+vertex, p2 second and p3 third. Let's say you have a nice rotating cube composed 
+of points, looks spiffy but you want it to be composed of polygons(Triangles) in 
+this case). If we have a cube with vertices:<br><br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx1&nbsp; 50, 50, 50&nbsp; 
+:x,y,z<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx2 -50, 50, 
+50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx3 -50,-50, 
+50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx4&nbsp; 50,-50, 
+50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx5&nbsp; 50, 
+50,-50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx6 -50, 
+50,-50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx7 
+-50,-50,-50<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vtx8&nbsp; 
+50,-50,-50<br></font></b><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; 
+What we need are connection points that define a face. The one below is a 
+Quadrilateral face(4 points)</font></p>
+<p><font color="#800080" face="Courier New" size="1"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Face1 1, 2, 3, 
+4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Face2 2, 6, 7, 
+3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Face3 6, 5, 8, 
+7&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Face4 5, 1, 4, 
+8<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Face5 5, 6, 2, 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Face6 4, 3, 7, 
+8<br></b></font><font face="Courier New" size="2"><br></font><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp; Face1 would have vertex 1, 2, and 3 
+as its connection vertices.<br><br>&nbsp;&nbsp;&nbsp; Now since we want 
+triangles instead of quads, we divide each quad into 2 triangles, which would 
+make 12 faces. It' also imperative to arrange your points in counter-clockwise 
+or<br>clockwise order so that backface culling would work. In this case I'm 
+using counter-clockwise.<br><br>&nbsp;&nbsp;&nbsp; The following code divide the 
+quads into 2 triangles with vertices arranged in counter-clockise order. 
+Tri(j).idx will be used for sorting.<br><br><font color="#800080"><i><b>QBcode: 
+</b></i></font></font><b><font face="Courier New" size="2"><font color="#800080"><br>&nbsp;&nbsp;&nbsp;</font>&nbsp;<font color="#800080" face="Courier New" size="1">&nbsp;&nbsp; j = 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR i = 1 TO 
+6<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; READ p1, 
+p2, p3, p4 'Reads the 
+face(Quad)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).p1 = 
+p1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).p2 = 
+p2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).p3 = 
+p4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).idx = 
+j<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+j = j + 1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).p1 = 
+p2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).p2 = 
+p3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).p3 = 
+p4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Tri(j).idx = 
+j<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j = j + 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEXT 
+i<br></font></font></b><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; To 
+render the cube without backface culling, here's the pseudocode:<br><br>&nbsp; 
+</font><font face="Courier New" size="2">&nbsp;&nbsp;<b><font color="#800080" face="Courier New" size="1"> </font></b><font color="#800080"><b>1. 
+Do<br>&nbsp;&nbsp;&nbsp; 2. Rotatepoints<br>&nbsp;&nbsp;&nbsp; 3. Project 
+points<br>&nbsp;&nbsp;&nbsp; 4. Sort(Not needed for cubes and other simple 
+polyhedrons)<br>&nbsp;&nbsp;&nbsp; 5. Get Triangles' projected 
+coords<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ie.&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+x1 = 
+Model(Tri(i).P1).ScreenX<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+y1 = 
+Model(Tri(i).P1).ScreenY<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+x2 = 
+Model(Tri(i).P2).ScreenX<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+y2 = 
+Model(Tri(i).P2).ScreenY<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+x3 = 
+Model(Tri(i).P3).ScreenX<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+y3 = Model(Tri(i).P3).ScreenY<br>&nbsp;&nbsp;&nbsp; 6. 
+Draw<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tri 
+x1,y1,x2,y2,x3,y3,color<br></b></font></font><font face="Courier New" size="3"><br><font color="#000080"><b>BackFace Culling</b></font></font></p>
+<p><font face="Courier New" size="3"><font color="#000080"><br></font>&nbsp;&nbsp;&nbsp;<font color="#000080"> </font>Backface 
+culling is also called <i><font color="#000080">"Hidden face removal"</font></i>. 
+In essense, it's a way to speed up your routines by NOT showing a polygon if 
+it's not facing towards you. But how do we know what face of the polygon is the 
+"right" face? Let's take a CD as an example, there are 2 sides to a particular 
+CD. One side that the data is to be written and the other side where the label 
+is printed. What if we decide that the Label-side should be the right side? How 
+do we do it? Well it turns out that the answer is our well loved NORMAL. :*) But 
+for that to work, we should *sequentially* arrange our vertices in counter or 
+clockwise order.</font></p>
+<p><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp; If you arranged your 
+polys' vertices in counter- clockwise order as most 3d modelers do, you just get 
+the projected z-normal of the<br>poly and check if its greater than(&gt;)0. If 
+it is, then draw triangle. Of course if you arranged the vertices in 
+clockwise<br>order, then the poly is facing us when the Z-normal is 
+&lt;0.</font></p>
+<p><font face="Courier New" size="3"><b><i>Counter-Clockwise arrangement of 
+vertices</i></b>:</font></p>
+<p align="center"><img border="0" height="378" src="chapter3_files/Normal.gif" width="500"></p>
+<p>&nbsp;</p>
+<p><font face="Courier New" size="3"><i><b>Clockwise Arrangement of 
+vertices:</b></i></font></p>
+<p align="center"><img border="0" height="378" src="chapter3_files/Normal2.gif" width="500"></p>
+<p><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; Since we only need the 
+z component of the normal to the poly, we could even use the "projected" 
+coords(2d) to get the z component!<br><br><font color="#800080"><b><i>QBcode:</i><br></b></font></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; Znormal = (x2 - x1) * (y1 - Y3) - 
+(y2 - y1) * (x1 - X3)<br>&nbsp;&nbsp;&nbsp; IF (Znormal &gt; 0) THEN '&gt;0 so 
+vector facing us<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Drawpoly 
+x1,y1,x2,y2,x3,y3<br>&nbsp;&nbsp;&nbsp; end if<br></font></b><font face="Courier New" size="3"><br>Here's the example file:<br><br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/3DWIRE.BAS"><b>3dwire.bas<br></b></a><br><br><font color="#000080"><b>Sorting<br></b></font><br>&nbsp;&nbsp;&nbsp; There are numerous 
+sorting techniques that I use in my 3d renders here are the most 
+common:<br></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp; </font><font color="#000080" face="Courier New" size="2"><b>1. Bubble sort 
+(modified)<br>&nbsp;&nbsp;&nbsp; 2. Shell sort<br>&nbsp;&nbsp;&nbsp; 3. Quick 
+sort<br>&nbsp;&nbsp;&nbsp; 4. Blitz sort (PS1 uses this according to 
+Blitz)&nbsp;</b></font></p>
+<p><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; I won't go about 
+explaining how the sorting algorithms work. I'm here to discuss how to implement 
+it in your engine. It may not be apparent to you (since you are rotating 
+a<br>simple cube) but you need to sort your polys to make your renders look 
+right. The idea is to draw the farthest polys first and the nearest last. Before 
+we could go about sorting<br>our polys we need a new element in our 
+polytype.<br><br></font><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; Type 
+Poly<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p1 as 
+integer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p2 as 
+integer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p3 as 
+integer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; idx as 
+integer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; zcenter as 
+integer<br>&nbsp;&nbsp;&nbsp; end type<br></font></b><font face="Courier New" size="3"><br><i>*Idx would be the index we use to sort the polys. We sort 
+via<br>IDX, not by subscript.<br>*Zcenter is the theoretical center of the 
+polygon. It's a 3d coord (x,y,z)<br></i><br>&nbsp;&nbsp;&nbsp; To get the center 
+of any polygon or polyhedra(model),you add all the 3 coordinates and divide it 
+by the number of vertices(In this case 3).<br><br>Since we only want to get the 
+z center:<br><br><font color="#800080"><b><i>QBcode:</i></b></font></font></p>
+<p><font face="Courier New" size="2"><b><font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Zcenter= 
+Model(Poly(i).p1)).z + Model(Poly(i).p2)).z + 
+Model(Poly(i).p3)).z<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Zcenter = 
+Zcenter/3</font></b><br></font><font face="Courier New" size="3"><br><br><font color="#000080">Optimization trick:<br>&nbsp;&nbsp;&nbsp; </font>We don't really 
+need to find the *real* Zcenter since all the z values that were added are going 
+to be still sorted<br>right. Which means... No divide!!!<br><br>Now you sort the 
+polys like this:<br><br><font color="#800080"><i><b>QBcode:</b></i></font></font></p>
+<p><b><font color="#800080" face="Courier New" size="2">FOR i% = Lbound(Poly) TO 
+UBOUND(Poly)<br>&nbsp;&nbsp;&nbsp; Poly(i%).zcenter = Model(Poly(i%).p1).Zr + 
+Model(Poly(i%).p2).Zr + 
+Model(Poly(i%).p3).Zr<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(i%).idx 
+= i%<br>NEXT i%<br><br>Shellsort Poly(), Lbound(Poly), 
+UBOUND(Poly)<br></font></b></p>
+<p><font face="Courier New" size="3"><br>To Draw the model, you use the 
+index(Poly.idx)<br><br><b><font color="#800080"><i>QBcode:<br></i></font></b></font><font face="Courier New" size="2"><b><font color="#800080">FOR i = 1 TO 
+UBOUND(Poly)&nbsp;<br>&nbsp;&nbsp;&nbsp; j = Poly(i).idx<br>&nbsp;&nbsp;&nbsp; 
+x1 = Model(Poly(j).p1).scrx 'Get triangles from 
+"projected"<br>&nbsp;&nbsp;&nbsp; x2 = Model(Poly(j).p2).scrx 'X and Y coords 
+since Znormal<br>&nbsp;&nbsp;&nbsp; x3 = Model(Poly(j).p3).scrx 'Does not 
+require a Z coord<br>&nbsp;&nbsp;&nbsp; y1 = 
+Model(Poly(j).p1).scry&nbsp;<br>&nbsp;&nbsp;&nbsp; y2 = 
+Model(Poly(j).p2).scry&nbsp;<br>&nbsp;&nbsp;&nbsp; y3 = 
+Model(Poly(j).p3).scry<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Use 
+the Znormal,the Ray perpendicular(Orthogonal) to 
+the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Screen defined by the 
+Triangle (X1,Y1,X2,Y2,X3,Y3)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'if 
+Less(&gt;) 0 then its facing in the opposite direction 
+so<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'don't plot. If &lt;0 then its 
+facing towards you so Plot.<br><br>&nbsp;&nbsp;&nbsp; Znormal = (x2 - x1) * (y1 
+- y3) - (y2 - y1) * (x1 - x3)<br>&nbsp;&nbsp;&nbsp; IF Znormal &lt; 0 
+THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DrawTri 
+x1,y1,x2,y2,x3,y3<br>&nbsp;&nbsp;&nbsp; END IF<br>NEXT 
+i</font></b><br></font><font face="Courier New" size="3"><br><br><br>Here's a 
+working example:<br><br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/SORTING.BAS"><b>Sorting.Bas<br></b></a><br><br></font><font face="Courier New" size="4"><b><font color="#000080">II. Spherical and cylindrical 
+coordinate systems.</font></b><br></font><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; These 2 systems are extentions of the polar 
+coordinate system. Where polar is 2d these 2 are 3d. :*)<br><br><font color="#000080"><b>a. Cylindrical coordinate 
+system<br></b></font><br>&nbsp;&nbsp;&nbsp; The cylindrical coodinate system is 
+useful if you want to generate models mathematically. Some examples are Helixis, 
+Cylinders(of course), tunnels or any tube-like model. This<br>system works much 
+like 2d, but with an added z component that doesn't need and angle. Here's the 
+equations to convert cylindrical to rectangular coordinate system.<br><br>Here's 
+the Cylindrical to rectangular coordinate conversion equations. Almost like 2d. 
+Of course this cylinder will coil on the z axis. To test yourself, why dont you 
+change<br>the equations to coil it on the y axis?&nbsp;<br><br></font><b><font color="#800000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; x = 
+COS(theta)<br>&nbsp;&nbsp;&nbsp; y = SIN(theta)<br>&nbsp;&nbsp;&nbsp; z = 
+z<br></font></b><font face="Courier New" size="3"><br>To generate a 
+cylinder:<br><br><font color="#800080"><b><i>QBcode:</i></b></font><br></font><font face="Courier New" size="2"><b><font color="#800080">&nbsp;&nbsp;&nbsp;</font></b> <font color="#800080" face="Courier New" size="1"><b>i = 0<br>&nbsp;&nbsp;&nbsp; z! = zdist * Slices / 
+2<br>&nbsp;&nbsp;&nbsp; FOR Slice = 0 TO Slices - 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR Band = 0 TO Bands - 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Theta! = 
+(2 * PI / Bands) * 
+Band<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Model(i).x = radius * 
+COS(Theta!)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Model(i).y = radius * 
+SIN(Theta!)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Model(i).z = 
+-z!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i = i 
++ 1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEXT 
+Band<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; z! = z! - 
+zdist<br>&nbsp;&nbsp;&nbsp; NEXT Slice</b></font><br></font><font face="Courier New" size="3"><br><br>Here's a 9 liner I made using that 
+equation.</font></p>
+<p><font face="Courier New" size="3"><br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/9LINER.BAS"><b>9Liner.Bas<br></b></a><br><font color="#000080"><b>b. Spherical coordinate 
+system<br></b></font><br>&nbsp;&nbsp;&nbsp; This is another useful system. It 
+can be used for Torus and Sphere generation. Here's the 
+conversion:<br></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;</font><font face="Courier New" size="3"> </font><font color="#800000" face="Courier New" size="2"><b>x&nbsp; =&nbsp; SIN(Phi)* COS(theta)<br>&nbsp;&nbsp;&nbsp; y&nbsp; 
+=&nbsp; SIN(Phi)* SIN(theta)<br>&nbsp;&nbsp;&nbsp; z&nbsp; =&nbsp; 
+COS(Phi)<br></b></font></p>
+<p><font face="Courier New" size="3">Where: Theta = Azimuth </font>; <font face="Courier New" size="3">Phi = Elevation</font></p>
+<p><font face="Courier New" size="3"><br>To generate a sphere:<br></font></p>
+<p><font color="#800080" face="Courier New" size="3"><b>QBcode:</b></font></p>
+<p><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; i = 
+0<br>&nbsp;&nbsp;&nbsp; FOR SliceLoop = 0 TO Slices - 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phi! = PI / Slices * 
+SliceLoop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR BandLoop = 0 TO 
+Bands - 1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Theta! = 2 * -PI / Bands * 
+BandLoop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Model(i).x = -INT(radius * SIN(Phi!) * 
+COS(Theta!))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Model(i).y = -INT(radius * SIN(Phi!) * 
+SIN(Theta!))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Model(i).z = -INT(radius * 
+COS(Phi!))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+i = i + 1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEXT 
+BandLoop<br>&nbsp;&nbsp;&nbsp; NEXT SliceLoop<br></font></b><font face="Courier New" size="3"><br>&nbsp;&nbsp;&nbsp; Here's a little particle engine 
+using the spherical coordinate system.</font></p>
+<p><font face="Courier New" size="3"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/FOUNTAIN.BAS"><b>Fountain.bas</b></a></font></p>
+<p><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp; Here's an example file to 
+generate models using those equations:</font></p>
+<p><font face="Courier New" size="3"><br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/GEN3D.BAS"><b>Gen3d.Bas<br></b></a></font></p>
+<p><font face="Courier New" size="3"><br></font><b><font color="#000080" face="Courier New" size="4">III. Different Polygon fillers<br></font></b><font face="Courier New" size="3"><br><font color="#000080"><b>A. Flat 
+Filler<br></b>&nbsp;&nbsp;&nbsp; </font>Tired of just wireframe and pixels? 
+After making a wireframe demo, you'd want your objects to be solid. The first 
+type of fill that I'll be introducing is a flat triangle filler. What?! But I 
+could use PAINT to do that! Well, you still have to understand how the flat 
+filler works because the gouraud and texture filler will be based on it. 
+;*)<br>&nbsp;&nbsp;&nbsp; Now how do we make a flat filler? Let me introduce you 
+first to the idea of <b><i>LINEAR INTERPOLATION</i></b>. How does interpolation 
+work?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Let's say you want to make 
+dot on the<br>screen at location (x1,y1) to (x2,y2) in 10 
+steps?&nbsp;<br></font><b><font color="#800000" face="Courier New" size="2"><br>&nbsp;&nbsp;&nbsp; Let A = (x1,y1)<br>&nbsp;&nbsp;&nbsp; B = 
+(x2,y2)<br>&nbsp;&nbsp;&nbsp; Steps = 10<br><br>&nbsp;&nbsp;&nbsp; f(x) = 
+(B-A)/Steps<br></font></b><font face="Courier New" size="3"><br>So....</font></p>
+<p><font face="Courier New" size="3"><br><b><font color="#800080"><i>QBcode:</i></font></b></font><b><font color="#800080" face="Courier New" size="1"><br></font><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; dx! = (x2-x1)/steps<br>&nbsp;&nbsp;&nbsp; dy! = 
+(y2-y1)/Steps<br><br>&nbsp;&nbsp;&nbsp; x! = x1<br>&nbsp;&nbsp;&nbsp; y! = 
+y1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For a = 0 to steps - 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Pset(x,y), 
+15<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x! = x! 
++ dx!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y! = 
+y! + dy!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next 
+a&nbsp;</font></b><font face="Courier New" size="2"><br><br></font><font face="Courier New" size="3">That's all to there is to interpolation. 
+:*)<br><br>&nbsp;&nbsp;&nbsp; Now that we have an idea of what linear 
+interpolation is we could make a flat triangle filler.<br><br><font color="#000080"><b>The 3 types of triangle<br></b></font></font></p>
+<p><font color="#800000"><b><font face="Courier New" size="3"><i>A. Flat 
+Filled</i></font></b></font></p>
+<p><font face="Courier New" size="3"><font color="#800000"><br></font><font color="#000080"><b>1. Flat Bottom<br></b></font></font></p>
+<p align="center"><img border="0" height="220" src="chapter3_files/FlatBottom.gif" width="280"></p>
+<p><font face="Courier New" size="3"><br><font color="#000080"><b>2. Flat Top 
+</b></font></font></p>
+<p align="center"><img border="0" height="220" src="chapter3_files/FlatTop.gif" width="280"></p>
+<p><font face="Courier New" size="3"><font color="#000080"><b><br>3. Generic 
+Triangle </b></font></font></p>
+<p align="center"><img border="0" height="255" src="chapter3_files/dividetri.gif" width="300"></p>
+<p><font face="Courier New" size="3"><font color="#000080"><b><br></b></font><br>&nbsp;&nbsp;&nbsp; In both the Flat Top and 
+Flat bottom cases, it's easy to do both triangles as we only need to interpolate 
+A to B and A to<br>C in Y steps. We draw a horizontal line in between (x1,y) and 
+(x2,y).<br>&nbsp;&nbsp;&nbsp; The problem lies when we want to draw a generic 
+triangle since we don't know if it's a flat top or flat bottom. But it turns out 
+that there is an all too easy way to get around with this. Analyzing the generic 
+triangle, we could just divide the triangle into 2 triangles. One Flat Bottom 
+and One Flat Top!</font></p>
+<p><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp; We draw it with 2 loops. 
+The first loop is to draw the Flat Bottom and the second loop is for the Flat 
+Top.<br></font></p>
+<p align="center"><img border="0" height="255" src="chapter3_files/Generictri.gif" width="300"></p>
+<p>&nbsp;</p>
+<p><font face="Courier New">PseudoCode:</font></p>
+<p><font face="Courier New">TOP PART ONLY!!!!(FLAT BOTTOM)</font></p>
+<p><font face="Courier New" size="3">1</font>.&nbsp;&nbsp; <font face="Courier New" size="3">Interpolate <b>a.x</b> and draw each scanline from 
+<b>a.x</b> to <b>b.x</b> in <b>(b.y-a.y)</b> steps.</font></p>
+<p><b><font color="#800000" size="2">&nbsp;&nbsp;&nbsp;<font face="Courier New"> ie. 
+a.x = x3 - x1</font></font></b></p>
+<p><b><font color="#800000" size="2">&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; b.x = y3 - y1</font></font></b></p>
+<p><b><font color="#800000" size="2">&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; Xstep1! = a.x / 
+b.x</font></font></b></p>
+<p><font face="Courier New" size="3">2. Interpolate <b>a.x</b> and draw each 
+scanline from <b>a.x</b> to <b>c</b>.<b>x</b> in <b>(c.y-a.y)</b> 
+steps.</font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> ie. 
+a.x = x1 - x3</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; c.x = y1 - y3</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; Xstep3! = a.x / 
+c.x</font></b></font></p>
+<p><font face="Courier New" size="3">3. Draw each scanline(Horizontal line) from 
+<b>a.y</b> to <b>b.y </b>incrementing <b>y</b> with one in each step, 
+interpolating <b>LeftX</b> with<b> Xstep1!</b> and <b>RightX</b> with 
+<b>Xstep3!</b>.&nbsp; You've just finished drawing the TOP part of the 
+triangle!!!</font></p>
+<p><font face="Courier New" size="3">4. Do the same with the bottom-half 
+interpolating from <b>b.x</b> to <b>c.x</b> in <b>b.y</b> steps.</font></p>
+<p><b><i><font color="#800000" face="Courier New" size="3">PseudoCode:</font></i></b></p>
+<p><b><font color="#000080" face="Courier New" size="2">1. Sort Vertices</font><font color="#800000" face="Courier New" size="2"><br>IF y2 &lt; y1 
+THEN&nbsp;<br>&nbsp;&nbsp;&nbsp; SWAP y1, y2<br>&nbsp;&nbsp;&nbsp; SWAP x1, 
+x2<br>END IF<br>IF y3 &lt; y1 THEN<br>&nbsp;&nbsp;&nbsp; SWAP y3, 
+y1<br>&nbsp;&nbsp;&nbsp; SWAP x3, x1<br>END IF<br>IF y3 &lt; y2 
+THEN<br>&nbsp;&nbsp;&nbsp; SWAP y3, y2<br>&nbsp;&nbsp;&nbsp; SWAP x3, x2<br>END 
+IF<br><br><br></font><font color="#000080" face="Courier New" size="2">2. 
+Interpolate A to B</font><font color="#800000" face="Courier New" size="2"><br>dx1 = 
+x2 - x1&nbsp;<br>dy1 = y2 - y1&nbsp;<br>IF dy1 &lt;&gt; 0 
+THEN&nbsp;<br>&nbsp;&nbsp;&nbsp; Xstep1! = dx1 / 
+dy1&nbsp;<br>ELSE<br>&nbsp;&nbsp;&nbsp; Xstep1! = 0<br>END 
+IF<br><br></font><font color="#000080" face="Courier New" size="2">3. Interpolate B 
+to C</font><font color="#800000" face="Courier New" size="2"><br>dx2 = x3 - 
+x2&nbsp;<br>dy2 = y3 - y2<br>IF dy2 &lt;&gt; 0 THEN<br>&nbsp;&nbsp;&nbsp; 
+Xstep2! = dx2 / dy2<br>ELSE<br>&nbsp;&nbsp;&nbsp; Xstep2! = 0<br>END 
+IF<br><br></font><font color="#000080" face="Courier New" size="2">4. InterPolate A 
+to C</font><font color="#800000" face="Courier New" size="2"><br>dx3 = x1 - 
+x3<br>dy3 = y1 - y3<br>IF dy3 &lt;&gt; 0 THEN<br>&nbsp;&nbsp;&nbsp; Xstep3! = 
+dx3 / dy3<br>ELSE<br>&nbsp;&nbsp;&nbsp; Xstep3! = 0<br>END 
+IF<br><br></font><font color="#000080" face="Courier New" size="2">5. Draw Top 
+Part</font><font color="#800000" face="Courier New" size="2"><br>Lx! = x1 'Starting 
+coords<br>Rx! = x1<br><br>FOR y = y1 TO y2 - 1<br>&nbsp;&nbsp;&nbsp; LINE (Lx!, 
+y)-(Rx!, y), clr<br>&nbsp;&nbsp;&nbsp; Lx! = Lx! + Xstep1! 'increment 
+derivatives<br>&nbsp;&nbsp;&nbsp; Rx! = Rx! + Xstep3!<br>NEXT 
+y<br><br></font><font color="#000080" face="Courier New" size="2">6. Draw Lower 
+Part</font><font color="#800000" face="Courier New" size="2"><br><br>Lx! = x2<br>FOR 
+y = y2 TO y3<br>&nbsp;&nbsp;&nbsp; LINE (Lx!, y)-(Rx!, y), 
+clr<br>&nbsp;&nbsp;&nbsp; Lx! = Lx! + delta2!<br>&nbsp;&nbsp;&nbsp; Rx! = Rx! + 
+delta3!<br>NEXT y</font></b></p>
+<p>&nbsp;</p>
+<p><font face="Courier New" size="3">Here's an example file:</font></p>
+<p><font face="Courier New" size="3"><b><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/FLATTRI.BAS">FlatTri.bas</a></b></font></p>
+<p><font face="Courier New" size="3"><br><i><font color="#800000"><b>B. Gouraud 
+Filled</b></font> </i></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; There is 
+not that much difference between the flat triangle and the gouraud 
+triangle.&nbsp; In the calling sub, instead of just the 3 coodinates, there are 
+3 paramenters more. Namely: <b>c1,c2,c3</b>.&nbsp; They are the colors we could 
+want to interpolate between vertices. And since you know how to interpolate 
+already, it would not be a problem. :*)</font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; First we 
+need a horizontal line routine that draws with interpolated colors.&nbsp; Here's 
+the code. It's self explanatory.</font></p>
+<p><font face="Courier New">*dc! is the ColorStep(Like the Xsteps)</font></p>
+<p><font color="#800080" face="Courier New"><b><i>QBcode:</i></b></font></p>
+<p><b><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; HlineG 
+(x1,x2,y,c1,c2)<br><br>&nbsp;&nbsp;&nbsp; dc! = (c2 - c1)/ (x2 - 
+x1)<br>&nbsp;&nbsp;&nbsp; c! = c1<br>&nbsp;&nbsp;&nbsp; For x = x1 to 
+x2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pset(x , y) , 
+int(c!)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c! = c! + 
+dc!<br>&nbsp;&nbsp;&nbsp; next x</font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#000000" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; Now that we have a horizontal gouraud line, we 
+will modify some code into our flat filler to make it a gouraud filler. I won't 
+give you the whole code, but some important snippets.</font></p>
+<p><font color="#000000" face="Courier New" size="3"><i><b>1. In the sorting stuff: 
+(You have to do this to all the IF's.</b></i></font></p>
+<p><b><font color="#800000" face="Courier New" size="2">IF y2 &lt; y1 
+THEN&nbsp;<br>&nbsp;&nbsp;&nbsp; SWAP y1, y2<br>&nbsp;&nbsp;&nbsp; SWAP x1, 
+x2<br>&nbsp;&nbsp;&nbsp; SWAP c1, c2<br>END IF<br><br></font></b><font color="#000000" face="Courier New" size="3"><b><i>2. Interpolate A to B; c1 to c2. 
+do this to all vertices.</i></b></font></p>
+<p><font color="#000000" face="Courier New" size="3"><br></font><b><font color="#800000" face="Courier New" size="2">dx1 = x2 - x1&nbsp;<br>dy1 = y2 - 
+y1&nbsp;<br>dc1 = c2 - c1<br>IF dy1 &lt;&gt; 0 THEN&nbsp;<br>&nbsp;&nbsp;&nbsp; 
+Xstep1! = dx1 / dy1&nbsp;<br>&nbsp;&nbsp;&nbsp; Cstep1! = dc1 / 
+dy1<br>ELSE<br>&nbsp;&nbsp;&nbsp; Xstep1! = 0<br>&nbsp;&nbsp;&nbsp; Cstep1! = 
+0<br>END IF</font></b></p>
+<p><font color="#000000" face="Courier New" size="3"><i><b>5. Draw Top 
+Part</b></i></font></p>
+<p><b><font color="#800000" face="Courier New" size="2"><br>Lx! = x1 'Starting 
+coords<br>Rx! = x1<br>Lc! = c1 'Starting colors<br>Rc! = c1<br><br>FOR y = y1 TO 
+y2 - 1<br>&nbsp;&nbsp;&nbsp; HlineG Lx!, Rx!, y, Lc!, Rc!<br>&nbsp;&nbsp;&nbsp; 
+Lx! = Lx! + Xstep1!&nbsp;<br>&nbsp;&nbsp;&nbsp; Rx! = Rx! + 
+Xstep3!<br>&nbsp;&nbsp;&nbsp; Lc! = Lc! + Cstep1! 'Colors<br>&nbsp;&nbsp;&nbsp; 
+Rc! = Rc! + Cstep3!<br>NEXT y<br><br></font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; It's that 
+easy!&nbsp; You have to interpolate just 3 more values! Here's the complete 
+example file:</font></p>
+<p><font face="Courier New" size="3"><b><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/GOURTRI.BAS">GourTri.Bas</a></b></font></p>
+<p><font face="Courier New" size="3"><i><font color="#800000"><b><br>C. Affine 
+Texture Mapped</b></font><br></i></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; 
+Again, there is not much difference between the previous 2 triangle routines 
+from this.&nbsp; Affine texturemapping also involves the same algo as that of 
+the flat filler.&nbsp; That is, Linear interpolation.&nbsp; That's probably why 
+it doesn't look good. :*(&nbsp; But it's fast. :*).&nbsp; If in the gouraud 
+filler you need to interpolate between <b>3 colors</b>, you need to interpolate 
+between <b>3 U and 3 V </b>texture coordinates in the affine mapper.&nbsp; 
+That's <b>6</b> values in all.&nbsp; In fact, it's almost the same as&nbsp; 
+gouraud filler!</font></p>
+<p align="center"><img border="0" height="255" src="chapter3_files/Textmap.gif" width="530"></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; 
+Now we have to modify our Gouraud Horizontal line routine to a textured line 
+routine.</font></p>
+<p><b><font color="#000000" face="Courier New" size="3"><i>*This assumes that the 
+texture size is square and a power of 2. Ie. 4*4, 16*16, 128*128,etc. And is 
+used to prevent from reading pixels outside the texture.<br>*The texture mapper 
+assumes a QB GET/PUT compatible image. Array(1) = width*8; Array(2) = Height; 
+Array(3) = 2 pixels.<br>* HlineT also assumes that a DEF SEG = Varseg(Array(0)) 
+has been issued prior to the call. TOFF is the Offset of the image in multiple 
+image arrays. ie: TOFF = VARPTR(Array(0))<br>*TsizeMinus1 is Texturesize 
+-1.<br></i></font></b><br><b><font color="#800080" face="Courier New" size="3"><i>QBcode:<br></i></font><font color="#800080" face="Courier New" size="2">HlineT (x1,x2,y,u1,u2,v1,v2,Tsize)<br><br>&nbsp;&nbsp;&nbsp; du! = (u2 - 
+u1)/ (x2 - x1)<br>&nbsp;&nbsp;&nbsp; dv! = (v2 - v1)/ (x2 - 
+x1)<br>&nbsp;&nbsp;&nbsp; u! = u1<br>&nbsp;&nbsp;&nbsp; v! = 
+v1<br>&nbsp;&nbsp;&nbsp; TsizeMinus1 = Tsize - 1<br><br>&nbsp;&nbsp;&nbsp; For x 
+= x1 to x2<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'get pixel off the 
+texture using<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'direct memory read. 
+The (+4 + TOFF)&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'is used to 
+compensate for image<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'offsetting.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tu=u! AND 
+TsizeMinus1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tv=v! AND 
+TsizeMinus1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Texel = Peek(Tu*Tsize 
++ Tv + 4 + TOFF)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pset(x , y) , 
+Texel<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u! = u! + 
+du!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v! = v! + 
+dv!<br>&nbsp;&nbsp;&nbsp; next x<br></font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#800080" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#000000" face="Courier New" size="3">Now we have to modify the rasterrizer to support U and V coords.&nbsp; 
+All we have to do is interpolate between all the coords and we're good to 
+go.</font></p>
+<p><b><i><font color="#000000" face="Courier New" size="3">1. In the sorting stuff: 
+(You have to do this to all the IF's.<br></font></i><font color="#800000" face="Courier New" size="2">IF y2 &lt; y1 THEN&nbsp;<br>&nbsp;&nbsp;&nbsp; SWAP 
+y1, y2<br>&nbsp;&nbsp;&nbsp; SWAP x1, x2<br>&nbsp;&nbsp;&nbsp; SWAP u1, 
+u2<br>&nbsp;&nbsp;&nbsp; SWAP v1, v2<br>END IF<br><br></font><i><font color="#000000" face="Courier New" size="3">2. Interpolate A to B; u1 to u2; v1 to 
+v2. Do this to all vertices.</font></i><font color="#800000" face="Courier New" size="2"><br><br>dx1 = x2 - x1&nbsp;<br>dy1 = y2 - y1&nbsp;<br>du1 = u2 - 
+u1<br>dv1 = v2 - v1<br>IF dy1 &lt;&gt; 0 THEN&nbsp;<br>&nbsp;&nbsp;&nbsp; 
+Xstep1! = dx1 / dy1&nbsp;<br>&nbsp;&nbsp;&nbsp; Ustep1! = du1 / 
+dy1<br>&nbsp;&nbsp;&nbsp; Vstep1! = dv1 / dy1<br>ELSE<br>&nbsp;&nbsp;&nbsp; 
+Xstep1! = 0<br>&nbsp;&nbsp;&nbsp; Ustep1! = 0<br>&nbsp;&nbsp;&nbsp; Vstep1! = 
+0<br>END IF<br></font><i><font color="#000000" face="Courier New" size="3">5. Draw 
+Top Part</font></i><font color="#800000" face="Courier New" size="2"><br><br>Lx! = 
+x1 'Starting coords<br>Rx! = x1<br>Lu! = u1 'Starting U<br>Ru! = u1<br>Lv! = v1 
+'Starting V<br>Rv! = v1<br><br>FOR y = y1 TO y2 - 1<br>&nbsp;&nbsp;&nbsp; HlineT 
+Lx!, Rx!, y, Lu!, Ru!, Lv!, Rv!<br>&nbsp;&nbsp;&nbsp; Lx! = Lx! + 
+Xstep1!&nbsp;<br>&nbsp;&nbsp;&nbsp; Rx! = Rx! + Xstep3!<br>&nbsp;&nbsp;&nbsp; 
+Lu! = Lu! + Ustep1! 'U<br>&nbsp;&nbsp;&nbsp; Ru! = Ru! + 
+Ustep3!<br>&nbsp;&nbsp;&nbsp; Lv! = Lv! + Vstep1! 'V<br>&nbsp;&nbsp;&nbsp; Rv! = 
+Rv! + Vstep3!<br>NEXT y<br></font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3"> Here's the example demo 
+for you to learn from.&nbsp; Be sure to check the algo as it uses fixpoint math 
+to speed things up quite a bit. :*)</font></p>
+<p><font face="Courier New" size="3"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/TEXTTRI.BAS"><b>Textri.bas</b></a> 
+</font></p>
+<p><font face="Courier New" size="3"><br></font><b><font color="#000080" face="Courier New" size="4">IV. Shading and Mapping Techniques<br></font></b><font face="Courier New" size="3"><br><font color="#000080"><b>1. Lambert 
+Shading<br></b></font><br>&nbsp;&nbsp;&nbsp; So you want your cube filled and 
+lightsourced, but don't know how to? The answer is Lambert Shading. And what 
+does<br>Lambert shading use? The NORMAL. Yes, it's the cross-product thingy I 
+was writing about. How do we use the normal you say.&nbsp; First, you have a 
+filled cube composed of triangles (Polys), now we define a vector orthogonal to 
+that plane(Yep, the Normal) sticking out.<br>&nbsp;&nbsp;&nbsp; How do we 
+calculate normals? Easy, use the cross product!<br><br><b><font color="#800080"><i>PseudoCode:<br></i></font></b></font><font face="Courier New" size="2"><b><font color="#800080">&nbsp;&nbsp;&nbsp; 1. For each 
+poly..<br>&nbsp;&nbsp;&nbsp; 2. get poly's x, y and z 
+coords<br>&nbsp;&nbsp;&nbsp; 3. define vectors from 3 
+coords<br>&nbsp;&nbsp;&nbsp; 4. get the cross-product(our normal to a 
+plane)<br>&nbsp;&nbsp;&nbsp; 5. Normalize your normal</font></b><br></font><font face="Courier New" size="3"><br></font><b><font color="#800080" face="Courier New" size="3"><i>QBcode:</i></font><font color="#800080" face="Courier New" size="1"><br></font><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; FOR i = 1 TO 
+UBOUND(Poly)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P1 = 
+Poly(i).P1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'get poly 
+vertex<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P2 = 
+Poly(i).P2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P3 = 
+Poly(i).P3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x1 = 
+Model(P1).x&nbsp;&nbsp;&nbsp;&nbsp; 'get 
+coords<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x2 = 
+Model(P2).x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x3 = 
+Model(P3).x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y1 = 
+Model(P1).y<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y2 = 
+Model(P2).y<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y3 = 
+Model(P3).y<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Z1 = 
+Model(P1).z<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Z2 = 
+Model(P2).z<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Z3 = 
+Model(P3).z<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ax! = x2 - 
+x1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'derive 
+vectors<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bx! = x3 - 
+x2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ay! = y2 - 
+y1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; by! = y3 - 
+y2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; az! = Z2 - 
+Z1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bz! = Z3 - 
+Z2<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Cross 
+product<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xnormal! = ay! * bz! - az! 
+* by!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ynormal! = az! * bx! - ax! * 
+bz!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; znormal! = ax! * by! - ay! * 
+bx!<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+'Normalize<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mag! = SQR(xnormal! ^ 2 
++ ynormal! ^ 2 + znormal! ^ 2)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF 
+Mag! &lt;&gt; 0 
+THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+xnormal! = xnormal! / 
+Mag!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ynormal! = ynormal! / 
+Mag!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+znormal! = znormal! / Mag!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END 
+IF<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v(i).x = xnormal! 'this 
+is our face normal<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v(i).y = 
+ynormal!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v(i).z = 
+znormal!<br><br>&nbsp;&nbsp;&nbsp; NEXT i<br></font></b><font face="Courier New" size="3"><br><i>Q: "You expect me to do this is real-time?!!!" "That 
+square-<br>root alone would make my renders slow as hell!!"<br>A: No. You only 
+need to do this when setting up your renders.<br>ie. Only do this once, and at 
+the top of your proggie.<br></i><br>&nbsp;&nbsp;&nbsp; Now that we have our 
+normal, we define a light source. Your light source is also a vector. Be sure 
+that both vectors<br>are normalized.<br><br>ie.<br></font><font color="#800000" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp;</b></font><font face="Courier New" size="3"> </font><font color="#800000" face="Courier New" size="2"><b>Light.x\<br>&nbsp;&nbsp;&nbsp; Light.y &gt; The light 
+vector&nbsp;<br>&nbsp;&nbsp;&nbsp; Light.z/<br><br>&nbsp;&nbsp;&nbsp; 
+Polynormal.x\<br>&nbsp;&nbsp;&nbsp; Polynormal.y &gt; The Plane 
+normal<br>&nbsp;&nbsp;&nbsp; Polynormal.z/<br></b></font></p>
+<p align="center"><img border="0" height="200" src="chapter3_files/DotProduct.gif" width="400"></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp; The angle in 
+the pic is the <b><i>incident angle</i></b> between the light and the plane 
+normal.&nbsp; the <b><i>angle is</i></b> <b><i>inversely proportional to the 
+intensity of light.</i></b>&nbsp; So the lesser the angle, the more intense the 
+light.&nbsp; But how do we get the intensity?&nbsp; Fortunately, there is an 
+easy way to calculate the light.&nbsp; All we have to do is get the Dot product 
+between these vectors!!! Since the dot returns a scalar value ,Cosine(angle), we 
+can get the brightness factor by just multiplying the Dot<br>product by the 
+color range!!! In screen 13: Dot*255.<br><br></font><b><font color="#800080" face="Courier New" size="3"><i>QBCode:<br></i></font><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; nx! = 
+PolyNormal.x<br>&nbsp;&nbsp;&nbsp; ny! = PolyNormal.y<br>&nbsp;&nbsp;&nbsp; nz! 
+= PolyNormal.z<br>&nbsp;&nbsp;&nbsp; lx! = LightNormal.x<br>&nbsp;&nbsp;&nbsp; 
+ly! = LightNormal.y<br>&nbsp;&nbsp;&nbsp; lz! = 
+LightNormal.z<br>&nbsp;&nbsp;&nbsp; Dot! = (nx! * lx!) + (ny! * ly!) + (nz! * 
+lz!)<br>&nbsp;&nbsp;&nbsp; IF Dot! &lt; 0 then Dot! = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Clr = Dot! * 
+255<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FlatTri x1, y1, x2, y2, x3, 
+y3, Clr<br>&nbsp;&nbsp;&nbsp; end if<br></font></b><font face="Courier New" size="3"><br><br>Here's an example file in action:<br><br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/LAMBERT.BAS"><b>Lambert.Bas<br></b></a><br><font color="#000080"><b>2. Gouraud Shading<br></b></font><br>&nbsp;&nbsp;&nbsp; After 
+the lambert shading, we progress into gouraud shading.Q: But how do we find a 
+normal to a point? A: You can't.&nbsp; There is no normal to a point.&nbsp; The 
+cross-product is exclusive to planes(3d) so you just can't.&nbsp; You don't have 
+to worry though, as there are ways around this problem.</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp; What we need 
+to do is to find adjacent faces that the vertex is located and average their 
+<b><i>face normals</i></b>.&nbsp; It's an approximation but it works!</font></p>
+<p><font face="Courier New" size="3">Let: V()= Face normal; V2() 
+vertexnormal<br></font><b><i><font color="#800080" face="Courier New" size="3">QBcode:<br></font></i><font color="#800080" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; FOR i = 1 TO 
+Numvertex<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xnormal! = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ynormal! = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; znormal! = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FaceFound = 
+0<br>&nbsp;&nbsp;&nbsp; FOR j = 0 TO 
+UBOUND(Poly)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF Poly(j).P1 = i OR 
+Poly(j).P2 = i OR Poly(j).P3 = i 
+THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+xnormal! = xnormal! + 
+v(j).x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ynormal! = ynormal! + 
+v(j).y<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+znormal! = znormal! + 
+v(j).z<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+FaceFound = FaceFound + 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Face 
+adjacent<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END 
+IF<br>&nbsp;&nbsp;&nbsp; NEXT j<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+xnormal! = xnormal! / FaceFound<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ynormal! = ynormal! / FaceFound<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+znormal! = znormal! / FaceFound<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+v2(i).x = xnormal!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Final vertex 
+normal<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v2(i).y = 
+ynormal!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v2(i).z = 
+znormal!<br>&nbsp;&nbsp;&nbsp; NEXT i</font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; Now that 
+you have calculated the vertex normals, you only have to pass the rotated vertex 
+normals into our gouraud filler!!! ie. Get the dot product between the rotated 
+vertex normals and multiply it with the color range. The product is your color 
+coordinates.&nbsp;</font></p>
+<p><b><font color="#800080" face="Courier New" size="3"><i>QBcode:</i></font></b></p>
+<p><font color="#800080" face="Courier New" size="2"><b>IF znormal &lt; 0 
+THEN<br>&nbsp;&nbsp;&nbsp; nx1! = CubeVTXNormal2(Poly(i).P1).X 
+'Vertex1<br>&nbsp;&nbsp;&nbsp; ny1! = 
+CubeVTXNormal2(Poly(i).P1).Y<br>&nbsp;&nbsp;&nbsp; nz1! = 
+CubeVTXNormal2(Poly(i).P1).Z<br>&nbsp;&nbsp;&nbsp; nx2! = 
+CubeVTXNormal2(Poly(i).P2).X 'Vertex2<br>&nbsp;&nbsp;&nbsp; ny2! = 
+CubeVTXNormal2(Poly(i).P2).Y<br>&nbsp;&nbsp;&nbsp; nz2! = 
+CubeVTXNormal2(Poly(i).P2).Z<br>&nbsp;&nbsp;&nbsp; nx3! = 
+CubeVTXNormal2(Poly(i).P3).X 'Vertex3<br>&nbsp;&nbsp;&nbsp; ny3! = 
+CubeVTXNormal2(Poly(i).P3).Y<br>&nbsp;&nbsp;&nbsp; nz3! = 
+CubeVTXNormal2(Poly(i).P3).Z<br><br>&nbsp;&nbsp;&nbsp; lx! = 
+LightNormal.X<br>&nbsp;&nbsp;&nbsp; ly! = LightNormal.Y<br>&nbsp;&nbsp;&nbsp; 
+lz! = LightNormal.Z<br><br>&nbsp;&nbsp;&nbsp; 'Calculate dot-products of vertex 
+normals<br>&nbsp;&nbsp;&nbsp; Dot1! = (nx1! * lx!) + (ny1! * ly!) + (nz1! * 
+lz!)<br>&nbsp;&nbsp;&nbsp; IF Dot1! &lt; 0 THEN 
+'Limit<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dot1! = 
+0<br>&nbsp;&nbsp;&nbsp; ELSEIF Dot1! &gt; 1 THEN<br>&nbsp;&nbsp;&nbsp; Dot1! = 
+1<br>&nbsp;&nbsp;&nbsp; END IF<br>&nbsp;&nbsp;&nbsp; Dot2! = (nx2! * lx!) + 
+(ny2! * ly!) + (nz2! * lz!)<br>&nbsp;&nbsp;&nbsp; IF Dot2! &lt; 0 
+THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dot2! = 
+0<br>&nbsp;&nbsp;&nbsp; ELSEIF Dot2! &gt; 1 
+THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dot2! = 
+1<br>&nbsp;&nbsp;&nbsp; END IF<br>&nbsp;&nbsp;&nbsp; Dot3! = (nx3! * lx!) + 
+(ny3! * ly!) + (nz3! * lz!)<br>&nbsp;&nbsp;&nbsp; IF Dot3! &lt; 0 
+THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dot3! = 
+0<br>&nbsp;&nbsp;&nbsp; ELSEIF Dot3! &gt; 1 
+THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dot3! = 
+1<br>&nbsp;&nbsp;&nbsp; END IF<br><br>&nbsp;&nbsp;&nbsp; 'multiply by color 
+range<br>&nbsp;&nbsp;&nbsp; clr1 = Dot1! * 255<br>&nbsp;&nbsp;&nbsp; clr2 = 
+Dot2! * 255<br>&nbsp;&nbsp;&nbsp; clr3 = Dot3! * 255<br><br>&nbsp;&nbsp;&nbsp; 
+GouraudTri x1, y1, clr1, x2, y2, clr2, x3, y3, clr3<br>END IF</b></font></p>
+<p><font face="Courier New">Here's and example file:</font></p>
+<p><font face="Courier New"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/GOURAUD.BAS"><b>Gouraud.Bas</b></a></font></p>
+<p><font color="#000080" face="Courier New"><b>3. Phong Shading(Fake) 
+</b></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; Phong 
+shading is a shading technique which utilizes diffuse, ambient and specular 
+lighting.&nbsp; The only way to do Real phong shading is on a per-pixel basis. 
+Here's the equation:</font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>Intensity=Ambient + Diffuse 
+* (L � N) + Specular * (R � V)^Ns<br></b></font></p>
+<p><font color="#000000" face="Courier New">Where:</font></p>
+<p><font color="#000000" face="Courier New"><b>Ambient</b> = This is the light 
+intensity that the objects reflect upon the environment.&nbsp; It reaches even 
+in shadows.</font></p>
+<p><font color="#000000" face="Courier New"><b>Diffuse</b> = Light that scatters 
+in all direction</font></p>
+<p><font color="#000000" face="Courier New"><b>Specular</b> = Light intensity that 
+is dependent on the angle between your eye vector and the reflection 
+vector.&nbsp; As the angle between them increases, the less intense it 
+is.</font></p>
+<p><font color="#000000" face="Courier New"><b>L.N </b>= The dot product of the 
+Light(L) vector and the Surface Normal(N)</font></p>
+<p><font color="#000000" face="Courier New"><b>R.V </b>= The dot product of the 
+Reflection(R) and the View(V) vector.</font></p>
+<p><font color="#000000" face="Courier New"><b>Ns</b> = is the specular intensity 
+parameter, the greater the value, the more intense the specular light 
+is.</font><br></p>
+<p><font face="Courier New">*L.N could be substututed to R.V which makes our 
+equation:</font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>Intensity=Ambient + Diffuse 
+* (L � N) + Specular * (L � N)^Ns<br></b></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#800000" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#000000" face="Courier New" size="3">Technically, <i><b>this should be done for every pixel of the polygon. 
+</b></i>But since we are making real-time engines and using QB, this is almost 
+an impossibilty. :*(</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#000000" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; Fortunately, there are some ways around 
+this.&nbsp; Not as good looking but works nonetheless.&nbsp; One way is to make 
+a phong texture and use environment mapping to simulate light.&nbsp; Another way 
+is to modify your palette and use gouraud filler to do the job.&nbsp; How do we 
+do it then?&nbsp; Simple! Apply the equation to the RGB values of your 
+palette!!!</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; First we 
+need to calculate the angles for every, color index in our pal.&nbsp; We do this 
+by interpolating our <b><i>Normals' angle(90 degrees)</i></b> and <b><i>Light 
+vectors'</i></b> angle with the color range.</font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>PseudoCode:</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>Range = 255 - 
+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'screen 13</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>Angle! = PI / 
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '90 degrees</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>Anglestep! = 
+Angle!/Range&nbsp; 'interpolate</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>For Every color 
+index...</b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Dot! = Cos(Angle!)</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+'''Apply equation</font></b></font></p>
+<p><b><font color="#000080" size="2">&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+'RED</font></font></b></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Diffuse! = RedDiffuse * Dot!&nbsp;</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Specular! = RedSpecular + (Dot! ^Ns)</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Red% = RedAmbient! + Diffuse! + Specular!</font></b></font></p>
+<p><b><font color="#000080" size="2">&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+'GREEN</font></font></b></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Diffuse! = GreenDiffuse * Dot!&nbsp;</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Specular! = GreenSpecular + (Dot! ^Ns)</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Green% = GreenAmbient! + Diffuse! + Specular!</font></b></font></p>
+<p><b><font color="#000080" size="2">&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+'BLUE</font></font></b></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Diffuse! = BlueDiffuse * Dot!&nbsp;</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Specular! = BlueSpecular + (Dot! ^Ns)</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+Red% = BlueAmbient! + Diffuse! + Specular!</font></b></font></p>
+<p><font color="#800000" size="2"><b>&nbsp;&nbsp;&nbsp;<font face="Courier New"> 
+WriteRGB(Red%,Green%,Blue%,ColorIndex)</font></b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>&nbsp; Angle! = 
+AngleStep!</b></font></p>
+<p><font color="#800000"><font color="#800000" face="Courier New" size="2"><b>Loop 
+until maxcolor&nbsp;&nbsp;</b></font></font></p>
+<p><font color="#000000" face="Courier New"><b><i>* This idea came from a Cosmox 
+3d demo by Bobby 3999.&nbsp; Thanks a bunch!</i></b></font></p>
+<p><font face="Courier New">Here's an example file:</font></p>
+<p><b><font face="Courier New"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/PHONG.BAS">Phong.bas</a></font></b><font face="Courier New" size="3"><b> <font color="#000080"><a href="file:///C:/My%20Documents/My%20Webs/3dTutes/Chapter3/Files/PHONG.BAS"><br></a></font></b></font></p>
+<p><b><font color="#000080" face="Courier New" size="3">4. Texture 
+Mapping</font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#000080" face="Courier New" size="3"><b>&nbsp;&nbsp;&nbsp;&nbsp; </b></font><font color="#000000" face="Courier New" size="3">Texture mapping is a type of fill that uses a 
+Texture(image) to fill a polygon. Unlike our previous fills, this one "plasters" 
+an image(the texture) on your cube.&nbsp; I'll start by explaining what are 
+those U and V coordinates in the Affine mapper part of the article.&nbsp; The U 
+and V coordinates are the Horizontal and vertical coordinates of the bitmap(our 
+texture).&nbsp; How do we calculate those coordinates?&nbsp; Fortunately, most 
+3d modelelers already does this for us automatically. :*).</font></p>
+<p><font color="#000000" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+However, if you like to make your models the math way, that is generating them 
+mathematically, you have to calculate them by yourself.&nbsp; What I do is 
+divide the quad into two triangles and blast the texture coordinates on loadup. 
+Lookat the diagram to see what I mean.</font></p>
+<p><font color="#000000" face="Courier New" size="3">*Textsize is the width or 
+height of the bitmap</font></p>
+<p><font color="#800080" face="Courier New" size="3"><b><i>QBcode:</i></b></font></p>
+<p><font color="#800080" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp; FOR j = 1 
+TO UBOUND(Poly)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u1 = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v1 = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u2 = 
+TextSize%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v2 = 
+TextSize%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u3 = 
+TextSize%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v3 = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).u1 = 
+u1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).v1 = 
+v1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).u2 = 
+u2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).v2 = 
+v2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).u3 = 
+u3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).v3 = 
+v3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j = j + 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u1 = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v1 = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u2 = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v2 = 
+TextSize%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u3 = 
+TextSize%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v3 = 
+TextSize%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).u1 = 
+u1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).v1 = 
+v1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).u2 = 
+u2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).v2 = 
+v2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).u3 = 
+u3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Poly(j).v3 = 
+v3<br>&nbsp;&nbsp;&nbsp; NEXT j<br></b></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#000000" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; After loading the textures, you just call the 
+TextureTri sub passing the right parameters and it would texture your model for 
+you.&nbsp; It's a good idea to make a 3d map editor that let's you pass texture 
+coordinates, instead of calculating it on loadup. Here's a code snippet to draw 
+a textured poly.</font></p>
+<p><font color="#800080" face="Courier New" size="3"><b><i>QBcode:</i></b></font></p>
+<p><font color="#800080" face="Courier New" size="2"><b>u1 = Poly(i).u1 'Texture 
+Coords<br>v1 = Poly(i).v1<br>u2 = Poly(i).u2<br>v2 = Poly(i).v2<br>u3 = 
+Poly(i).u3<br>v3 = Poly(i).v3<br>TextureTri x1, y1, u1, v1, x2, y2, u2, v2, x3, 
+y3, u3, v3, TSEG%, TOFF%<br>END IF<br></b></font></p>
+<p><font color="#000000" face="Courier New" size="3"><b><i>*Tseg% and Toff% are the 
+Segment and Offset of the Bitmap.</i></b></font></p>
+<p><font color="#000000" face="Courier New" size="3">Here's an example 
+file:</font></p>
+<p><font color="#000000" face="Courier New" size="3"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/TEXTURE.BAS"><b>Texture.Bas</b></a></font></p>
+<p><b><font color="#000080" face="Courier New" size="3">5. Environment 
+Mapping</font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#000080" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#000000" face="Courier New" size="3">Environment mapping(also called Reflection Mapping) is a way to display a 
+model as if it's reflecting a surface in front of it.&nbsp; Your model looks 
+like a warped-up mirror! It looks so cool, I jumped off my chair when I first 
+made one. :*) We texture our model using the texture mapper passing a 
+vertex-normal modified texture coordinate.&nbsp; What does it mean?&nbsp; It 
+means we calculate our texture coordinate using our vertex normals!</font></p>
+<p><font color="#000000" face="Courier New" size="3">Here's the formula:</font></p>
+<p><b><font color="#000080" face="Courier New" size="2">TextureCoord = 
+Wid/2+Vertexnormal*Hie/2</font></b></p>
+<p><font color="#000000" face="Courier New" size="3">Where:</font></p>
+<p><font color="#000000" face="Courier New" size="3">Wid = Width of the 
+bitmap</font></p>
+<p><font color="#000000" face="Courier New" size="3">Hei = Height of the 
+bitmap</font></p>
+<p><font color="#000000" face="Courier New" size="3">Now, assuming your texture has 
+the same width and height:</font></p>
+<p><b><font color="#800080" face="Courier New" size="3"><i>QBcode:</i></font></b></p>
+<p><b><font color="#800080" face="Courier New" size="2">Tdiv2! = Textsize% / 
+2<br>FOR i = 1 TO UBOUND(Poly)<br>&nbsp;&nbsp;&nbsp; u1! = Tdiv2! + 
+v(Poly(i).P1).x * Tdiv2! 'Vertex1<br>&nbsp;&nbsp;&nbsp; v1! = Tdiv2! + 
+v(Poly(i).P1).y * Tdiv2!<br>&nbsp;&nbsp;&nbsp; u2! = Tdiv2! + v(Poly(i).P2).x * 
+Tdiv2! 'Vertex2<br>&nbsp;&nbsp;&nbsp; v2! = Tdiv2! + v(Poly(i).P2).y * 
+Tdiv2!<br>&nbsp;&nbsp;&nbsp; u3! = Tdiv2! + v(Poly(i).P3).x * Tdiv2! 
+'Vertex3<br>&nbsp;&nbsp;&nbsp; v3! = Tdiv2! + v(Poly(i).P3).y * 
+Tdiv2!<br>&nbsp;&nbsp;&nbsp; Poly(i).u1 = u1!<br>&nbsp;&nbsp;&nbsp; Poly(i).v1 = 
+v1!<br>&nbsp;&nbsp;&nbsp; Poly(i).u2 = u2!<br>&nbsp;&nbsp;&nbsp; Poly(i).v2 = 
+v2!<br>&nbsp;&nbsp;&nbsp; Poly(i).u3 = u3!<br>&nbsp;&nbsp;&nbsp; Poly(i).v3 = 
+v3!<br>NEXT i<br></font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; After 
+setting up the vertex normals and the texture coordinates, inside your 
+rasterizing loop:</font></p>
+<p>&nbsp;</p>
+<p><font color="#000000" face="Courier New"><b><i>1.&nbsp; Rotate Vertex 
+normals</i></b></font></p>
+<p><font color="#000000" face="Courier New"><b><i>2.&nbsp; Calculate texture 
+coordinates</i></b></font></p>
+<p><b><font color="#000000"><i><font face="Courier New">3.&nbsp; Draw 
+model</font>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></i></font></b></p>
+<p>&nbsp;&nbsp;&nbsp;<font color="#000000" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#000000" face="Courier New" size="3">That's it!&nbsp; Your own environment mapped rotating object. 
+;*)</font></p>
+<p><font color="#000000" face="Courier New" size="3">Here's a demo:</font></p>
+<p><font color="#000000" face="Courier New" size="3"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/ENVMAP.BAS"><b>Envmap.bas</b></a></font></p>
+<p><font color="#000000" face="Courier New" size="3">Another one that simulates 
+textures with phong shading using a phongmapped texture.</font></p>
+<p><font face="Courier New"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/PHONG2.BAS"><b>Phong2.bas</b></a></font></p>
+<p>&nbsp;</p>
+<p><b><font color="#800000" face="Courier New" size="3"><i>Playing with 
+colors!!!</i></font></b></p>
+<p><b><font color="#000080" face="Courier New" size="3">6. Shading in 
+multicolor</font></b></p>
+<p><font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Our previous 
+shading techniques, Lambert, gouraud, and phong, looks good but you are limited 
+to a single gradient. Not a good fact if you want to use colors.&nbsp; But using 
+colors in screen 13 limits you to flat shading.&nbsp; I bet you would want a 
+gouraud or phong shaded colored polygons right?&nbsp; Well, lo and behold! There 
+is a little way around this problem. :*) </font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; We 
+use a subdivided gradient palette! A subdivided gradient palette divides your 
+whole palette into gradients of colors limited to its subdivision.&nbsp; Here's 
+a little palette I made using data statements and the gradcolor sub.</font></p>
+<p align="center"><img border="0" height="162" src="chapter3_files/Gradient.gif" width="163"></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; If 
+you look closely, each line starts with a dark color and progresses to an 
+intense color.&nbsp; And if you understood how our fillers work, you'll get the 
+idea of modifying the fillers to work with this pal.&nbsp; Okay, since I'm 
+feeling good today, I'll just give it to you. After you calculated the 
+Dot-product between the light and poly normals:</font></p>
+<p><font face="Courier New" size="3"><b><i>*This assumes a 16 color gradient 
+palette.&nbsp; You could make it 32 or 64 if you want. Of course if you make it 
+32, you should multiply by 32 instead of 16. :*)</i></b></font></p>
+<p><font color="#800080" face="Courier New" size="3"><b><i>QBcode:&nbsp;</i></b></font></p>
+<p><font color="#800080" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp; Clr1 = 
+(Dot1! * 16) + Poly(j).Clr '16 color grad<br>&nbsp;&nbsp;&nbsp; Clr2 = (Dot2! * 
+16) + Poly(j).Clr<br>&nbsp;&nbsp;&nbsp; Clr3 = (Dot3! * 16) + 
+Poly(j).Clr<br><br>&nbsp;&nbsp;&nbsp; GouraudTri x1, y1, Clr1, x2, y2, Clr2, x3, 
+y3, Clr3</b></font></p>
+<p>&nbsp;</p>
+<p><font color="#000000" face="Courier New" size="3">Here's an example:</font></p>
+<p><b><font color="#000000" face="Courier New" size="3"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/3DCOLORS.BAS">3dColors.bas</a></font><font color="#800080" face="Courier New" size="2"><a href="file:///C:/My%20Documents/My%20Webs/3dTutes/Chapter3/Files/3DCOLORS.BAS"><br></a></font></b></p>
+<p><font color="#000080" face="Courier New"><b>7. Translucency </b></font></p>
+<p>&nbsp;&nbsp; <b><font color="#000080" face="Courier New" size="3">&nbsp;&nbsp;&nbsp;&nbsp; </font></b><font color="#000000" face="Courier New" size="3">A lot of people have asked me about the algo behind my 
+translucent teapot in <b><i>Mono and Disco</i></b>.&nbsp; It's not that hard 
+once you know how to make a translucent pixel.&nbsp; This is not really TRUE 
+translucency, It's a gradient-based blending algorithm.&nbsp; You make a 16 
+color gradient palette and apply it to the color range(Same grad above. 
+:*)).</font></p>
+<p><b><font color="#800080" face="Courier New" size="3">PseudoCode:</font></b></p>
+<p><font color="#800000" face="Courier New" size="2"><b>For Every pixel in the 
+poly...</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>TempC = PolyPixel and 
+15</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>BaseColor = PolyPixel - 
+TempC</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>DestC = 
+Color_Behind_Poly_Pixel and 15</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>C =&nbsp; (TempC + 
+DestC)/2</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>C = C + 
+Basecolor</b></font></p>
+<p><font color="#800000" face="Courier New" size="2"><b>Pset(x,y),C<br></b></font><font face="Courier New" size="3"><br>&nbsp;&nbsp; <font color="#000000">What this does for every pixel is to 
+average the polygons color with the color behind it(the screen or buffer) and 
+add it to the basecolor.&nbsp; The basecolor is the starting color for each 
+gradient.&nbsp; Ie. (0-15): 0 is the base color; (16 to 31): 16 is the base 
+color. Hence the AND 15.&nbsp; Of course, you can make it a 32 color gradient 
+and AND it by 31. :*)</font> <br><br>Here's a little demo of Box translucency I 
+made for my Bro. Hex. ;*)</font></p>
+<p><font color="#000080" face="Courier New" size="3"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/TRANSHEX.BAS"><b>Transhex.bas</b></a></font></p>
+<p><font face="Courier New" size="3">Here's the 3d translucency demo:</font></p>
+<p><font color="#000080" face="Courier New" size="3"><b><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/TRANSLUC.BAS">Transluc.Bas</a></b></font></p>
+<p>&nbsp;</p>
+<p><font color="#800000" face="Courier New" size="4"><b>Final Words:</b></font></p>
+<p>&nbsp;&nbsp; <font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; To make good 
+models, use a 3d modeler and import it as an OBJ file as it's easy to read 3d 
+Obj files.&nbsp; Lightwave3d and Milkshape3d can import their models in the OBJ 
+format. In fact I made a loader myself. ;*) Note that some models does not have 
+textures, notably, Ship.l3d, fighter.l3d, etc. The only ones with saved textures 
+are&nbsp; Cubetext, Maze2, TriforcT, and Pacmaze2.</font></p>
+<p><font face="Courier New">Zipped with OBJs:</font></p>
+<p><font face="Courier New"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/LoadObj.zip"><b>LoadObj.zip</b></a></font></p>
+<p><font face="Courier New">Bas File:</font></p>
+<p><font face="Courier New"><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter3/Files/LOADL3D.BAS"><b>LoadL3d.bas</b></a></font></p>
+<p>&nbsp;&nbsp; <font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; This article 
+is just a stepping stone for you into bigger things like Matrices, viewing 
+systems and object handling.&nbsp; I hope you learned something from this 
+article as this took me a while to write.&nbsp; Making the example files felt 
+great though. :*) Any questions, errors in this doc, etc., you can post 
+questions at <a href="http://forum.qbasicnews.com/">http://forum.qbasicnews.com/</a>. Chances 
+are, I would see it there. </font></p>
+<p>&nbsp;&nbsp; <font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp; Next article, 
+I will discuss Matrices and how to use them effectively on your 3d engine. I 
+would also discuss polygon clipping and probably, if space permits, 3d viewing 
+systems.&nbsp; So bye for now, Relsoft, signing off...</font></p>
+<p><font face="Courier New"><a href="http://rel.phatcode.net/">http://rel.phatcode.net/</a></font></p>
+<p><font face="Courier New"><a href="mailto:vic_viperph@yahoo.com">vic_viperph@yahoo.com</a></font></p>
+<p><font color="#800000" face="Courier New" size="4"><b>Credits:</b></font></p>
+<p><font face="Courier New"><i>God for making me a little healthier. 
+;*)</i></font></p>
+<p><font face="Courier New"><i>Dr. Davidstien for all the 3d OBJs. 
+</i></font></p>
+<p><font face="Courier New"><i>Plasma for SetVideoSeg</i></font></p>
+<p><font face="Courier New"><i>Biskbart for the Torus</i></font></p>
+<p><font face="Courier New"><i>Bobby 3999 for the Phong sub</i></font></p>
+<p><font face="Courier New"><i>CGI Joe for the original 
+polyfillers</i></font></p>
+<p><font face="Courier New"><i>Blitz for the things he taught me.</i></font></p>
+<p><font face="Courier New"><i>Toshi for the occasional help</i></font></p>
+<p>&nbsp;</p>
+</body></html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html class=" joqnjvjj idc0_350"><head><title>Matrices are your friends��</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="Microsoft FrontPage 4.0" name="GENERATOR">
+<meta content="FrontPage.Editor.Document" name="ProgId"></head>
+<body>
+<p align="center"><b><font color="#000080" face="Courier New" size="5">Matrices are 
+your friends</font></b> </p>
+<p align="left"><font face="Courier New"><br><b><font color="#0000ff" size="4">Introduction</font></b> </font></p>
+<p><font face="Courier New"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Matrices are useful in 3d graphics. Not only are they fast, but once you get 
+used to them, it makes things a lot simpler. Matrices are better than standard 
+equations for these reasons:<br></font></p>
+<p><font face="Courier New">1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Actions(transformations) such as scaling, rotation and translation can be easily 
+kept track because you only need to keep track of the matrix and forget about 
+your 3d coordinates.<br></font></p>
+<p><font face="Courier New">2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+It's a one-pass transform. Which means you can make as many matrices as you want 
+and combine it in one single matrix to do all the transformations for you. 
+Simplicity at its best!!!</font></p>
+<p><font face="Courier New"><br>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You 
+are not limited to just the XYZ angle system when viewing your virtual world. 
+You could make a <i><font color="#0000ff">Lookat</font></i> function to make 
+things even simpler!!!(I'll get to that in another article)<br></font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+For this article, I'm going to discuss matrices and their applications. I'm 
+gonna start with the use of matrices in solving systems of linear equations, the 
+basic operations on matrices and their applications in 3d graphics. I might be 
+able to put in some code and algos in between. Don't worry, matrices are not as 
+hard as you thought they are. :*). I'm gonna be discussing those things you'd 
+need in making a 3d game engine using matrices. Which means that most matrix 
+stuff I'm going to include in here are the easy ones. So without further 
+ado....<br></font></p>
+<p><font face="Courier New">Systems of linear equations<br>Remember the linear 
+equation...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">ax 
++ by = c?&nbsp;<br></font><br>No? How about 
+this?<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">y = mx + 
+b?</font><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This two equations 
+are just two of the many forms of linear equations. The first one<font color="#0000ff">(ax+by=c)</font> is the <font color="#0000ff"><i>"standard</i></font>" form and <font color="#0000ff">y=mx+b</font> is the <font color="#0000ff"><i>"slope-intercept"</i></font> form. We'll be discussing the 
+standard form when dealing with matrices.</font></p>
+<p><font face="Courier New"><br>Given 2 
+equations:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">2x 
+- 3y = 1<br></font>and<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">3x + 2y = 8</font><br></font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+How do you get the solution to both equations? The solution is actually the 
+<i><b>"intersection"</b></i> of both lines defined by the above equations. For 
+those who have done some algebra, we know that there are a number of ways to 
+find the solution.</font></p>
+<p><font face="Courier New">&nbsp;They are:<br><font color="#0000ff"><i>1. 
+Graphing<br>2. Substitution&nbsp;<br>3. Elimination<br></i></font><br><b>Solving 
+via elimination:<br></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">2x - 3y = 1 </font><i><font color="#ff0000">equ 1</font><font color="#0000ff"><br></font></i><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3x + 2y = 8 
+</font><i><font color="#ff0000">equ 2</font></i><font color="#0000ff"><br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Make the 
+coeficients of x the same by multiplying equ 1 by 3 and equ 2 by 2 then 
+subtract.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#ff0000">3*</font><font color="#0000ff">[2x - 3y = 1]</font><font color="#ff0000">*3</font><font color="#0000ff"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#ff0000">2*</font><font color="#0000ff">[3x + 2y = 8]</font><font color="#ff0000">*2</font><font color="#0000ff"><br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">6x - 9y = 3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6x + 4y 
+= 16<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+------------------<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 
+13y = -13 ---&gt;</font><font color="#ff0000"> /-13<br></font><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+y = 1<br></font><br>Using back substitution(equ 1):<br><br><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2x - 3(1) = 
+1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+2x = 1 + 3 ---&gt;</font><font color="#ff0000">/2<br></font><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+x = 2<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The solution is 
+<font color="#0000ff">(2,1)<br></font></font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+However when made into code, this is very cumbersome and not flexible. What we 
+need is an algorithmic way to solve the system. And the answer is the matrix. 
+How do we go about solving this system using a matrix? First let me discus the 
+<font color="#0000ff">ECHELON </font>method of solving this system as it's almost 
+parallel to the matrix method except for the last part.<br><br><b>Solving via 
+the Echelon 
+method:<br></b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#0000ff">2x - 3y = 1&nbsp;</font><i><font color="#ff0000">&nbsp;&nbsp;&nbsp;</font></i><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</font><i><font color="#ff0000">equ 1</font></i><font color="#0000ff"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+3x + 2y = 8 &nbsp;</font><i><font color="#ff0000">&nbsp;&nbsp;&nbsp;</font></i><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><i><font color="#ff0000">equ 2</font></i><font color="#0000ff"><br></font><br>1. Multiply 
+both sides of equ 1 by 1/2 so that x will have a coefficient of 
+1.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">x - 3/2y = 1/2&nbsp;</font><i><font color="#ff0000">&nbsp;&nbsp;&nbsp;</font></i><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><i><font color="#ff0000">equ 3<br></font></i><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+3x +&nbsp; 2y = 8&nbsp;<br></font><br>2. Eliminate x from equ 2 by adding (-3) 
+times equ 3 to equ 2.<br><i><font color="#ff0000">&nbsp;&nbsp;&nbsp;</font></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<i><font color="#ff0000">-3 *</font></i><font color="#0000ff">[x - 3/2y = 
+1/2]</font><font color="#ff0000"><i>* 
+-3</i></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">-3x + 9/2y = 
+-3/2</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#0000ff">3x + 2y = 8</font> <font color="#ff0000" size="2"><b>--&gt;</b></font> <i><font color="#ff0000" size="2"><b>make 2y and 8 
+similar to 9/2 y and -3/2.</b></font></i><br>ie. <i><font color="#ff0000">2y= 4/2y 
+; 8 = 
+16/2<br></font></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#0000ff">-3x + 9/2y = 
+-3/2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+3x + 4/2y = 
+16/2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+----------------------<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+13/2y = 
+13/2&nbsp;<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"> y = 1</font>&nbsp;<i><font color="#ff0000">&nbsp;&nbsp;&nbsp;</font></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<i><font color="#ff0000">equ 4<br></font></i><br>&nbsp;&nbsp;&nbsp;&nbsp; 
+so.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#0000ff">x - 3/2y = 1/2</font>&nbsp;<i><font color="#ff0000">&nbsp;&nbsp;&nbsp;</font></i>&nbsp;&nbsp;&nbsp;&nbsp; <i><font color="#ff0000">equ 
+3&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</font></i><font color="#0000ff">y = 1&nbsp;</font><i><font color="#ff0000">&nbsp;&nbsp;&nbsp;</font></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#ff0000"><i>equ 4</i></font><br><br>&nbsp;&nbsp;&nbsp; * Using back 
+substitution in equ 1, <font color="#0000ff">x = 
+2.</font>&nbsp;<br>&nbsp;&nbsp;&nbsp; * look at the coefficients of x and y. 
+They both have&nbsp;&nbsp;&nbsp;&nbsp; coefficients of 1 arranged diagonally. 
+ie..<br><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;<font color="#0000ff" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1x + y = 
+c&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1y = c<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This is called 
+the TRIANGULAR or LOW ECHELON form of the system. Be sure to remember this as we 
+well be encountering this a lot of times. And now, what you've been waiting 
+for!!!!<br><br><b>Solving the system the Matrix way!!! </b></font></p>
+<p><b><font face="Courier New">RULES:</font></b></p>
+<p><i><font color="#000080" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A. Any two rows may be 
+interchanged. This is useful if one of the equations' x-term has a coefficient 
+of 1.</b></font></i></p>
+<p><i><font color="#000080" face="Courier New" size="2"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B. The Elements of any row 
+may be multiplied by any non-zero real number.</b></font></i></p>
+<p><font face="Courier New"><b><font color="#000080" size="2"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C. Any row may be changed b 
+adding to its elements a multiple of the elements of another 
+row.<br></i></font></b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#0000ff">2x - 3y = 
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><i><font color="#ff0000">equ 1</font></i> <font color="#0000ff"><i><br></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+3x + 2y = 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#ff0000"><i>equ 2</i></font><br><br>1. We first write the system in rows 
+and columns. This is called the <b>AUGMENTED </b>matrix. Be sure that each 
+equation is in standard form <i><font color="#0000ff">(ax + by = 
+c)</font></i>.&nbsp;<br>* This is parallel to the Echelon method above so be 
+sure to check from time to time.<br></font></p>
+<table border="1" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" style="COLOR: #0000ff; FONT-FAMILY: Arial; FONT-WEIGHT: bold" width="53%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">2&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">-3&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">1</font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">3&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">2&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">8</font></td></tr></tbody></table>
+<p><font face="Courier New">*Note we only used the numeric coefficients.<br>*2, 
+-3, 1 , 3, 2 and 8 are called the <b>ELEMENTS</b> of the matrix and 2 is located 
+at row1,col1; 8 at row2, col3; and so on...<br><br>2. To get 1 in row1, col1 we 
+multiply the first row by 1/2.<br>&nbsp;</font></p>
+<table border="1" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" style="COLOR: #0000ff; FONT-FAMILY: Arial; FONT-WEIGHT: bold" width="53%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">1&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">-3/2&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">1/2</font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">3&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">2&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">8</font></td></tr></tbody></table>
+<p><font face="Courier New"><br>3. Add (-3) times the elements of row1 to 
+row2.<br></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" style="COLOR: #0000ff; FONT-FAMILY: Arial; FONT-WEIGHT: bold" width="53%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">1&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">-3/2&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">1/2</font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">0&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">13/2&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">13/2</font></td></tr></tbody></table>
+<p><font face="Courier New"><br>4. To get 1 in row 2, col 2; multiply row 2 by 
+the reciprocal of 13/2 which is 2/13.<br></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" style="COLOR: #0000ff; FONT-FAMILY: Arial; FONT-WEIGHT: bold" width="53%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New"><font color="#000000">1</font>&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">-3/2&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">1/2</font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font face="Courier New">0&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><font color="#000000" face="Courier New">1&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><font face="Courier New">1</font></td></tr></tbody></table>
+<p>&nbsp;</p>
+<p><font face="Courier New">So...<br><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x - 3/2y = 
+1/2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+y = 1&nbsp;<br></font><br>See, triangular form!!!<br>Use back substitution to 
+get x.<br><br>I'll test your skills with a 3-equation system:</font></p>
+<p><font face="Courier New"><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+x +&nbsp; y -&nbsp;&nbsp; z = 
+6<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+2x -&nbsp;&nbsp; y +&nbsp; z = 
+-9<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+x - 2y + 3z = 1<br></font><br><br>We don't need to change the element i r1,c1 
+since it's already 1.<br>BTW, you can interchange any rows as you like if it 
+makes the solution easier(RuleA).<br><br>Augmented matrix:</font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="72%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#000000" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">&nbsp;6</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">2&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">&nbsp;1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-9</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">1&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-2</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">3</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">1</font></b></td></tr></tbody></table>
+<p>&nbsp;</p>
+<p><i><font face="Courier New">1.&nbsp; Eliminate the first element in row 2 by 
+adding (-2) x row 1 to row 2.</font></i></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="72%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font face="Courier New"><font color="#000000">1 </font><font color="#0000ff" face="Arial">&nbsp; </font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">&nbsp;6&nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">0 &nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-3&nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">3&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-21 </font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">1 &nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-2&nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">3 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">1 </font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br></font></p>
+<p><i><font face="Courier New">2.&nbsp; Eliminate the first element in row 3 by 
+adding (-1) x row 1 to row 3.</font></i> </p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="72%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#000000" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font face="Courier New">6 &nbsp;</font></b> </td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-3&nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font face="Courier New">&nbsp;3&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-21 </font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-3 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">4 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">&nbsp;-5 </font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><i>3.&nbsp; To get 1 in row2,col2; Multiply 
+row 2 by -1/3.</i> </font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="72%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#000000" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font face="Courier New">&nbsp;6&nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#000000" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font face="Courier New">-1&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">7 </font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-3 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">&nbsp;4 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">&nbsp;7 </font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><i>4.&nbsp; Eliminate the second element in 
+row 3 by adding (3) x row 2 to row 3.</i> </font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="72%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#000000" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font face="Courier New">&nbsp;<font color="#0000ff">6</font> &nbsp;</font></b> 
+  </td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#000000" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font face="Courier New">&nbsp; <font color="#0000ff">-1</font> &nbsp;</font></b> 
+    </td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">7 </font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="24%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">0 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#000000" face="Courier New">&nbsp; 1&nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">16</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><i>5.&nbsp; Translating this matrix to equation 
+form:</i></font></p>
+<p><font face="Courier New"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#0000ff">x + y - z = 
+6<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+y - z = 
+7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+z = 16</font><br><i>(This is the triangular form of the 
+equations)<br></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+*The method I discussed above is called the <font color="#0000ff">"GAUSSIAN 
+REDUCTION"</font>. If you don't know who <i>Karl F. Gauss</i> is then this 
+article is not for you. :*)&nbsp; j/k<br></font></p>
+<p><font face="Courier New"><br><b><font color="#0000ff" face="Arial" size="4">Properties of 
+Matrices<br></font></b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+It is customary to name Matrices with capital letters. The following is Matrix 
+A.<br>&nbsp;&nbsp;</font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="64%">
+  <tbody>
+  <tr>
+    <td align="center" bgcolor="#ffffff" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%">&nbsp;</td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><font face="Courier New"><b><font color="#0000ff">a</font></b><font color="#000000" size="1"><b>11</b></font></font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">12</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">13</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">14</font></font></b></td></tr>
+  <tr>
+    <td align="center" bgcolor="#ffffff" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">A =</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">21</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">22</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">23</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">24</font></font></b></td></tr>
+  <tr>
+    <td align="center" bgcolor="#ffffff" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%">&nbsp;</td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">31</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">&nbsp;a</font><font color="#000000" face="Arial" size="1">32&nbsp;</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">33</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">34</font></font></b></td></tr>
+  <tr>
+    <td align="center" bgcolor="#ffffff" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%">&nbsp;</td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">41</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">&nbsp;a</font><font color="#000000" face="Arial" size="1">42</font><font color="#0000ff" face="Arial">&nbsp;</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">43</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font face="Courier New"><font color="#0000ff">a</font><font color="#000000" face="Arial" size="1">44</font></font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+With this notation, the first row and first column is a11(read: "a sub 
+one-one).<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Matrices are classified according to size<i>(by the number of rows and columns 
+they contain)</i>. For example matrix A is a 4 x 4 Matrix. On the other hand our 
+matrix solution above is a 2 x 3 matrix:</font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="54%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><b><font color="#0000ff" face="Courier New">-3/2</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><b><font color="#0000ff" face="Courier New">&nbsp;1/2</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><b><font color="#0000ff" face="Courier New">1&nbsp;</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Certain matrices have special names like a <b>SQUARE</b> matrix as in 3 x 3, 2 x 
+2, Basically the same number of row and columns. A ROW matrix on the other hand 
+is just a matrix of one row. Guess what a COLUMN matrix is? :*)<br></font></p>
+<p><font face="Courier New"><br><font color="#0000ff" size="3"><b>Operations on 
+Matrices<br></b></font><br><font color="#0000ff">A. Addition of 
+matrices<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</font>To add two matrices together, add their corresponding elements. <b>ONLY 
+MATRICES OF THE SAME SIZE CAN BE ADDED</b>. Same goes for 
+subtraction.<br></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="30%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">&nbsp;5</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">-6</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">8</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">9</font></b></td></tr></tbody></table>
+<p><font face="Courier New">+</font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="30%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">-4&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">6</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">8&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">-3</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br>=</font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="30%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">5+(-4)</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">-6+6</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">8+8</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">&nbsp;9+(-3)</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br>=</font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="30%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">&nbsp;0</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">16&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">-6</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><font color="#0000ff">B. Multiplication of a 
+Matrix by a scalar 
+value.<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+To multiply a scalar value by a matrix, you just multiply all elements of the 
+matrix by the scalar value.<br></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" height="52" width="66%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="12%"><font face="Courier New"><b>5 *</b>&nbsp;</font></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">&nbsp;2&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">&nbsp;-3</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="12%"></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="13%"><b><font face="Courier New">=</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="13%"></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="13%"><b><font color="#0000ff" face="Courier New">10&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="13%"><b><font color="#0000ff" face="Courier New">-15&nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="12%"></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">4</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="12%"></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="13%"></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" height="26" valign="center" width="13%"></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="13%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="26" valign="center" width="13%"><b><font color="#0000ff" face="Courier New">20</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><font color="#0000ff">C. Multiplication of 
+Matrices</font><br><br>RULE. <font color="#000080" size="2"><b><i>You can only 
+multiply matrices if A has the same number of columns as B. ROW by 
+COLUMN.<br>Ohh this is gonna be *messy*. 
+:*)</i><br></b></font><br>Given:<br></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="72%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%"><b><font face="Courier New">A =</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-3&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">4&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">2&nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">5&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">4</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="52%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">6&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">&nbsp;4&nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%"><b><font face="Courier New">B =</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">2&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">3</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" valign="center" width="25%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">3</font></b></td>
+    <td align="center" bordercolor="#ffffff" bordercolordark="#ff0000" bordercolorlight="#ff0000" valign="center" width="25%"><b><font color="#0000ff" face="Courier New">-2</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><i>1.&nbsp; Locate row1 of A and col1 of B, 
+then multiply corresponding elements and add the products.<br></i><br><i>Row 1 
+of A</i></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="30%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><b><font color="#0000ff" face="Courier New">-3</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><b><font color="#0000ff" face="Courier New">&nbsp;4&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><b><font color="#0000ff" face="Courier New">2</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><b><font color="#0000ff">*</font></b><br><i>Column 1 
+of B</i></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="30%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><b><font color="#0000ff" face="Courier New">6</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="33%"><b><font color="#0000ff" face="Courier New">2&nbsp;&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="34%"><b><font color="#0000ff" face="Courier New">&nbsp;3</font></b></td></tr></tbody></table>
+<p><b><font color="#0000ff" face="Courier New">=</font></b></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="92%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(-3)(-6)&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">+</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(4)(2)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">&nbsp;+&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(2)(3)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">&nbsp;=&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">32</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><i>2. Next Row1 of A by Col2 of B</i></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="92%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">&nbsp;(-3)(4)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">+</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">&nbsp;(4)(3)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">&nbsp;+&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(2)(-2)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">&nbsp;=&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">&nbsp;-4</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><i><br></i>&nbsp;+ +&nbsp; =<br><br>3<i>. Row 2 of A 
+and Col 1 of B</i></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="92%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">&nbsp;(5)(-6)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">+</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(0)(2)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">&nbsp;+&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(4)(3)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">&nbsp;=&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">&nbsp;-18</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><i>4. Lastly, Row 2 of a and col 2 of 
+B</i></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="92%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font face="Courier New"><font color="#0000ff">(5)(4)</font>&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">+</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(0)(3)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">&nbsp;+&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">(4)(-2)</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">&nbsp;=&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">&nbsp;12</font></b></td></tr></tbody></table>
+<p>&nbsp;</p>
+<p><font face="Courier New"><br>The product matrix:<br></font></p>
+<table border="1" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff" cellpadding="0" cellspacing="0" width="30%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">32</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">-4</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">-18</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="50%"><b><font color="#0000ff" face="Courier New">12</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br>In general...<br><br><b><font color="#0000ff" face="Arial" size="4">C</font><font color="#ff0000" size="1">ij</font><font color="#0000ff" face="Arial" size="4">&nbsp;&nbsp; =&nbsp;&nbsp; A</font><font color="#ff0000" size="1">i1</font><font color="#0000ff" face="Arial" size="4">*B</font><font color="#ff0000" size="1">1j&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</font><font color="#0000ff" face="Arial" size="4">+&nbsp;&nbsp;&nbsp;&nbsp; 
+A</font><font color="#ff0000" size="1">i2</font><font color="#0000ff" face="Arial" size="4">*B</font><font color="#ff0000" size="1">2j</font><font color="#0000ff" face="Arial" size="4"> ...<br></font></b></font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+For Square matrices, there are two ways to multiply as they have the same number 
+of rows and columns.&nbsp; Warning: <i><font color="#000080" size="2"><b>Multiplication of matrices is not 
+commutative.</b></font></i></font></p>
+<p><font face="Courier New"><i><b><font color="#000080" size="2"><br></font></b></i>So in two 4*4 matrices, the resulting matrix is 
+calculated as...<br><br><i><b><font color="#000080">QBcode:</font></b></i></font></p>
+<hr color="#000080">
+
+<p><b><font color="#000080" face="Courier New" size="2">SUB Matrix.MulMatrix (M!(), 
+TM!())<br><br>&nbsp;&nbsp;&nbsp; 'Combines 2 matrices M!() and 
+TM!()<br>&nbsp;&nbsp;&nbsp; 'ie. Result = TM x M<br>&nbsp;&nbsp;&nbsp; 'Warning 
+matrix multiplication is not commutative.<br>&nbsp;&nbsp;&nbsp; 'M x TM &lt;&gt; 
+TM x M<br><br><br>&nbsp;&nbsp;&nbsp; DIM Result!(1 TO 4, 1 TO 4) 'resultant 
+matrix to be copied to M!()<br><br>&nbsp;&nbsp;&nbsp; FOR i = 1 TO 
+4&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR j = 1 TO 
+4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Result!(i, j) = 
+0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+FOR k = 1 TO 
+4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Result!(i, j) = Result!(i, j) + TM!(i, k) * M!(k, 
+j)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+NEXT k<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+NEXT j<br>&nbsp;&nbsp;&nbsp; NEXT i</font></b></p>
+<hr color="#000080">
+
+<p><font face="Courier New"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Now that we know how to do stuff with matrices, we will now learn its 
+applications is 3d graphics!!!! 
+Woot!!!<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+In 3d graphics its often easier to make the <font color="#0000ff">origin(0,0,0)</font> as your viewpoint. ie. Where the lens of your 
+camera is(<i>The LEFT-HANDED system lends itself well with this if you want to 
+make a doom-like engine</i>).&nbsp; Instead of making the camera move around 
+your world, you can make your world move around the camera. Relativity at its 
+best!!!<br></font></p>
+<p><font face="Courier New"><br><b><font color="#0000ff">Your first 
+coordinate<br></font></b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Unless you want to do shearing and some other special effects, it's convenient 
+to represent your 3d point/vector as <i>[x y z</i>]. I like to make this vector 
+as a column matrix(see column matrix above). Modifying the points position is 
+space requires another matrix. For simplicity, I'll make the the transfomation 
+matrix a ROW matrix, <i>[A B C]</i>. To transform a point, you just multiply the 
+our<i> [x,y,z]</i> vector with the with our ROW matrix. Remember our matrix 
+multiplication property? COLUMN x ROW.<br></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" width="47%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font color="#0000ff" face="Courier New">x </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="20%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="20%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="20%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="21%">&nbsp;</td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font color="#0000ff" face="Courier New">y</font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="20%"><b><font color="#0000ff" face="Courier New">* </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font color="#0000ff" face="Courier New">A</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font color="#0000ff" face="Courier New">B&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="21%"><b><font color="#0000ff" face="Courier New">&nbsp;C</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="20%"><b><font color="#0000ff" face="Courier New">z </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="20%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="20%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="20%">&nbsp;</td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="21%">&nbsp;</td></tr></tbody></table>
+<p><font face="Courier New"><br>= <font color="#0000ff">x*A + y*B + 
+z*C</font><br><br><i>Now if a = 1, b=0, c=0</i><br><font color="#0000ff">x*1 + y*0 
++ z*0 = x</font><br><br><i>If a = 0, b=1, c=0</i><br><font color="#0000ff">x*0 + 
+y*1 + z*0 = y</font><br><br><i>If a = 0, b=0, c=1</i><br><font color="#0000ff">x*0 
++ y*0 + z*1 = z</font><br><br>In matrix form:<br></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" width="72%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font color="#0000ff" face="Courier New">0 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="18%"><b><font color="#0000ff" face="Courier New">0 </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="48%"><font face="Courier New">---&gt;x row vector A</font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font color="#0000ff" face="Courier New">0 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font color="#0000ff" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="18%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp; </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="48%"><font face="Courier New">---&gt;y row vector B</font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp; </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="18%"><b><font color="#0000ff" face="Courier New">1 </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="48%"><font face="Courier New">---&gt;z row vector C</font></td></tr></tbody></table>
+<p><font face="Courier New"><br><i>*Notice how it looks like the "Triangular" 
+form of the matrix. 
+:*)<br></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+So to transform and entire 3d point by the vector matrix using the matrix 
+notation above, you just multiply the point vector by the 
+matrix.<br><i>*x',y',z' are the new points.<br></i></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" width="69%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">x </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="9%">&nbsp;</td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">11</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">12&nbsp; </font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="18%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">13 </font></font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="10%">&nbsp;</td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">x' </font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">y </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="9%"><b><font color="#000000" face="Courier New">* </font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">21</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">22 </font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="18%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">23 </font></font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="10%"><font color="#000000" face="Courier New"><b>=</b></font></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">y' </font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" valign="center" width="14%"><b><font color="#0000ff" face="Courier New">z </font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="9%">&nbsp;</td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">31 </font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="17%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">32&nbsp;</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="18%"><b><font face="Courier New"><font color="#0000ff">m</font><font color="#000000" face="Arial" size="1">33 </font></font></b></td>
+    <td align="center" bordercolor="#ffffff" valign="center" width="10%">&nbsp;</td>
+    <td align="center" bordercolor="#ff0000" valign="center" width="15%"><b><font color="#0000ff" face="Courier New">z' </font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br>=<br><br><font color="#0000ff">x' = 
+x*m</font><font color="#000000" size="1">11 </font><font color="#0000ff">+ 
+y*m</font><font color="#000000" face="Arial" size="1">12 </font><font color="#0000ff">+ 
+z*m</font><font color="#000000" size="1">13</font><font color="#0000ff"><br>y' = 
+x*m</font><font color="#000000" size="1">21 </font><font color="#0000ff">+ 
+y*m</font><font color="#000000" size="1">22</font><font color="#0000ff"> + 
+z*m</font><font color="#000000" face="Arial" size="1">23</font><font color="#0000ff"><br>z' = x*m</font><font color="#000000" size="1">31</font><font color="#0000ff"> + y*m</font><font color="#000000" face="Arial" size="1">32</font><font color="#0000ff"> + z*m</font><font color="#000000" size="1">33</font><font color="#0000ff"><br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Now as we will be using a 4x4 matrix, let me introduce you to the matrices we'll 
+be using.<br></font></p>
+<p><font face="Courier New"><br><font color="#0000ff">1. The IDENTITY 
+matrix</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Our initial <i>"do-nothing"</i> matrix. This means that it will produce exactly 
+the same values as was before the transform. We always begin with this 
+matrix.<br></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" height="106" width="81%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><b><font color="#0000ff" face="Courier New">---&gt; x'= 
+      x</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><b><font color="#0000ff" face="Courier New">---&gt; y'= 
+      y</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">&nbsp;1&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><b><font color="#0000ff" face="Courier New">---&gt; z'= 
+      z</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="12%"><b><font color="#000000" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"></td></tr></tbody></table>
+<p><font face="Courier New"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Unless you'd want to do some nasty FX like Shearing,etc., the last row is always 
+<b><font color="#0000ff">0 0 0 1.</font></b><br><br><font color="#0000ff">2. The 
+Scaling matrix</font></font></p>
+<p><font face="Courier New"><font color="#0000ff"><br></font>Scales the matrix by 
+sx,sy and sz.<br></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" height="106" width="81%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#000000" face="Courier New">sx</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="34" valign="center" width="55%"><b><font color="#0000ff" face="Courier New">---&gt; x'= x * 
+      sx</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#000000" face="Courier New">sy</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="34" valign="center" width="55%"><b><font color="#0000ff" face="Courier New">---&gt; y'= y 
+      *sy</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp; 
+      0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#000000" face="Courier New">sz&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="34" valign="center" width="55%"><b><font color="#0000ff" face="Courier New">---&gt; z'= z * 
+      sz</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="34" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="34" valign="center" width="55%"></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><font color="#0000ff">3. The Translation 
+matrix.<br></font><br>Translation means just to "move" the point by Tx, Ty, 
+Tz.<br></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" height="106" width="81%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#000000" face="Courier New">Tx</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><b><font color="#0000ff" face="Courier New" size="1">---&gt; x'= x 
+      + Tx</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#000000" face="Courier New">Ty</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><b><font color="#0000ff" face="Courier New" size="1">---&gt; y'= y 
+      + Ty</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp; 
+      0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;1&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#000000" face="Courier New">Tz</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><b><font color="#0000ff" face="Courier New" size="1">---&gt; z'= z 
+      + Tz</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><font color="#0000ff">4. The X-axis rotation 
+matrix</font></font></p>
+<p><font face="Courier New"><font color="#0000ff"><br></font>Rotates the points in 
+the x-axis by angle.<br><i><font color="#0000ff">ca = COS(angle)<br>sa = 
+SIN(angle)<br></font></i></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" height="106" width="81%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><font color="#0000ff" face="Courier New"><b>0</b></font></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><font color="#0000ff" face="Courier New" size="1"><b>---&gt; x'= 
+      x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">ca</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font face="Courier New"><font color="#000000" face="Arial">-sa</font><font color="#0000ff" face="Arial">&nbsp;</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><font color="#0000ff" face="Courier New" size="1"><b>---&gt; y'= 
+      ca * y - s*z&nbsp;</b></font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">sa</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">ca&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%"><font color="#0000ff" face="Courier New" size="1"><b>&nbsp; 
+      ---&gt; z'= sa * y + ca * z</b></font></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"></td></tr></tbody></table>
+<p><font face="Courier New"><br><br><font color="#0000ff">5. The Y-axis rotation 
+matrix</font><br></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" height="106" width="81%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">ca</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Arial">sa</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%">
+      <p align="left"><b><font color="#0000ff" face="Courier New" size="1">&nbsp;&nbsp;&nbsp;&nbsp; ---&gt; x'= ca * x + sa * 
+      z&nbsp;</font></b></p></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%">
+      <p align="left"><b><font color="#0000ff" face="Courier New" size="1">&nbsp;&nbsp;&nbsp;&nbsp; ---&gt; y'=&nbsp; 
+      y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></b></p></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Arial">-sa&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">ca&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="29" valign="center" width="55%">
+      <p align="left"><b><font color="#0000ff" face="Courier New" size="1">&nbsp;&nbsp; &nbsp; ---&gt; z'= -sa * x + ca * 
+  z</font></b></p></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"></td></tr></tbody></table>
+<p>&nbsp;</p>
+<p><font face="Courier New"><br><font color="#0000ff">6. The Z-axis rotation 
+matrix<br></font></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" height="1" width="86%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font color="#000000" face="Courier New">ca</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font face="Courier New"><font color="#000000">-sa</font><font color="#0000ff" face="Arial"> 
+      &nbsp;</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"><b><font color="#0000ff" face="Courier New" size="1">---&gt; x'= 
+      ca * x - sa * y &nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font color="#000000" face="Courier New">sa</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font color="#000000" face="Courier New">ca</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"><b><font color="#0000ff" face="Courier New" size="1">---&gt; y'= 
+      sa * x + ca * y&nbsp;&nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font face="Courier New"><font color="#0000ff">0</font><font color="#000000" face="Arial">&nbsp;</font></font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"><b><font color="#0000ff" face="Courier New" size="1">&nbsp; 
+      ---&gt; z'= 
+      z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="10%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ffffff" height="30" valign="center" width="55%"></td></tr></tbody></table>
+<p><font face="Courier New"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Note that the axis of rotation is NOT being transformed in the 3 rotational 
+matrices.&nbsp; Now with all the abstract math out of the way, the fun 
+part....<br></font></p>
+<p><font face="Courier New"><br><font color="#0000ff">Applications<br></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+To make a 3d object rotate around space using matrices, You just combine all the 
+transformation matrices into one final parent matrix and use that matrix to 
+transform your points. Here's the PseudoCODE:<br></font></p>
+<p><i><b><font color="#000080" face="Courier New" size="2">PseudoCODE:</font></b></i></p>
+<hr color="#000080">
+
+<p><b><font face="Courier New"><i><font color="#000080" size="2">Matrix!() is our 
+final combined matrix<br>Tmatrix!() is a temporary matrix used for 
+transformation.<br></font></i><font color="#000080" face="Arial" size="2">Dim 
+Matrix!(1 to 4, 1 to 4)<br>Dim TMatrix!(1 to 4, 1 to 
+4)<br><br>&nbsp;&nbsp;&nbsp; 1.&nbsp;&nbsp;&nbsp;&nbsp; Set Matrix! and Tmatrix 
+as Identity matrices.<br>&nbsp;&nbsp;&nbsp; 2.&nbsp;&nbsp;&nbsp;&nbsp; Set 
+Tmatrix! as Scaling matrix<br>&nbsp;&nbsp;&nbsp; 3.&nbsp;&nbsp;&nbsp;&nbsp; 
+Multiply Matrix! and Tmatrix!<br>&nbsp;&nbsp;&nbsp; 4.&nbsp;&nbsp;&nbsp;&nbsp; 
+Set Tmatrix! as Translate matrix<br>&nbsp;&nbsp;&nbsp; 
+5.&nbsp;&nbsp;&nbsp;&nbsp; Multiply Matrix! and Tmatrix!<br>&nbsp;&nbsp;&nbsp; 
+6.&nbsp;&nbsp;&nbsp;&nbsp; Set Tmatrix! as RotX matrix<br>&nbsp;&nbsp;&nbsp; 
+7.&nbsp;&nbsp;&nbsp;&nbsp; Multiply Matrix! and Tmatrix!<br>&nbsp;&nbsp;&nbsp; 
+8.&nbsp;&nbsp;&nbsp;&nbsp; [6] but RotY then [7]<br>&nbsp;&nbsp;&nbsp; 
+9.&nbsp;&nbsp;&nbsp;&nbsp; [6] but ROTZ then [7]<br>&nbsp;&nbsp;&nbsp; 
+10.&nbsp;&nbsp;&nbsp; For i =0 to numpoints<br>&nbsp;&nbsp;&nbsp; 
+11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TransformPoints using 
+Matrix<br>&nbsp;&nbsp;&nbsp; 12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Project points<br>&nbsp;&nbsp;&nbsp; 13.&nbsp;&nbsp;&nbsp; next 
+i</font></font></b></p>
+<hr color="#000080">
+
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+*Codes 2 to 9 can be interchanged in any way you want. If you have normals you'd 
+like to rotate, you can use the same transformation matrix to rotate them. I 
+urge you to experiment and play with the order of operations so that you may see 
+how it changes the entire transformation.<br><br>Here's the working QBcode for 
+you to enjoy.<br><br><a href="http://rel.phatcode.net/mytutes/3dtutes/chapter4/Files/MATRIX.BAS"><b>MatrxRot.Bas<br></b></a></font></p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier New"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</b>As an excersise, why don't you make a gouraud filled polygon using matrices 
+to rotate your model and normals? Be sure to rotate with the same matrix. 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You might 
+say, "But your rotation tutorial has some very fast ready-made matrix constants. 
+It's also fairly faster as we don't have to multiply matrices." Yes those 
+constants are faster than the matrix method but they are limited. Here are some 
+limitations:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1. Those constants have a fixed order of rotation(x,y and then z). If you want 
+to change the order of rotation, you need to do the "messy" factoring I did 
+again. With matrices all you have to do is change the order and that's it. 
+Simple as it can 
+get.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+2. To translate points from the camera, you have to subtract your camera vector 
+from your transformed points manually. The matrix way would just use the 
+translation 
+matrix.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+3. To translate from the origin, you'd have to subtract a translation vector 
+manually from the original non-rotated points while with matrices, you just 
+translate before rotate. 
+:*)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. 
+Those constants are limited to angular viewing systems while matrices can handle 
+any viewing system. Most popular of them is the <b><font color="#0000ff">LOOKAT 
+transform</font></b>(I'll get to that in the next&nbsp; 
+article).<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+5. The speed difference is not apparent considering all the calculations in both 
+methods are <font color="#0000ff"><b>*outside*</b></font> your rasterizing loop. I 
+never lost a single frame myself. The more the points to transform, the less 
+difference it makes.<br><br><br>Some of you may have already seen Matrices 
+defined like this:<br><br><font color="#0000ff">Translation 
+matrix:<br></font></font></p>
+<table border="1" bordercolor="#ffffff" cellpadding="0" cellspacing="0" height="106" width="47%">
+  <tbody>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">1</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">&nbsp;0&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">0</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="11%"><b><font color="#000000" face="Courier New">&nbsp;1&nbsp;</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="29" valign="center" width="12%"><b><font color="#0000ff" face="Courier New">0</font></b></td></tr>
+  <tr>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">Tx</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">Ty</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="11%"><b><font color="#0000ff" face="Courier New">Tz</font></b></td>
+    <td align="center" bordercolor="#ff0000" height="30" valign="center" width="12%"><b><font color="#000000" face="Courier New">1</font></b></td></tr></tbody></table>
+<p><font face="Courier New"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+This is the DirectX and OpenGL system of matrices where rows are swapped with 
+the columns. So be sure to use this system if you're coding via DX or OGL. I'm 
+using the "standard" math notation in this 
+article.<br><br><br><br>Credits:<br>Mark Feldman for his matrix doc. <i><font color="#0000ff" size="1">( I was having problems with&nbsp; the rotation matrices 
+until I read your doc. Thanks!!!)</font></i><br>Plasma for 
+SetVideoSeg<br>wildcard for this "series" idea.<br>Hugo Elias for his WuPixel 
+doc.&nbsp;<br>Toshi for his kind comments.<br>3D ica for there excellent doc. 
+<br>And you the reader of this doc.&nbsp;<br>Biskbart for the torus. <br>Happy 
+Coding!!!!<br><br>Richard Eric M. Lope (Relsoft)<br><a href="http://rel.phatcode.net/">http://rel.phatcode.net/</a><br><a href="mailto:vic_viperph@yahoo.com">vic_viperph@yahoo.com</a><br><br>*For 
+questions and suggestions, I hang out at <a href="http://www.qbasicnews.com/">Qbasicnews.com</a> ---&gt; forum.<br><br><a href="http://forum.qbasicnews.com/">Http:://Forum.Qbasicnews.com<br></a><br></font></p>
+</body></html>
