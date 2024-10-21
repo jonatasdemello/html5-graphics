@@ -20,11 +20,11 @@
         <h1>Simple Canvas example</h1>
         <canvas id="myCanvas" width="640" height="480"></canvas>
     </main>
-    
+
     <div class="container">
         <div id="msg"></div>
         <div class="codeStyle">
-/* PROG GRAPH3D.BAS
+
     10 FOR X=40 TO 215
     20 LET MMAX=999: LET MMIN=0
     30 FOR Y=16 TO 144 STEP 4
@@ -37,14 +37,13 @@
     100 NEXT X
 
     PROG GRAPH3D.BAS
-        Z = e ^ (-r/3) . cos (r)
-        r = distancia do centro do plano X-Y ate o ponto desenhado
-    plot (0,0) to (255, 175) = 45.056 pontos
-    (0,0) inferior esquerdo tela
-*/
+     Z = e ^ (-r/3) * cos(r)
+     r = distancia do centro do plano X-Y ate o ponto desenhado
+     plot (0,0) to (255, 175) = 45.056 pontos
+     (0,0) inferior esquerdo tela
         </div>
     </div>
-    
+
     <script>
         window.onload = function () {
             var canvas = document.getElementById("myCanvas");
@@ -71,7 +70,7 @@
                     var R = Math.sqrt((X - v1) * (X - v1) + (Y - v2) * (Y - v2)) / 15;
                     var Z = Math.round(Y + 100 * Math.exp(-R / 3.5) * Math.cos(R));
 
-                    if (Z < mMax || Z > mMin) { 
+                    if (Z < mMax || Z > mMin) {
                         plot(X, Z, ctx);
                     }
                     if (Z < mMax) mMax = Z;
@@ -114,11 +113,11 @@
         80 IF Z>MMIN THEN LET MMIN=Z
         90 NEXT Y
         100 NEXT X
-    
+
         PROG GRAPH3D.BAS
          Z = e ^ (-r/3) . cos (r)
          r = distancia do centro do plano X-Y ate o ponto desenhado
-    
+
         plot (0,0) to (255, 175) = 45.056 pontos
         (0,0) inferior esquerdo tela
         */

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../vendor/Bootstrap-styles.css" />
-    
+
     <link rel="stylesheet" href="../css/style.css">
     <title>Canvas Test</title>
 </head>
@@ -39,9 +39,8 @@
                 <input class="form-control btn btn-primary" type="button" id="update" value="Refresh" onclick="return Update();" />
             </div>
         </form>
-        
+
         <div class="codeStyle">
-    /* 
     -----------------------------------------------------------
     PROG GRAPH3D.BAS
     10 FOR X=40 TO 215
@@ -55,12 +54,11 @@
     90 NEXT Y
     100 NEXT X
     -----------------------------------------------------------
-    Z = e ^ (-r/3) . cos (r)
+    Z = e ^ (-r/3) * cos(r)
     r = distancia do centro do plano X-Y ate o ponto desenhado
-            
+
     var r = Math.sqrt((x-127)*(x-127)+(y-80)*(y-80))/15;
     var z = Math.round(y+90 * Math.exp(-r/3) * Math.cos(r));
-    */
         </div>
     </div>
 
@@ -90,7 +88,7 @@
         }
 
         function Draw(canvas, ctx) {
-            /* 
+            /*
             -----------------------------------------------------------
             PROG GRAPH3D.BAS
             10 FOR X=40 TO 215
@@ -106,7 +104,7 @@
             -----------------------------------------------------------
             Z = e ^ (-r/3) . cos (r)
             r = distancia do centro do plano X-Y ate o ponto desenhado
-                    
+
             var r = Math.sqrt((x-127)*(x-127)+(y-80)*(y-80))/15;
             var z = Math.round(y+90 * Math.exp(-r/3) * Math.cos(r));
             */
