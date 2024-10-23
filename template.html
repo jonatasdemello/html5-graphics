@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../_include/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" href="../../_include/vendor/prism.css">
+
+	<link rel="stylesheet" href="../../_include/style.css">
+    <script type="text/javascript" src="../js/utils.js"></script>
+	<title>Template</title>
+</head>
+
+<body>
+	<main class="container">
+		<nav class="nav">
+			<a class="nav-link active" aria-current="page" href="../../index.html">&larr; Back</a>
+		</nav>
+
+		<h1>Title</h1>
+		<p>Some text.</p>
+		<canvas id="myCanvas" width="640" height="480"></canvas>
+	</main>
+
+	<script>
+		// get canvas and context
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+
+		// Draw some rectangles with different color values
+		ctx.fillStyle = "red";
+		ctx.fillRect(5, 5, 200, 200);
+		ctx.fillStyle = "rgba(0,50,200,0.5)";
+		ctx.fillRect(55, 55, 200, 200);
+		ctx.fillStyle = "rgba(0,255,10,0.5)";
+		ctx.fillRect(100, 100, 200, 200);
+		ctx.stroke();
+	</script>
+	<script>
+		// Benchmarking
+
+		// Delete all Marks
+		performance.clearMarks();
+		// start Benchmarking
+		performance.mark("startFoo");
+
+		// .. do_something();
+
+		// stop Benchmarking
+		performance.mark("endFoo");
+		// create a measure
+		performance.measure("durationFoo", "startFoo", "endFoo");
+		// Delete the Measure "durationFoo"
+		performance.clearMeasures("durationFoo");
+
+
+		//returns us a list of all the marks that have been hit in our web application
+		var items = window.performance.getEntriesByType('mark');
+		//returns us a list of all the measures we’ve made.
+		var items = window.performance.getEntriesByType('measure');
+		// You can also get back a list of entries by using the specific name you’ve given them.
+		// return us a list with one item in it containing the ‘mark_fully_loaded’ time stamp in the startTime property
+		var items = window.performance.getEntriesByName('mark_fully_loaded');
+
+		function showResults() {
+			var items = window.performance.getEntriesByType('measure');
+			for (var i = 0; i < items.length; i++) {
+				var req = items[i];
+				var txtmsg = '( ' + paramA + ', ' + paramB + ' ) - XHR ' + req.name.toString() + ' took ' + req.duration.toString() + 'ms';
+				console.log(txtmsg);
+			}
+		}
+	</script>
+
+	<script src="../../_include/vendor/prism.js"></script>
+</body>
+
+</html>
