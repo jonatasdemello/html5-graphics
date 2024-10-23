@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../_include/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../_include/vendor/prism.css">
+
+    <link rel="stylesheet" href="../../_include/style.css">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <main class="container">
+        <nav class="nav">
+            <a class="nav-link active" aria-current="page" href="../../index.html">&larr; Back</a>
+        </nav>
+
+        <h1>Simple Canvas example</h1>
+        <canvas id="myCanvas" width="640" height="480"></canvas>
+    </main>
+
+    <div class="container">
+<pre><code class="language-javascript line-numbers">
+window.onload = function () {
+
+    // get canvas and context
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    // Set the color (brick red) using an HTML color code:
+    ctx.strokeStyle = "#c0f800";
+    ctx.lineWidth = 20;
+
+    // Top-Left is (0, 0)
+    ctx.beginPath();
+    ctx.moveTo(450, 10);
+    ctx.lineTo(450, 200);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Set the line width and color (for all the lines).
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "rgb(205,40,40)";
+
+    // Draw the first line, with the standard butt ending.
+    ctx.beginPath();
+    ctx.moveTo(10, 50);
+    ctx.lineTo(400, 50);
+    ctx.lineCap = "butt";
+    ctx.stroke();
+
+    // Draw the second line, with a round cap.
+    ctx.strokeStyle = "#D35400";
+    ctx.beginPath();
+    ctx.moveTo(10, 120);
+    ctx.lineTo(400, 120);
+    ctx.lineCap = "round";
+    ctx.stroke();
+
+    // Draw the third line, with a square cap.
+    ctx.strokeStyle = "rgb(46,204,113)";
+    ctx.beginPath();
+    ctx.moveTo(10, 190);
+    ctx.lineTo(400, 190);
+    ctx.lineCap = "square";
+    ctx.stroke();
+
+    // Create variables to store each detail about the arc.
+    ctx.beginPath();
+    var centerX = 150;
+    var centerY = 300;
+    var radius = 100;
+
+    var startingAngle = 1.25 * Math.PI;
+    var endingAngle = 1.75 * Math.PI;
+
+    // Use this information to draw the arc.
+    ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
+    ctx.closePath();
+    ctx.stroke();
+
+    // circle
+    ctx.beginPath();
+
+    radius = 150;
+    var startingAngle = 0;
+    var endingAngle = 2 * Math.PI;
+
+    // Use this information to draw the arc.
+    ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
+    ctx.stroke();
+};
+</code></pre>
+            </div>
+
+    <script>
+        window.onload = function () {
+
+            // get canvas and context
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            // Set the color (brick red) using an HTML color code:
+            ctx.strokeStyle = "#c0f800";
+            ctx.lineWidth = 20;
+
+            // Top-Left is (0, 0)
+            ctx.beginPath();
+            ctx.moveTo(450, 10);
+            ctx.lineTo(450, 200);
+            ctx.closePath();
+            ctx.stroke();
+
+            // Set the line width and color (for all the lines).
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "rgb(205,40,40)";
+
+            // Draw the first line, with the standard butt ending.
+            ctx.beginPath();
+            ctx.moveTo(10, 50);
+            ctx.lineTo(400, 50);
+            ctx.lineCap = "butt";
+            ctx.stroke();
+
+            // Draw the second line, with a round cap.
+            ctx.strokeStyle = "#D35400";
+            ctx.beginPath();
+            ctx.moveTo(10, 120);
+            ctx.lineTo(400, 120);
+            ctx.lineCap = "round";
+            ctx.stroke();
+
+            // Draw the third line, with a square cap.
+            ctx.strokeStyle = "rgb(46,204,113)";
+            ctx.beginPath();
+            ctx.moveTo(10, 190);
+            ctx.lineTo(400, 190);
+            ctx.lineCap = "square";
+            ctx.stroke();
+
+            // Create variables to store each detail about the arc.
+            ctx.beginPath();
+            var centerX = 150;
+            var centerY = 300;
+            var radius = 100;
+
+            var startingAngle = 1.25 * Math.PI;
+            var endingAngle = 1.75 * Math.PI;
+
+            // Use this information to draw the arc.
+            ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
+            ctx.closePath();
+            ctx.stroke();
+
+            // circle
+            ctx.beginPath();
+
+            radius = 150;
+            var startingAngle = 0;
+            var endingAngle = 2 * Math.PI;
+
+            // Use this information to draw the arc.
+            ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
+            ctx.stroke();
+        };
+    </script>
+    <script src="../../_include/vendor/prism.js"></script>
+</body>
+
+</html>

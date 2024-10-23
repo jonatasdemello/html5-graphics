@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./_include/vendor/bootstrap.min.css" />
+
+    <title>Canvas</title>
+</head>
+
+<body>
+    <main class="container">
+        <nav class="nav">
+            <a class="nav-link active" aria-current="page" href="/index.html">&#9883; Home</a>
+        </nav>
+        <h1>HTML5 Canvas Demos</h1>
+
+        <div class="">
+            <p>
+                Some experiences with HTML5 canvas, graphics and libraries.
+            </p>
+            <p>
+                Most of the examples come from old 80's and 90's books, mostly in BASIC (8-bit)
+                and I will be porting or retrofitting them to work with modern tools
+                such as HTML5 canvas, Python and so on.
+            </p>
+            <p>
+                Remembering the old type-in books and magazines,
+                it always amazed me how some lines of BASIC code could generate
+                awesome graphics on the screen.
+            </p>
+            <p>
+                A couple of decades later I am looking back at them and trying to understand
+                how they work and what mathematical formulas are behind it.
+            </p>
+        </div>
+
+        <!-- cards -->
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <ul class="list-group">
+                        <li class="list-group-item active bg-secondary">Simple Canvas</li>
+                        <li class="list-group-item"><a href="./demos/canvas/canvas01.html">canvas 01</a></li>
+                        <li class="list-group-item"><a href="./demos/canvas/canvas02.html">canvas 02</a></li>
+                        <li class="list-group-item"><a href="./demos/canvas/lines01.html">lines 01</a></li>
+                        <li class="list-group-item"><a href="./demos/canvas/game01.html">game 01</a></li>
+                        <li class="list-group-item"><a href="./demos/canvas/bouncingball.html">animation</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="list-group">
+                        <li class="list-group-item active bg-secondary">Functions</li>
+                        <li class="list-group-item"><a href="./demos/plots/plot-sin-cos.html">2D sin & cos</a></li>
+                        <li class="list-group-item"><a href="./demos/plots/function-01.html">3D function 01</a></li>
+                        <li class="list-group-item"><a href="./demos/plots/function-02.html">3D function 02</a></li>
+                        <li class="list-group-item"><a href="./demos/plots/function-03.html">3D function 03</a></li>
+                        <li class="list-group-item"><a href="./demos/plots/function-04.html">2D function 04</a></li>
+                        <li class="list-group-item"><a href="./demos/plots/function-05..html">2D function 05</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="list-group">
+                        <li class="list-group-item active bg-secondary">Complex</li>
+                        <li class="list-group-item"><a href="./demos/peca-3d/index.html">3D object</a></li>
+                        <li class="list-group-item"><a href="./demos/cube/cube.html">3D cube</a></li>
+                        <li class="list-group-item"><a href="./demos/cube/galileo.html">3D cube galileo</a></li>
+                        <li class="list-group-item"><a href="./demos/surface/surface-rotation.html">surface rotation</a></li>
+                        <li class="list-group-item"><a href="./demos/noisesph/noise-sphere.html">noise-sphere</a></li>
+                        <li class="list-group-item"><a href="./demos/terrain/terrain.html">terrain demo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <!-- cards -->
+        <div class="container border border-2">
+            <div class="row">
+              <div class="col">
+                <p>how amazing it is that a few lines of code:</p>
+<pre class="text-info bg-dark p-3">
+0 SCREEN 7 : GOTO 10
+1 R=SQR(X*X+Y*Y)*1.5 : IF R=0 THEN F=90: GOTO 3
+2 F=ABS(90*SIN(R)/R)
+3 A=INT(10*X+160-5*Y)
+4 B=INT(5*Y+2.5*X+93)
+5 RETURN
+10 FOR Y=-10 TO 10 STEP 0.2
+30 FOR X=-10 TO 10 STEP 0.3
+40 GOSUB 1
+46 PSET(A,B-F), 15
+50 NEXT X
+60 NEXT Y
+</pre>
+              </div>
+              <div class="col">
+                <p>can produce something like this image:</p>
+                <div class="text-info bg-dark p-3">
+                    <img src="./_include/sin-plot-1.png" width="493" height="260">
+                </div>
+              </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
