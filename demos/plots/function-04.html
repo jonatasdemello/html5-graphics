@@ -46,7 +46,7 @@ function drawPoint(a, b, c) {
         y = a * Math.sin(t) - b * Math.sin(c * t);
         v = (dx - y * 2) * ez;
         h = (dx + x * 2) * ez;
-        ctx.fillRect(h, v, 2, 2);
+        myContext.fillRect(h, v, 2, 2);
     }
 }
 </code></pre>
@@ -56,7 +56,7 @@ function drawPoint(a, b, c) {
         // add actions to buttons
         document.getElementById('drawP').addEventListener('click', () => { drawGraphic(0); });
         document.getElementById('drawL').addEventListener('click', () => { drawGraphic(1); });
-        document.getElementById('clear').addEventListener('click', () => { clearCanvas(canvas, ctx); });
+        document.getElementById('clear').addEventListener('click', () => { clearCanvas(canvas, myContext); });
 
         // move Axis center to middle of canvas
         var dx = 150;
@@ -64,16 +64,16 @@ function drawPoint(a, b, c) {
         var ez = 2;
 
         // get canvas and context
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
+        var myCanvas = document.getElementById("myCanvas");
+        var myContext = myCanvas.getContext("2d");
 
-        canvas.width = 600;
-        canvas.height = 600;
+        myCanvas.width = 600;
+        myCanvas.height = 600;
 
         var color = "#00ff00"; // lime
-        ctx.fillStyle = color;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1.0;
+        myContext.fillStyle = color;
+        myContext.strokeStyle = color;
+        myContext.lineWidth = 1.0;
 
         // show the fist time:
         drawGraphic(0);
@@ -84,7 +84,7 @@ function drawPoint(a, b, c) {
             let paramC = document.getElementById('paramC').value;
             //console.log(paramA, paramB, paramC);
 
-            clearCanvas(canvas, ctx);
+            clearCanvas(myCanvas, myContext);
 
             if (lineStyle == 0) {
                 drawPoint(paramA, paramB, paramC);
@@ -95,7 +95,7 @@ function drawPoint(a, b, c) {
         }
 
         function drawPoint(a, b, c) {
-            ctx.beginPath();
+            myContext.beginPath();
 
             let v = 0, h = 0, x = 0, y = 0;
             for (let t = 0; t < 12.56; t += .05) {
@@ -103,13 +103,13 @@ function drawPoint(a, b, c) {
                 y = a * Math.sin(t) - b * Math.sin(c * t);
                 v = (dx - y * 2) * ez;
                 h = (dx + x * 2) * ez;
-                ctx.fillRect(h, v, 2, 2);
+                myContext.fillRect(h, v, 2, 2);
             }
-            ctx.stroke();
+            myContext.stroke();
         }
 
         function drawLine(a, b, c) {
-            ctx.beginPath();
+            myContext.beginPath();
 
             let start = 0;
             let v = 0, h = 0, x = 0, y = 0;
@@ -120,12 +120,12 @@ function drawPoint(a, b, c) {
                 h = (dx + x * 2) * ez;
 
                 if (start == 0) {
-                    ctx.moveTo(h, v);
+                    myContext.moveTo(h, v);
                     start = 1;
                 }
-                ctx.lineTo(h, v);
+                myContext.lineTo(h, v);
             }
-            ctx.stroke();
+            myContext.stroke();
         }
 
     </script>

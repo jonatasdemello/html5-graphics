@@ -22,8 +22,8 @@
         <canvas id="myCanvas" width="640" height="480"></canvas>
     </main>
 
-    <div class="container">
-        <pre><code class="language-basic line-numbers">
+<div class="container">
+<pre><code class="language-basic line-numbers">
 10 FOR X = 40 TO 215
 20 LET MMAX=999: LET MMIN=0
 30 FOR Y = 16 TO 144 STEP 4
@@ -54,11 +54,11 @@ Math.exp ( x ) = e ^ x
 
         function main() {
             // get canvas and context
-            var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d");
+            var myCanvas = document.getElementById("myCanvas");
+            var myContext = myCanvas.getContext("2d");
 
-            ctx.beginPath();
-            ctx.fillStyle = "yellow";
+            myContext.beginPath();
+            myContext.fillStyle = "yellow";
 
             let xOff = 130; // x-offset left
             let yOff = 85; // y-offset down
@@ -72,21 +72,21 @@ Math.exp ( x ) = e ^ x
                     var Z = Math.round(Y + 100 * Math.exp(-R / 4) * Math.cos(R));
 
                     if (Z < mMax || Z > mMin) {
-                        plot(X, Z, ctx);
+                        plot(X, Z, myContext);
                     }
                     if (Z < mMax) mMax = Z;
                     if (Z > mMin) mMin = Z;
                 }
             }
-            ctx.stroke();
-            drawAxes(canvas, ctx);
+            myContext.stroke();
+            drawAxes(canvas, myContext);
         };
 
-        function plot(x, y, ctx) {
-            //ctx.fillStyle = "rgb(" + x + "," + y + ",40)";
+        function plot(x, y, myContext) {
+            //myContext.fillStyle = "rgb(" + x + "," + y + ",40)";
             v = x * 2.5;
             h = (200 - y) * 2;
-            ctx.fillRect(v, h, 2, 2);
+            myContext.fillRect(v, h, 2, 2);
         }
 
     </script>

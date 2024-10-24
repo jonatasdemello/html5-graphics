@@ -26,49 +26,49 @@
 window.onload = function () {
 
     // get canvas and context
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+    var myCanvas = document.getElementById("myCanvas");
+    var myContext = myCanvas.getContext("2d");
 
     // Set the color (brick red) using an HTML color code:
-    ctx.strokeStyle = "#c0f800";
-    ctx.lineWidth = 20;
+    myContext.strokeStyle = "#c0f800";
+    myContext.lineWidth = 20;
 
     // Top-Left is (0, 0)
-    ctx.beginPath();
-    ctx.moveTo(450, 10);
-    ctx.lineTo(450, 200);
-    ctx.closePath();
-    ctx.stroke();
+    myContext.beginPath();
+    myContext.moveTo(450, 10);
+    myContext.lineTo(450, 200);
+    myContext.closePath();
+    myContext.stroke();
 
     // Set the line width and color (for all the lines).
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "rgb(205,40,40)";
+    myContext.lineWidth = 5;
+    myContext.strokeStyle = "rgb(205,40,40)";
 
     // Draw the first line, with the standard butt ending.
-    ctx.beginPath();
-    ctx.moveTo(10, 50);
-    ctx.lineTo(400, 50);
-    ctx.lineCap = "butt";
-    ctx.stroke();
+    myContext.beginPath();
+    myContext.moveTo(10, 50);
+    myContext.lineTo(400, 50);
+    myContext.lineCap = "butt";
+    myContext.stroke();
 
     // Draw the second line, with a round cap.
-    ctx.strokeStyle = "#D35400";
-    ctx.beginPath();
-    ctx.moveTo(10, 120);
-    ctx.lineTo(400, 120);
-    ctx.lineCap = "round";
-    ctx.stroke();
+    myContext.strokeStyle = "#D35400";
+    myContext.beginPath();
+    myContext.moveTo(10, 120);
+    myContext.lineTo(400, 120);
+    myContext.lineCap = "round";
+    myContext.stroke();
 
     // Draw the third line, with a square cap.
-    ctx.strokeStyle = "rgb(46,204,113)";
-    ctx.beginPath();
-    ctx.moveTo(10, 190);
-    ctx.lineTo(400, 190);
-    ctx.lineCap = "square";
-    ctx.stroke();
+    myContext.strokeStyle = "rgb(46,204,113)";
+    myContext.beginPath();
+    myContext.moveTo(10, 190);
+    myContext.lineTo(400, 190);
+    myContext.lineCap = "square";
+    myContext.stroke();
 
     // Create variables to store each detail about the arc.
-    ctx.beginPath();
+    myContext.beginPath();
     var centerX = 150;
     var centerY = 300;
     var radius = 100;
@@ -77,20 +77,20 @@ window.onload = function () {
     var endingAngle = 1.75 * Math.PI;
 
     // Use this information to draw the arc.
-    ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
-    ctx.closePath();
-    ctx.stroke();
+    myContext.arc(centerX, centerY, radius, startingAngle, endingAngle);
+    myContext.closePath();
+    myContext.stroke();
 
     // circle
-    ctx.beginPath();
+    myContext.beginPath();
 
     radius = 150;
     var startingAngle = 0;
     var endingAngle = 2 * Math.PI;
 
     // Use this information to draw the arc.
-    ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
-    ctx.stroke();
+    myContext.arc(centerX, centerY, radius, startingAngle, endingAngle);
+    myContext.stroke();
 };
 </code></pre>
             </div>
@@ -99,49 +99,49 @@ window.onload = function () {
         window.onload = function () {
 
             // get canvas and context
-            var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d");
+            var myCanvas = document.getElementById("myCanvas");
+            var myContext = myCanvas.getContext("2d");
 
             // Set the color (brick red) using an HTML color code:
-            ctx.strokeStyle = "#c0f800";
-            ctx.lineWidth = 20;
+            myContext.strokeStyle = "#c0f800";
+            myContext.lineWidth = 20;
 
             // Top-Left is (0, 0)
-            ctx.beginPath();
-            ctx.moveTo(450, 10);
-            ctx.lineTo(450, 200);
-            ctx.closePath();
-            ctx.stroke();
+            myContext.beginPath();
+            myContext.moveTo(450, 10);
+            myContext.lineTo(450, 200);
+            myContext.closePath();
+            myContext.stroke();
 
             // Set the line width and color (for all the lines).
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = "rgb(205,40,40)";
+            myContext.lineWidth = 5;
+            myContext.strokeStyle = "rgb(205,40,40)";
 
             // Draw the first line, with the standard butt ending.
-            ctx.beginPath();
-            ctx.moveTo(10, 50);
-            ctx.lineTo(400, 50);
-            ctx.lineCap = "butt";
-            ctx.stroke();
+            myContext.beginPath();
+            myContext.moveTo(10, 50);
+            myContext.lineTo(400, 50);
+            myContext.lineCap = "butt";
+            myContext.stroke();
 
             // Draw the second line, with a round cap.
-            ctx.strokeStyle = "#D35400";
-            ctx.beginPath();
-            ctx.moveTo(10, 120);
-            ctx.lineTo(400, 120);
-            ctx.lineCap = "round";
-            ctx.stroke();
+            myContext.strokeStyle = "#D35400";
+            myContext.beginPath();
+            myContext.moveTo(10, 120);
+            myContext.lineTo(400, 120);
+            myContext.lineCap = "round";
+            myContext.stroke();
 
             // Draw the third line, with a square cap.
-            ctx.strokeStyle = "rgb(46,204,113)";
-            ctx.beginPath();
-            ctx.moveTo(10, 190);
-            ctx.lineTo(400, 190);
-            ctx.lineCap = "square";
-            ctx.stroke();
+            myContext.strokeStyle = "rgb(46,204,113)";
+            myContext.beginPath();
+            myContext.moveTo(10, 190);
+            myContext.lineTo(400, 190);
+            myContext.lineCap = "square";
+            myContext.stroke();
 
             // Create variables to store each detail about the arc.
-            ctx.beginPath();
+            myContext.beginPath();
             var centerX = 150;
             var centerY = 300;
             var radius = 100;
@@ -150,20 +150,20 @@ window.onload = function () {
             var endingAngle = 1.75 * Math.PI;
 
             // Use this information to draw the arc.
-            ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
-            ctx.closePath();
-            ctx.stroke();
+            myContext.arc(centerX, centerY, radius, startingAngle, endingAngle);
+            myContext.closePath();
+            myContext.stroke();
 
             // circle
-            ctx.beginPath();
+            myContext.beginPath();
 
             radius = 150;
             var startingAngle = 0;
             var endingAngle = 2 * Math.PI;
 
             // Use this information to draw the arc.
-            ctx.arc(centerX, centerY, radius, startingAngle, endingAngle);
-            ctx.stroke();
+            myContext.arc(centerX, centerY, radius, startingAngle, endingAngle);
+            myContext.stroke();
         };
     </script>
     <script src="../../_include/vendor/prism.js"></script>

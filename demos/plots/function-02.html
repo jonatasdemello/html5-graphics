@@ -43,6 +43,7 @@
                 <input class="btn btn-primary" type="button" id="update" value="Refresh" onclick="return Update();" />
             </div>
         </form>
+    </div>
 
 <div class="container">
     <pre><code class="language-basic line-numbers">
@@ -73,11 +74,11 @@ Math.exp ( x ) = e ^ x
 
     <script>
         /*
-        var canvas = document.getElementById("myCanvas");
+        var myCanvas = document.getElementById("myCanvas");
         var canvasWidth = canvas.width;
         var canvasHeight = canvas.height;
-        var ctx = canvas.getContext("2d");
-        var canvasData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+        var myContext = myCanvas.getContext("2d");
+        var canvasData = myContext.getImageData(0, 0, canvasWidth, canvasHeight);
         */
         var constants = {
             leftArrow: 37,
@@ -96,7 +97,7 @@ Math.exp ( x ) = e ^ x
             return result;
         }
 
-        function Draw(canvas, ctx) {
+        function Draw(canvas, myContext) {
             let xMin = ReadInput("xMin") ?? 20;
             let xMax = ReadInput("xMax") ?? 400;
             let xStep = ReadInput("xStep") ?? 1;
@@ -118,45 +119,45 @@ Math.exp ( x ) = e ^ x
                     var r = Math.sqrt((x - xCenter) * (x - xCenter) + (y - zCenter) * (y - zCenter)) / cte1;
                     var z = Math.round(y + zCenter * Math.exp(-r / cte2) * Math.cos(r));
 
-                    if (z < MMAX || z > MMIN) { point(x, z, ctx); }
+                    if (z < MMAX || z > MMIN) { point(x, z, myContext); }
                     if (z < MMAX) { MMAX = z; }
                     if (z > MMIN) { MMIN = z; }
                 }
             }
-            DrawAxes(canvas, ctx);
+            DrawAxes(canvas, myContext);
         }
 
-        function point(x, y, ctx) {
+        function point(x, y, myContext) {
             let PtSize = 2;
             let Scale = 1.8;
-            ctx.fillStyle = "rgb(" + x + "," + y + ",40)";
-            ctx.fillRect(x * Scale, (250 - y) * Scale, PtSize, PtSize);
+            myContext.fillStyle = "rgb(" + x + "," + y + ",40)";
+            myContext.fillRect(x * Scale, (250 - y) * Scale, PtSize, PtSize);
         }
 
-        function DrawAxes(canvas, ctx) {
-            ctx.font = "10px Arial";
-            ctx.fillStyle = "rgb(255,255,255)";
+        function DrawAxes(canvas, myContext) {
+            myContext.font = "10px Arial";
+            myContext.fillStyle = "rgb(255,255,255)";
             // X-axis
             for (var i = 10; i < canvas.width; i += 50) {
-                ctx.fillText(i, i, 10);
+                myContext.fillText(i, i, 10);
             }
             // Y-axis
             for (var i = 10; i < canvas.height; i += 50) {
-                ctx.fillText(i, 10, i);
+                myContext.fillText(i, 10, i);
             }
         }
 
-        function ClearCanvas(canvas, ctx) {
-            var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function ClearCanvas(canvas, myContext) {
+            var myCanvas = document.getElementById("myCanvas");
+            var myContext = myCanvas.getContext("2d");
+            myContext.clearRect(0, 0, canvas.width, canvas.height);
         }
 
         function Update() {
             canvas = document.getElementById("myCanvas");
-            ctx = canvas.getContext("2d");
-            ClearCanvas(canvas, ctx);
-            Draw(canvas, ctx);
+            myContext = myCanvas.getContext("2d");
+            ClearCanvas(canvas, myContext);
+            Draw(canvas, myContext);
         }
 
         // -----------------------------------------------------------------------------------------------------
@@ -223,8 +224,8 @@ Math.exp ( x ) = e ^ x
 
         function main() {
             canvas = document.getElementById("myCanvas");
-            ctx = canvas.getContext("2d");
-            Draw(canvas, ctx);
+            myContext = myCanvas.getContext("2d");
+            Draw(canvas, myContext);
             document.addEventListener('keydown', processKeyDown, false); // Used to detect if the control key has been pressed.
         }
     </script>

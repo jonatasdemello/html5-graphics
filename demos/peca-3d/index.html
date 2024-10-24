@@ -12,7 +12,6 @@
 		canvas {
 			border: 1px dashed black;
 			padding: 10px;
-			/* background-color: black; */
 		}
 	</style>
 </head>
@@ -44,8 +43,8 @@
 	<script>
 		"use strict";
 		// get canvas and context
-		var canvas = document.getElementById("myCanvas");
-		var ctx = canvas.getContext("2d");
+		var myCanvas = document.getElementById("myCanvas");
+		var myContext = myCanvas.getContext("2d");
 
 		const nv = 48;
 		const na = 72;
@@ -196,7 +195,7 @@
 			let x1, x2, y1, y2, cor;
 
 			clearCanvas();
-			ctx.beginPath();
+			myContext.beginPath();
 
 			for (i = 0; i < na; i++) {
 				x1 = lines[i][0];
@@ -207,10 +206,10 @@
 
 				//setcolor(cor);
 				//line(x1, y1, x2, y2);
-				ctx.moveTo(x1, y1);
-				ctx.lineTo(x2, y2);
+				myContext.moveTo(x1, y1);
+				myContext.lineTo(x2, y2);
 			}
-			ctx.stroke();
+			myContext.stroke();
 			return 0;
 		}
 
@@ -232,9 +231,9 @@
 		}
 
 		function clearCanvas() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.beginPath();
-			ctx.stroke();
+			myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+			myContext.beginPath();
+			myContext.stroke();
 		}
 
 		function main() {

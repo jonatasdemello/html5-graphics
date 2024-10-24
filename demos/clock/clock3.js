@@ -6,20 +6,20 @@ var staticRenderingRedraw;
 $(document).ready(function () {
     console.log("Starting clock...");
 
-    canvas = document.getElementById("canvas");  
-    var context = canvas.getContext("2d");
+    canvas = document.getElementById("canvas");
+    var context = myCanvas.getContext("2d");
     defaultContext = context;
-    
+
     staticRenderingRedraw = document.getElementById("redraw");
-    
+
     var center = {};
     center.x = canvas.width / 2;
     center.y = canvas.height / 2;
-    
+
     // so that we can use a centered coordinate system
     context.translate(center.x, center.y);
-    
-    initializeStaticParts(center);  
+
+    initializeStaticParts(center);
 });
 
 function initializeStaticParts(center) {
@@ -67,7 +67,7 @@ function drawOffscreenCanvas(context) {
 
 function drawOuterFrame(context) {
     var size = 0.9 * Math.min(canvas.width, canvas.height);
-    
+
     context.strokeStyle = "brown";
     context.lineWidth = 10;
     context.strokeRect(-size/2, -size/2, size, size);
@@ -75,7 +75,7 @@ function drawOuterFrame(context) {
 
 function drawInnerFrame(context) {
     var radius = 0.7 * Math.min(canvas.width, canvas.height) / 2;
-    
+
     context.fillStyle = "yellow";
     context.strokeStyle = "orange";
     context.lineWidth = 20;
@@ -88,17 +88,17 @@ function drawInnerFrame(context) {
 
 function drawNumbersRotated(context) {
     var radius = 0.7 * Math.min(canvas.width, canvas.height) / 2;
-    
+
     context.font = "16px consolas";
     context.fillStyle = "brown";
     context.textBaseline = "middle";
-    
+
     for (var i = 1; i <= 12; ++i) {
         var location = {};
         var textSize = context.measureText(i);
         location.x = 0;
         location.y = -radius;
-        
+
         context.rotate(Math.PI / 6);
         context.fillText(i, location.x, location.y);
     }
@@ -106,7 +106,7 @@ function drawNumbersRotated(context) {
 
 function drawCenter(context) {
     context.fillStyle = "black";
-    
+
     context.beginPath();
     context.arc(0, 0, 5, 0, Math.PI * 2);
     context.closePath();
@@ -115,10 +115,10 @@ function drawCenter(context) {
 
 function drawSeconds(context, hours, minutes, seconds, milliseconds) {
     var radius = 0.6 * Math.min(canvas.width, canvas.height) / 2;
-    
+
     context.strokeStyle = "black";
     context.lineWidth = 1;
-    
+
     context.beginPath();
     context.moveTo(0, 0);
     var end = {};
@@ -130,10 +130,10 @@ function drawSeconds(context, hours, minutes, seconds, milliseconds) {
 
 function drawMinutes(context, hours, minutes, seconds) {
     var radius = 0.5 * Math.min(canvas.width, canvas.height) / 2;
-    
+
     context.strokeStyle = "black";
     context.lineWidth = 3;
-    
+
     context.beginPath();
     context.moveTo(0, 0);
     var end = {};
@@ -145,10 +145,10 @@ function drawMinutes(context, hours, minutes, seconds) {
 
 function drawHours(context, hours, minutes, seconds) {
     var radius = 0.4 * Math.min(canvas.width, canvas.height) / 2;
-    
+
     context.strokeStyle = "black";
     context.lineWidth = 5;
-    
+
     context.beginPath();
     context.moveTo(0, 0);
     var end = {};
