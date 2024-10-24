@@ -91,7 +91,7 @@
             }
         };
 
-        Terrain.prototype.draw = function (ctx, width, height) {
+        Terrain.prototype.draw = function (myContext, width, height) {
             var self = this;
             var waterVal = this.size * 0.3;
 
@@ -110,8 +110,8 @@
 
             function rect(a, b, style) {
                 if (b.y < a.y) return;
-                ctx.fillStyle = style;
-                ctx.fillRect(a.x, a.y, b.x - a.x, b.y - a.y);
+                myContext.fillStyle = style;
+                myContext.fillRect(a.x, a.y, b.x - a.x, b.y - a.y);
             }
 
             function brightness(x, y, slope) {
@@ -143,13 +143,13 @@
         };
 
         var display = document.getElementById('myCanvas');
-        var ctx = display.getContext('2d');
+        var myContext = display.getContext('2d');
         var width = display.width = window.innerWidth;
         var height = display.height = window.innerHeight;
 
         var terrain = new Terrain(9);
         terrain.generate(0.7);
-        terrain.draw(ctx, width, height);
+        terrain.draw(myContext, width, height);
 
     </script>
 </body>

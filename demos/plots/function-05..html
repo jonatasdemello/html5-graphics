@@ -94,23 +94,23 @@ for (i = 0; i &lt;= 360; i = i + paramC) {
         var step = 1;
 
 		// get canvas and context
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
+        var myCanvas = document.getElementById("myCanvas");
+        var myContext = myCanvas.getContext("2d");
 
-        canvas.width = 600;
-        canvas.height = 600;
+        myCanvas.width = 600;
+        myCanvas.height = 600;
 
         document.getElementById('clear').addEventListener('click', function () {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.stroke();
+            myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            myContext.beginPath();
+            myContext.stroke();
         }, false);
 
         function drawAxes() {
-            ctx.strokeStyle = '#696969';
+            myContext.strokeStyle = '#696969';
             drawline(300, 0, 300, 600, '#6E6E6E'); //Y
             drawline(0, 300, 600, 300, '#6E6E6E'); //X
-            ctx.stroke();
+            myContext.stroke();
         }
 
         function drawType(selType) {
@@ -161,7 +161,7 @@ for (i = 0; i &lt;= 360; i = i + paramC) {
             /* Amazingoid: 	a = 100; b = 100; */
             /* Fishtailoid:	a = 2; b = 3; */
 
-            ctx.beginPath();
+            myContext.beginPath();
 
             for (i = 0; i <= 360; i = i + paramC) {
                 theta = i * pi / 180.0;
@@ -178,20 +178,20 @@ for (i = 0; i &lt;= 360; i = i + paramC) {
 
                 drawline(x, y, x2, y2, cor);
             }
-            ctx.stroke();
+            myContext.stroke();
         }
 
         function drawline(x1, y1, x2, y2, color) {
-            ctx.lineWidth = 1;
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = color;
+            myContext.lineWidth = 1;
+            myContext.moveTo(x1, y1);
+            myContext.lineTo(x2, y2);
+            myContext.strokeStyle = color;
         }
 
         function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.stroke();
+            myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            myContext.beginPath();
+            myContext.stroke();
         }
 
     </script>

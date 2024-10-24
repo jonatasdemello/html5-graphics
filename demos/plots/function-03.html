@@ -65,13 +65,13 @@ function F4(x, y) {
          }
 
         // get canvas and context
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
+        var myCanvas = document.getElementById("myCanvas");
+        var myContext = myCanvas.getContext("2d");
 
         var color =  "#2c95db";
-        ctx.fillStyle = color;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1;
+        myContext.fillStyle = color;
+        myContext.strokeStyle = color;
+        myContext.lineWidth = 1;
 
         var s_width = 280;
         var s_height = 190;
@@ -97,7 +97,7 @@ function F4(x, y) {
 
         var drawType = function (nType) {
             clearCanvas();
-            ctx.beginPath();
+            myContext.beginPath();
 
             // calculate point for graph
             for (var a = -(s_depth / 2); a < (s_depth / 2) + 1; a++) {
@@ -164,19 +164,19 @@ function F4(x, y) {
                 }
             }
 
-            ctx.stroke();
+            myContext.stroke();
         };
 
         function drawLine(x1, y1, x2, y2) {
             var scale = 2.5;
-            ctx.moveTo(x1 * scale, y1 * scale);
-            ctx.lineTo(x2 * scale, y2 * scale);
+            myContext.moveTo(x1 * scale, y1 * scale);
+            myContext.lineTo(x2 * scale, y2 * scale);
         }
 
         function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.stroke();
+            myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            myContext.beginPath();
+            myContext.stroke();
         }
 
         function _sgn(x) {

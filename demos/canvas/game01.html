@@ -23,7 +23,7 @@
     var shipX = 0; // X position of ship
     var shipY = 0; // Y position of ship
     var canvas; // canvas
-    var ctx; // context
+    var myContext; // context
     var back = new Image(); // storage for new background piece
     var oldBack = new Image(); // storage for old background piece
     var ship = new Image(); // ship
@@ -51,15 +51,15 @@
       // Initialize main element.
       if (canvas.getContext) // If you have it, create a canvas user interface element.
       {
-        ctx = canvas.getContext("2d");
+        myContext = myCanvas.getContext("2d");
 
         // Paint it black.
-        ctx.fillStyle = "black";
-        ctx.rect(0, 0, 300, 300);
-        ctx.fill();
+        myContext.fillStyle = "black";
+        myContext.rect(0, 0, 300, 300);
+        myContext.fill();
 
         // Save the initial background.
-        back = ctx.getImageData(0, 0, 30, 30);
+        back = myContext.getImageData(0, 0, 30, 30);
 
         // Paint the starfield.
         stars();
@@ -86,62 +86,62 @@
         var y = Math.floor(Math.random() * 299);
 
         // Make the stars white
-        ctx.fillStyle = "#EEEEEE";
+        myContext.fillStyle = "#EEEEEE";
 
         // Paint the star but not if too close to ship.
         if (x > 40 && y > 40) {
 
           // Draw an individual star.
-          ctx.beginPath();
-          ctx.arc(x, y, 3, 0, Math.PI * 2, true);
-          ctx.closePath();
-          ctx.fill();
+          myContext.beginPath();
+          myContext.arc(x, y, 3, 0, Math.PI * 2, true);
+          myContext.closePath();
+          myContext.fill();
         } else --i;
       }
       // Save black background.
-      oldBack = ctx.getImageData(0, 0, 30, 30);
+      oldBack = myContext.getImageData(0, 0, 30, 30);
 
     }
 
     function makeShip() {
 
       // Draw saucer bottom.
-      ctx.beginPath();
-      ctx.moveTo(28.4, 16.9);
-      ctx.bezierCurveTo(28.4, 19.7, 22.9, 22.0, 16.0, 22.0);
-      ctx.bezierCurveTo(9.1, 22.0, 3.6, 19.7, 3.6, 16.9);
-      ctx.bezierCurveTo(3.6, 14.1, 9.1, 11.8, 16.0, 11.8);
-      ctx.bezierCurveTo(22.9, 11.8, 28.4, 14.1, 28.4, 16.9);
-      ctx.closePath();
-      ctx.fillStyle = "rgb(222, 103, 0)";
-      ctx.fill();
+      myContext.beginPath();
+      myContext.moveTo(28.4, 16.9);
+      myContext.bezierCurveTo(28.4, 19.7, 22.9, 22.0, 16.0, 22.0);
+      myContext.bezierCurveTo(9.1, 22.0, 3.6, 19.7, 3.6, 16.9);
+      myContext.bezierCurveTo(3.6, 14.1, 9.1, 11.8, 16.0, 11.8);
+      myContext.bezierCurveTo(22.9, 11.8, 28.4, 14.1, 28.4, 16.9);
+      myContext.closePath();
+      myContext.fillStyle = "rgb(222, 103, 0)";
+      myContext.fill();
 
       // Draw saucer top.
-      ctx.beginPath();
-      ctx.moveTo(22.3, 12.0);
-      ctx.bezierCurveTo(22.3, 13.3, 19.4, 14.3, 15.9, 14.3);
-      ctx.bezierCurveTo(12.4, 14.3, 9.6, 13.3, 9.6, 12.0);
-      ctx.bezierCurveTo(9.6, 10.8, 12.4, 9.7, 15.9, 9.7);
-      ctx.bezierCurveTo(19.4, 9.7, 22.3, 10.8, 22.3, 12.0);
-      ctx.closePath();
-      ctx.fillStyle = "rgb(51, 190, 0)";
-      ctx.fill();
+      myContext.beginPath();
+      myContext.moveTo(22.3, 12.0);
+      myContext.bezierCurveTo(22.3, 13.3, 19.4, 14.3, 15.9, 14.3);
+      myContext.bezierCurveTo(12.4, 14.3, 9.6, 13.3, 9.6, 12.0);
+      myContext.bezierCurveTo(9.6, 10.8, 12.4, 9.7, 15.9, 9.7);
+      myContext.bezierCurveTo(19.4, 9.7, 22.3, 10.8, 22.3, 12.0);
+      myContext.closePath();
+      myContext.fillStyle = "rgb(51, 190, 0)";
+      myContext.fill();
 
       // Save ship data.
-      ship = ctx.getImageData(0, 0, 30, 30);
+      ship = myContext.getImageData(0, 0, 30, 30);
 
       // Erase it for now.
-      ctx.putImageData(oldBack, 0, 0);
+      myContext.putImageData(oldBack, 0, 0);
 
     }
 
     function doGameLoop() {
 
       // Put old background down to erase shipe.
-      ctx.putImageData(oldBack, oldShipX, oldShipY);
+      myContext.putImageData(oldBack, oldShipX, oldShipY);
 
       // Put ship in new position.
-      ctx.putImageData(ship, shipX, shipY);
+      myContext.putImageData(ship, shipX, shipY);
 
     }
 
@@ -230,7 +230,7 @@
         // Otherwise, get background where the ship will go
         // So you can redraw background when the ship
         // moves again.
-        back = ctx.getImageData(shipX, shipY, 30, 30);
+        back = myContext.getImageData(shipX, shipY, 30, 30);
       }
 
       // Increase score.
@@ -254,7 +254,7 @@
       var clipDepth = 20;
       var clipLength = clipWidth * clipDepth;
       var clipOffset = 5;
-      var whatColor = ctx.getImageData(shipX + clipOffset, shipY + clipOffset, clipWidth, clipDepth);
+      var whatColor = myContext.getImageData(shipX + clipOffset, shipY + clipOffset, clipWidth, clipDepth);
 
       // Loop through the clip and see if you find red or blue.
       for (var i = 0; i < clipLength * 4; i += 4) {
@@ -302,42 +302,42 @@
         var b = Math.floor(Math.random() * 299);
 
         // Make the asteroids red
-        ctx.fillStyle = "#FF0000";
+        myContext.fillStyle = "#FF0000";
 
         // Keep the asteroids far enough away from
         // the beginning or end.
         // Draw an individual asteroid.
-        ctx.beginPath();
-        ctx.arc(a, b, 10, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.fill();
+        myContext.beginPath();
+        myContext.arc(a, b, 10, 0, Math.PI * 2, true);
+        myContext.closePath();
+        myContext.fill();
       }
 
       // Draw green for neutralizer.
-      ctx.fillStyle = "#00FF00";
-      ctx.beginPath();
-      ctx.rect(270, 270, 30, 30);
-      ctx.closePath();
-      ctx.fill();
+      myContext.fillStyle = "#00FF00";
+      myContext.beginPath();
+      myContext.rect(270, 270, 30, 30);
+      myContext.closePath();
+      myContext.fill();
 
       // Save it for later.
-      bomb = ctx.getImageData(270, 270, 30, 30);
+      bomb = myContext.getImageData(270, 270, 30, 30);
 
       // Draw blue base.
-      ctx.fillStyle = "#0000FF";
-      ctx.beginPath();
-      ctx.rect(270, 270, 30, 30);
-      ctx.closePath();
-      ctx.fill();
+      myContext.fillStyle = "#0000FF";
+      myContext.beginPath();
+      myContext.rect(270, 270, 30, 30);
+      myContext.closePath();
+      myContext.fill();
 
       // Make some room at beginning.
-      ctx.putImageData(back, 0, 30);
-      ctx.putImageData(back, 30, 0);
-      ctx.putImageData(back, 30, 30);
+      myContext.putImageData(back, 0, 30);
+      myContext.putImageData(back, 30, 0);
+      myContext.putImageData(back, 30, 30);
       // Make some room at end.
-      ctx.putImageData(back, 240, 240);
-      ctx.putImageData(back, 270, 240);
-      ctx.putImageData(back, 240, 270);
+      myContext.putImageData(back, 240, 240);
+      myContext.putImageData(back, 270, 240);
+      myContext.putImageData(back, 240, 270);
     }
 
     // Create neutralizer field.
@@ -348,19 +348,19 @@
       switch (direction) {
 
         case "D":
-          ctx.putImageData(bomb, shipX, shipY + 30);
+          myContext.putImageData(bomb, shipX, shipY + 30);
           break;
 
         case "U":
-          ctx.putImageData(bomb, shipX, shipY - 30);
+          myContext.putImageData(bomb, shipX, shipY - 30);
           break;
 
         case "L":
-          ctx.putImageData(bomb, shipX - 30, shipY);
+          myContext.putImageData(bomb, shipX - 30, shipY);
           break;
 
         case "R":
-          ctx.putImageData(bomb, shipX + 30, shipY);
+          myContext.putImageData(bomb, shipX + 30, shipY);
           break;
 
         default:

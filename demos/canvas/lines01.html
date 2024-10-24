@@ -43,25 +43,25 @@
 <script>
     window.onload = function () {
         // get canvas and context
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
+        var myCanvas = document.getElementById("myCanvas");
+        var myContext = myCanvas.getContext("2d");
 
         // start in the center of the canvas
-        var Xpos = canvas.width / 2;
-        var Ypos = canvas.height / 2;
+        var Xpos = myCanvas.width / 2;
+        var Ypos = myCanvas.height / 2;
 
         let randomColor = getRandomColor();
-        ctx.fillStyle = randomColor;
-        ctx.strokeStyle = randomColor;
-        ctx.lineWidth = 4;
+        myContext.fillStyle = randomColor;
+        myContext.strokeStyle = randomColor;
+        myContext.lineWidth = 4;
 
         var a = 25;
         for (var i = 1; i < 350; i++) {
-            ctx.fillStyle = getRandomColor();
-            ctx.strokeStyle = getRandomColor();
+            myContext.fillStyle = getRandomColor();
+            myContext.strokeStyle = getRandomColor();
 
-            ctx.beginPath();
-            ctx.moveTo(Xpos, Ypos);
+            myContext.beginPath();
+            myContext.moveTo(Xpos, Ypos);
 
             var x = 0;
             var y = 0;
@@ -75,8 +75,8 @@
             Xpos += x;
             Ypos += y;
 
-            ctx.lineTo(Xpos, Ypos);
-            ctx.stroke();
+            myContext.lineTo(Xpos, Ypos);
+            myContext.stroke();
         }
     };
     </script>

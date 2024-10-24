@@ -19,13 +19,13 @@
 
         <h1>3D Cube Galileo</h1>
         <p>
-            // PROG Balls in 3D cube galileo.bas bpf 2015-05-16 <br>
-            // Classic animation program  modified for fun <br>
-            // Galileo, 02/2018 <br>
-            // Powered by Yabasic <br>
-            // http://retrogamecoding.org/board/index.php?topic=635.0 <br>
-            // https://github.com/marcIhm/yabasic <br>
-            // http://www.yabasic.de/ <br>
+            PROG Balls in 3D cube galileo.bas bpf 2015-05-16 <br>
+            Classic animation program  modified for fun <br>
+            Galileo, 02/2018 <br>
+            Powered by Yabasic <br>
+            http://retrogamecoding.org/board/index.php?topic=635.0 <br>
+            https://github.com/marcIhm/yabasic <br>
+            http://www.yabasic.de/ <br>
         </p>
         <canvas id="myCanvas" width="640" height="480"></canvas>
     </main>
@@ -84,8 +84,8 @@
 
     <script>
         // get canvas and context
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
+        var myCanvas = document.getElementById("myCanvas");
+        var myContext = myCanvas.getContext("2d");
 
         var pozx = 0;
         var pozy = 0;
@@ -99,12 +99,12 @@
         function onEachStep() {
             pozx = pozx + 2;
             pozy = pozy + 2;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
             drawCube(pozx, pozy);
         };
 
         function drawBall(x, y, radius, color) {
-            with (ctx) {
+            with (myContext) {
                 fillStyle = color;
                 beginPath();
                 arc(x, y, radius, 0, 2 * Math.PI, true);
