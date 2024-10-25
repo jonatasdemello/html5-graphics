@@ -3,6 +3,19 @@
 #include <string.h>
 #include <math.h>
 
+void GenerateRandomNumbers(int maxPts) {
+    int n;
+    double x, xi;
+    x = 0.1; /* seed */
+
+    for (n=0; n<maxPts; n++) {
+        x = 100 * log(x);
+        xi = trunc(x);
+        x = fabs(x-xi);
+        printf("%.16f\n",x);
+    }
+}
+
 int main(int argc, char* argv[])
 {
     long n, num;
@@ -16,11 +29,7 @@ int main(int argc, char* argv[])
         num = input;
     }
 
-    for (n=0; n<num; n++) {
-        x = 100 * log(x);
-        xi = trunc(x);
-        x = fabs(x-xi);
-        printf("%.16f\n",x);
-    }
+    GenerateRandomNumbers(num);
+
     return 0;
 }
