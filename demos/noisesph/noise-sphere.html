@@ -16,6 +16,7 @@
 
 		canvas {
 			border: 1px solid black;
+			/* background-color: black; */
 		}
 	</style>
 </head>
@@ -28,75 +29,27 @@
 
 		<h1>Noise Sphere</h1>
 		<p>
-			Pickover, Clifford A. 1995. <br>
-			Article: "Random number generators: pretty good ones are easy to find." <br>
-			The Visual Computer (1995) 11:369-377.<br>
-			See also the book "Keys to Infinity", Pickover, Chapter 31.
-		</p>
-		<p>
-			<strong>Instructions:</strong> <br>
-			The z-axis extends out from the center of the screen <br>
-			--- To rotate about the x-axis, press the up/down arrow keys.<br>
-			--- To rotate about the y-axis, press the left/right arrow keys.<br>
-			--- To rotate about the z-axis, press the ctrl+left/ctrl+down arrow keys.<br>
-			Note that pressing an arrow key down continuously will not rotate the surface.
-			The surface is rotated once per key press.
+			<em>Visualize the noise sphere of a set of random numbers.</em><br>
+			<blockquote>
+				Pickover, Clifford A. 1995. <br>
+				Article: "Random number generators: pretty good ones are easy to find." <br>
+				The Visual Computer (1995) 11:369-377.<br>
+				Book "Keys to Infinity", Pickover, Chapter 31. <br>
+				<a href="./readme.html">See this doc for more details.</a>
+			</blockquote>
 		</p>
 
 		<canvas id="myCanvas" width="640" height="480"></canvas>
 	</main>
 
 	<div class="container">
-		<p>use arrow keys to update</p>
+		<p>use arrow keys to rotate about the axis</p>
 		<form id="form1">
 			<div>
-				zCenter: <input id="zCenter" type="text" value="90" size="5" />
 				maxPoints: <input id="maxPoints" type="text" value="3000" size="5" />
 				<input type="button" id="update" value="Refresh" onclick="return Update();" />
 			</div>
 		</form>
-	</div>
-
-	<div class="container">
-		<p>
-			A noise sphere maps a sequence of uniformly-distributed random numbers to spherical coordinate triples. <br>
-			This is useful for visually detecting any unexpected correlations in the random number sequence.<br>
-
-			A mapping of random number triples to points in spherical coordinates according to <br>
-			&theta; = 2 &pi; X <sub>n</sub> <br>
-			&phi; = &pi; X <sub>n+1</sub> <br>
-			&rho; = Math.sqrt( X <sub>x+2</sub> )
-			<br>
-			in order to detect unexpected structure indicating correlations between triples. When such structure is
-			present (note that this does not include the expected bunching of points along the z-axis according to the
-			factor sinphi in the spherical volume element), numbers may not be truly random. <br>
-		</p>
-		<pre>
-			https://people.eecs.berkeley.edu/~daw/rnd/xnoisesph.c
-
-			https://cypherpunks.venona.com/date/1996/03/msg01399.html
-
-			NOISESPH.PAS, A Noise Sphere plotter written in Turbo Pascal (23-Mar-96)
-			Robert Rothenburg Walking-Owl WlkngOwl@unix.asb.com
-			No copyright is claimed.  No guarantees made.
-
-			Usage: noisesph file
-
-			This program reads a file of random or pseudo-random data and plots
-			a noise sphere of the data. Poor RNGs or sampling methods will show
-			clear patterns (definite splotches or spirals).
-
-			The theory behind this is to get a set of 3D polar coordinates from
-			the RNG and plot them.  An array is kept of the values, which is
-			rotated each time a new byte is read (see the code in the main
-			procedure).
-
-			Rather than plot one sphere which can be rotated around any axis,
-			it was easier to plot the sphere from three different angles.
-
-			This program is based on a description from the article below.  It
-			was proposed as a means of testing pseudo-RNGs:
-		</pre>
 	</div>
 
 	<script>
@@ -120,7 +73,7 @@
 			// There are eleven possible "vertical" color values for the surface,
 			// based on the last row of http://www.cs.siena.edu/~lederman/truck/AdvanceDesignTrucks/html_color_chart.gif
 			colorMap: ["#060", "#090", "#0C0", "#0F0", "#9F0", "#9C0", "#990", "#960", "#930", "#900", "#C00"],
-			pointWidth: 4, // The size of a rendered surface point (i.e., rectangle width and height) in pixels.
+			pointWidth: 2, // The size of a rendered surface point (i.e., rectangle width and height) in pixels.
 			dTheta: 0.05, // The angle delta, in radians, by which to rotate the surface per key press.
 			surfaceScale: 24 // An empirically derived constant that makes the surface a good size for the given canvas size. ADJUST
 		};
@@ -128,6 +81,7 @@
 		var C = { x: 0.0, y: 0.0, z: 0.0, color: 0 }; // Cartesian
 		var P = { r: 0.0, theta: 0.0, phi: 0.0 }; // Polar
 
+		// arrays to hold random numbers and points
 		let randomNumbers = [];
 		let points = [];
 
@@ -152,7 +106,8 @@
 		function rads(x) {
 			return ((x * 2.0) * Math.PI / 360.0);
 		}
-		/* Rotate C along X, Y and Z axes */
+
+		/* Rotate C(x,y,z) along X, Y and Z axes */
 		function RotateZ(C, angle) {
 			var x, y, z;
 			z = rads(angle);
@@ -175,29 +130,7 @@
 			C.z = z; C.x = x;
 		}
 
-		/* Projects 3d coordinates to a 2d screen */
-		function ProjectPoint(x) {
-			return (Math.ceil(constants.scale * x));
-		}
-
-		function Plot(C) // Cartesian
-		{
-			rotate(C);
-			putpixel(MidA + ProjectPoint(C.x), MidY - ProjectPoint(C.y), C.Color);
-		}
-
-		/* Converts 3-d polar coordinates to cartesian coordinates */
-		function PolarToCartesian(P, C) // struct Polar P, struct Cartesian *C
-		{
-			C.x = P.r * Math.sin(P.phi) * Math.cos(P.theta);
-			C.y = P.r * Math.sin(P.phi) * Math.sin(P.theta);
-			C.z = P.r * Math.cos(P.phi);
-			/* We can assign colors based on C.x, C.y, C.z, or P.r, P.theta / pi or P.phi / (2 * pi) */
-			C.Color = 1;
-		}
-
 		function Rotate(ax, angle) {
-			//console.log('points[i], ', points[0]);
 			for (var i = 0; i < points.length; i++) {
 				if (ax = "x")
 					RotateX(points[i], angle);
@@ -206,12 +139,28 @@
 				if (ax = "z")
 					RotateZ(points[i], angle);
 			}
-			//console.log('points[i], ', points[0]);
 			ClearCanvas();
 			PlotPoints();
 		}
 
-		function drawBall(x, y, radius, color) {
+		/* Projects 3d coordinates to a 2d screen */
+		function ProjectPoint(x) {
+			return (Math.ceil(constants.scale * x));
+		}
+
+		/* draw the point on screen */
+		function Plot(C) // Cartesian
+		{
+			rotate(C);
+			putpixel(MidA + ProjectPoint(C.x), MidY - ProjectPoint(C.y), C.Color);
+
+			// 3 plots
+			// putpixel(MidA + ProjectPoint(C.y), MidY - ProjectPoint(C.z), C.Color);
+			// putpixel(MidB + ProjectPoint(C.x), MidY - ProjectPoint(C.y), C.Color);
+			// putpixel(MidC + ProjectPoint(C.z), MidY - ProjectPoint(C.x), C.Color);
+		}
+
+		function drawCircle(x, y, radius, color) {
 			myContext.fillStyle = color;
 			myContext.beginPath();
 			myContext.arc(x, y, radius, 0, 2 * Math.PI, true);
@@ -219,20 +168,67 @@
 			myContext.fill();
 		};
 
+		/* draw all points on canvas */
 		function PlotPoints() {
 			for (var i = 0; i < points.length; i++) {
-
 				myContext.fillStyle = points[i].color;
 				let x = ProjectPoint(points[i].x);
 				let y = ProjectPoint(points[i].y);
-
 				//myContext.fillRect(x, y, constants.pointWidth, constants.pointWidth);
-
-				drawBall(x, y, 5, points[i].color);
+				drawCircle(x, y, 5, points[i].color);
 			}
 		}
 
-		function ConvertRandToPoint() {
+		/* Converts 3-d polar coordinates to cartesian coordinates */
+		function PolarToCartesian(P)
+		{
+			/*
+			Spherical Coordinates: https://mathworld.wolfram.com/SphericalCoordinates.html
+			Coordinates: Spherical (r,theta,phi) are related to the Cartesian (x,y,z) by:
+				x =	r * cos(theta) * sin(phi)
+				y =	r * sin(theta) * sin(phi)
+				z =	r * cos(phi)
+			*/
+			let C = { x: 0.0, y: 0.0, z: 0.0, color: 0 }; // Cartesian
+			C.x = P.r * Math.sin(P.phi) * Math.cos(P.theta);
+			C.y = P.r * Math.sin(P.phi) * Math.sin(P.theta);
+			C.z = P.r * Math.cos(P.phi);
+
+			/* We can assign colors based
+			  on x, y, z,
+			  or r, theta / pi
+			  or phi / (2 * pi) */
+			C.color = rankColors(P.r);
+
+			// add points to array
+			points.push(C);
+		}
+
+		/* convert 3 points PT = [n, n+1, n+2] to polar(r, theta, phi) */
+		function ConvertPointToPolar(PT, n) {
+			/*
+			Noise Sphere: https://mathworld.wolfram.com/NoiseSphere.html
+			A mapping of random number triples to points in spherical coordinates according to:
+				radial distance: r     = sqrt( X[n+2] )
+				polar angle:     theta = PI * X[n+1]
+				azimuthal angle: phi   = 2 * PI * X[n]
+			*/
+			let polar = { r: 0.0, theta: 0.0, phi: 0.0 };
+			/* get the next point */
+			polar.r = Math.sqrt(PT[(n + 2) % 3]); /* pt 2 */
+			polar.theta = Math.PI * PT[(n + 1) % 3]; /* pt 1 */
+			polar.phi = 2 * Math.PI * PT[n]; /* pt 0 */
+
+			return polar;
+		}
+
+		function ConvertArrayToPoint() {
+			/*
+			from an array of randomNumbers[]
+			take the nex 3 values: PT[3](n, n+1, n+2)
+			convert to polar points(t, theta, phi)
+			then convert Polar To Cartesian C(x, y, z)
+			*/
 			let n = 0;
 			for (var i = 0; i < (randomNumbers.length);) {
 				let PT = [0, 0, 0];
@@ -242,27 +238,35 @@
 					i++;
 				}
 
-				let polar = { r: 0.0, theta: 0.0, phi: 0.0 }; // Polar
-				polar.r = Math.sqrt(PT[(n + 2) % 3]);
-				polar.theta = Math.PI * PT[(n + 1) % 3];
-				polar.phi = 2 * Math.PI * PT[n];
+				let P = { r: 0.0, theta: 0.0, phi: 0.0 };
+				P = ConvertPointToPolar(PT, n)
 
-				n = ++n % 3;
+				/* rotate n: (0,1,2) => (1,2,0) => (2,0,1) => (0,1,2) */
+				n = (n + 1) % 3;
 
-				/* Converts 3-d polar coordinates to cartesian coordinates */
-				let c = { x: 0.0, y: 0.0, z: 0.0, color: 0 }; // Cartesian
-				c.x = polar.r * Math.sin(polar.phi) * Math.cos(polar.theta);
-				c.y = polar.r * Math.sin(polar.phi) * Math.sin(polar.theta);
-				c.z = polar.r * Math.cos(polar.phi);
-
-				/* We can assign colors based on x, y, z, r, theta / pi or phi / (2 * pi) */
-				c.color = rankColors(polar.r);
-
-				points.push(c);
+				PolarToCartesian(P);
 			}
 		}
 
-		function ReadInput(field) {
+		// Generate and array of RandomNumbers[]
+		function GenerateRandomNumbers(maxPts) {
+			var n, x, xi;
+			x = 0.1; // seed
+			for (n = 0; n < maxPts; n++) {
+				// this will generate a different shape:
+				//x = Math.log(x);
+				//x = 100 * Math.log(x);
+
+				x = 100 * Math.log(x);
+				xi = Math.trunc(x);
+				x = Math.abs(x - xi);
+
+				// add numbers to array
+				randomNumbers.push(x);
+			}
+		}
+
+		function ReadInputField(field) {
 			var result = 0;
 			var val = document.getElementById(field).value;
 			result = Number(val);
@@ -271,24 +275,6 @@
 			}
 			return result;
 		}
-
-		function GenerateRandomNumbers() {
-			let maxPts = ReadInput("maxPoints") ?? constants.maxPoints;
-
-			var n, num, x, xi;
-			x = 0.1; // seed
-			for (n = 0; n < maxPts; n++) {
-				// x = Math.log(x); // this will generate a different shape
-				//x = 100 * Math.log(x);
-				x = 100 * Math.log(x);
-
-				xi = Math.trunc(x);
-				x = Math.abs(x - xi);
-				randomNumbers.push(x);
-			}
-			//console.log(randomNumbers);
-		}
-
 		function processKeyDown(evt) {
 			if (evt.ctrlKey) {
 				switch (evt.keyCode) {
@@ -343,10 +329,15 @@
 			randomNumbers = [];
 			points = [];
 
-			GenerateRandomNumbers();
-			ConvertRandToPoint();
+			// try to get number from input box
+			let maxPoints = ReadInputField("maxPoints") ?? constants.maxPoints;
+
+			GenerateRandomNumbers(maxPoints);
+
+			ConvertArrayToPoint();
 
 			ClearCanvas();
+
 			PlotPoints();
 		}
 
