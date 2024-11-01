@@ -1,4 +1,5 @@
-#build
+# build
 gcc noisesph.c -o ./out/noisesph -lgraph -lm
-#run
+
+# run
 ./out/noisesph ./out/input.txt
