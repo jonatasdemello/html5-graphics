@@ -43,10 +43,6 @@
 
 #define MATH_PI 3.14159265358979323846
 
-#ifndef M_PI
-#define M_PI 3.14159267
-#endif
-
 /* types and structures */
 typedef struct _Cartesian {
 	double x, y, z;
@@ -223,9 +219,9 @@ void process()
 		int p2 = (n + 2) % 3;
 
 		/* get the next point */
-		P.r = sqrt(X[(n + 2) % 3]); /* pt 2 : (n + 2) % 3*/
-		P.theta = MATH_PI * X[(n + 1) % 3]; /* pt 1 : (n + 1) % 3*/
-		P.phi = 2 * MATH_PI * X[n]; /* pt 0 : n */
+		P.r = sqrt(X[p2]); /* pt 2 */
+		P.theta = MATH_PI * X[p1]; /* pt 1 */
+		P.phi = 2 * MATH_PI * X[p0]; /* pt 0 */
 
 		PolarToCartesian(&P, &C);
 
