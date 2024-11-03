@@ -47,7 +47,7 @@
 		<form id="form1">
 			<div>
 				maxPoints: <input id="maxPoints" type="text" value="3000" size="5" />
-				<input type="button" id="update" value="Refresh" onclick="return Update();" />
+				<input type="button" id="process" value="Refresh" onclick="return Process();" />
 			</div>
 		</form>
 	</div>
@@ -56,7 +56,7 @@
 		"use strict";
 		var constants = {
 			scale: 200,
-			maxPoints: 5000,
+			maxPoints: 3000,
 
 			canvasWidth: 600, // In pixels. ADJUST
 			canvasHeight: 600, // In pixels. ADJUST
@@ -83,7 +83,7 @@
 
 		// arrays to hold random numbers and points
 		let randomNumbers = [];
-		let points = [];
+		let pointsXYZ = [];
 
 		// get canvas and context
 		var myCanvas = document.getElementById("myCanvas");
@@ -131,13 +131,13 @@
 		}
 
 		function Rotate(ax, angle) {
-			for (var i = 0; i < points.length; i++) {
+			for (var i = 0; i < pointsXYZ.length; i++) {
 				if (ax = "x")
-					RotateX(points[i], angle);
+					RotateX(pointsXYZ[i], angle);
 				if (ax = "y")
-					RotateY(points[i], angle);
+					RotateY(pointsXYZ[i], angle);
 				if (ax = "z")
-					RotateZ(points[i], angle);
+					RotateZ(pointsXYZ[i], angle);
 			}
 			ClearCanvas();
 			PlotPoints();
@@ -170,12 +170,15 @@
 
 		/* draw all points on canvas */
 		function PlotPoints() {
-			for (var i = 0; i < points.length; i++) {
-				myContext.fillStyle = points[i].color;
-				let x = ProjectPoint(points[i].x);
-				let y = ProjectPoint(points[i].y);
+		
+			for (var i = 0; i < pointsXYZ.length; i++) {
+				myContext.fillStyle = pointsXYZ[i].color;
+				
+				let x = ProjectPoint(pointsXYZ[i].x);
+				let y = ProjectPoint(pointsXYZ[i].y);
+				
 				//myContext.fillRect(x, y, constants.pointWidth, constants.pointWidth);
-				drawCircle(x, y, 5, points[i].color);
+				drawCircle(x, y, 5, pointsXYZ[i].color);
 			}
 		}
 
@@ -190,6 +193,7 @@
 				z =	r * cos(phi)
 			*/
 			let C = { x: 0.0, y: 0.0, z: 0.0, color: 0 }; // Cartesian
+			
 			C.x = P.r * Math.sin(P.phi) * Math.cos(P.theta);
 			C.y = P.r * Math.sin(P.phi) * Math.sin(P.theta);
 			C.z = P.r * Math.cos(P.phi);
@@ -200,12 +204,11 @@
 			  or phi / (2 * pi) */
 			C.color = rankColors(P.r);
 
-			// add points to array
-			points.push(C);
+			return C;
 		}
 
 		/* convert 3 points PT = [n, n+1, n+2] to polar(r, theta, phi) */
-		function ConvertPointToPolar(PT, n) {
+		function PointToPolar(PT, n) {
 			/*
 			Noise Sphere: https://mathworld.wolfram.com/NoiseSphere.html
 			A mapping of random number triples to points in spherical coordinates according to:
@@ -213,13 +216,29 @@
 				polar angle:     theta = PI * X[n+1]
 				azimuthal angle: phi   = 2 * PI * X[n]
 			*/
-			let polar = { r: 0.0, theta: 0.0, phi: 0.0 };
 			/* get the next point */
+			let polar = { r: 0.0, theta: 0.0, phi: 0.0 };
+			
 			polar.r = Math.sqrt(PT[(n + 2) % 3]); /* pt 2 */
 			polar.theta = Math.PI * PT[(n + 1) % 3]; /* pt 1 */
 			polar.phi = 2 * Math.PI * PT[n]; /* pt 0 */
 
 			return polar;
+		}
+
+		function ConvertAndPlotPoint(X, n)
+		{
+			let P = { r: 0.0, theta: 0.0, phi: 0.0 }; // Polar
+			let C = { x: 0.0, y: 0.0, z: 0.0, color: 0 }; // Cartesian
+
+			/* convert X[3] to polar */
+			P = PointToPolar(X, n)
+
+			/* convert polar to cartesian point */
+			C = PolarToCartesian(P);
+
+			// add Cartesian point C(x,y,z) to points array
+			pointsXYZ.push(C);
 		}
 
 		function ConvertArrayToPoint() {
@@ -229,22 +248,23 @@
 			convert to polar points(t, theta, phi)
 			then convert Polar To Cartesian C(x, y, z)
 			*/
+			
+			let X = [0, 0, 0];
+			
+			// get first 3 points
+			for (var i = 0; i < 3; i++) {
+				X[i] = randomNumbers[i];
+			}
 			let n = 0;
-			for (var i = 0; i < (randomNumbers.length);) {
-				let PT = [0, 0, 0];
-				// read the first 3 values
-				for (var j = 0; j < 3; j++) {
-					PT[j] = randomNumbers[i];
-					i++;
-				}
+			for (var i = 0; i < randomNumbers.length; i++) {
 
-				let P = { r: 0.0, theta: 0.0, phi: 0.0 };
-				P = ConvertPointToPolar(PT, n)
+				ConvertAndPlotPoint(X, n);
+
+				// get next point from array
+				X[n] = randomNumbers[i];
 
 				/* rotate n: (0,1,2) => (1,2,0) => (2,0,1) => (0,1,2) */
-				n = (n + 1) % 3;
-
-				PolarToCartesian(P);
+				n = (n + 1) % 3; /* pt 1 */
 			}
 		}
 
@@ -253,10 +273,7 @@
 			var n, x, xi;
 			x = 0.1; // seed
 			for (n = 0; n < maxPts; n++) {
-				// this will generate a different shape:
-				//x = Math.log(x);
-				//x = 100 * Math.log(x);
-
+				// this will generate a different shape: x = Math.log(x);
 				x = 100 * Math.log(x);
 				xi = Math.trunc(x);
 				x = Math.abs(x - xi);
@@ -275,6 +292,7 @@
 			}
 			return result;
 		}
+		
 		function processKeyDown(evt) {
 			if (evt.ctrlKey) {
 				switch (evt.keyCode) {
@@ -323,13 +341,13 @@
 					break;
 			}
 		}
-
-		function Update() {
+			
+		function Process() {
 			// reset previous points
 			randomNumbers = [];
-			points = [];
+			pointsXYZ = [];
 
-			// try to get number from input box
+			// try to get max number from input box
 			let maxPoints = ReadInputField("maxPoints") ?? constants.maxPoints;
 
 			GenerateRandomNumbers(maxPoints);
@@ -348,7 +366,7 @@
 			// Create and append the canvas element to the DOM.
 			ResizeCanvas();
 
-			Update();
+			Process();
 		}
 		// call onloadInit() when the page finishes loading
 		window.addEventListener('load', onloadInit, false);
